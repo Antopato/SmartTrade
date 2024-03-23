@@ -4,13 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import com.example.smarttrade.MainActivity
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         signIn.setOnClickListener() {
             println("Has pulsado register")
-            startActivity(Intent(this, RegisterActivity::class.java))
+            startActivity(Intent(this, CostumerRegisterActivity::class.java))
         }
 
 
