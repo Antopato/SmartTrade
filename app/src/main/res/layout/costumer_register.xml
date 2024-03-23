@@ -15,7 +15,6 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf=""
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="183dp" />
 
@@ -58,6 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMail" />
+
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="324dp"
@@ -70,6 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNif" />
+
     <EditText
         android:id="@+id/editTextAddress"
         android:layout_width="324dp"
@@ -82,6 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
     <EditText
         android:id="@+id/editTextPayment"
         android:layout_width="324dp"
@@ -101,17 +103,29 @@
         android:layout_width="196dp"
         android:layout_height="55dp"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="#34A60C"
         android:text="Register costumer"
         android:textColorHighlight="#34A60C"
         android:textColorLink="#34A60C"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPayment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginBottom="30dp"/>
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Costumer Details"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextName"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
