@@ -13,10 +13,8 @@
         android:ems="10"
         android:hint="   Name"
         android:inputType="text"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewCostumerDetails"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="183dp" />
 
@@ -118,17 +116,15 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textViewCostumerDetails"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Costumer Details"
-        android:textSize="25sp"
-        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextName"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
