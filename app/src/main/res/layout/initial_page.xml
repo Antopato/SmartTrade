@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <Button
         android:id="@+id/logInButt"
@@ -21,13 +22,22 @@
         android:id="@+id/regCusButt"
         android:layout_width="279dp"
         android:layout_height="52dp"
-        android:fontFamily="@font/roboto_medium"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
+        android:fontFamily="@font/roboto_medium"
         android:text="REGISTER AS CUSTOMER"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logInButt" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="425dp"
+        android:layout_height="218dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom" />
 
     <Button
         android:id="@+id/reComButt"
@@ -50,4 +60,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
