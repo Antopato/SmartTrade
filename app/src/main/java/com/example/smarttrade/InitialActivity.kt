@@ -16,14 +16,18 @@ class InitialActivity : AppCompatActivity(){
 
         val logInButt = findViewById<Button>(R.id.logInButt)
         val regCustButt = findViewById<Button>(R.id.regCusButt)
+        val regComButt = findViewById<Button>(R.id.regComButt)
 
         regCustButt.setOnClickListener() {
-            println("Has pulsado register")
             startActivity(Intent(this, CostumerRegisterActivity::class.java))
         }
 
         logInButt.setOnClickListener(){
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LogInActivity::class.java))
+        }
+
+        regComButt.setOnClickListener(){
+            startActivity(Intent(this, CompanyRegisterActivity::class.java))
         }
 
     }

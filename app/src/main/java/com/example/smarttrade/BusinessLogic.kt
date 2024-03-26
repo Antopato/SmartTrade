@@ -13,4 +13,9 @@ class BusinessLogic {
             throw(Exception("The user section is void"))
         }
     }
+
+    fun registerCompany(name:String, surname:String, email:String, pass:String,
+                        holder:String, iban:String, date:String) {
+
+    }
 }

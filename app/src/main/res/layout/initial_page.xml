@@ -40,7 +40,7 @@
         app:srcCompat="@drawable/bottom" />
 
     <Button
-        android:id="@+id/reComButt"
+        android:id="@+id/regComButt"
         android:layout_width="277dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
