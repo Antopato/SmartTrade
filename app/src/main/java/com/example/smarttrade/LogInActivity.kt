@@ -12,12 +12,15 @@ import com.example.smarttrade.ui.theme.SmartTradeTheme
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.smarttrade.BusinessLogic
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val service = BusinessLogic();
 
         setContentView(R.layout.login)
         val logInButt = findViewById<Button>(R.id.logIn)
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         logInButt.setOnClickListener{
             val userText = findViewById<EditText>(R.id.username)
             val passText = findViewById<EditText>(R.id.password)
-            logIn(userText.text.toString(), passText.text.toString())
+            service.logIn(userText.text.toString(), passText.text.toString())
             println(userText.text.toString())
         }
 
@@ -48,12 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
     }
-    fun logIn(name: String, pass:String){
-        /*if(checkLog()){
-            //move to main page
-        }*/
 
-    }
 }
 
 
