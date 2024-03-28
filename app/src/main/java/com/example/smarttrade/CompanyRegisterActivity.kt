@@ -2,7 +2,9 @@ package com.example.smarttrade
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarttrade.BusinessLogic
 
@@ -13,16 +15,16 @@ class CompanyRegisterActivity : AppCompatActivity() {
         setContentView(R.layout.company_register)
         val service = BusinessLogic()
 
-        val registerButt = findViewById<TextView>(R.id.registerButt);
+        val registerButt = findViewById<Button>(R.id.registerButt);
 
         registerButt.setOnClickListener(){
-            var name = findViewById<TextView>(R.id.textName).text.toString()
-            var surname = findViewById<TextView>(R.id.surnameText).text.toString()
-            var pass = findViewById<TextView>(R.id.passwordText).text.toString()
-            var email = findViewById<TextView>(R.id.emailText).text.toString()
-            var holder = findViewById<TextView>(R.id.holderText).text.toString()
-            var iban = findViewById<TextView>(R.id.ibanText).text.toString()
-            var date = findViewById<TextView>(R.id.dateText).text.toString()
+            var name = findViewById<EditText>(R.id.textName).text.toString()
+            var surname = findViewById<EditText>(R.id.surnameText).text.toString()
+            var pass = findViewById<EditText>(R.id.passwordText).text.toString()
+            var email = findViewById<EditText>(R.id.emailText).text.toString()
+            var holder = findViewById<EditText>(R.id.holderText).text.toString()
+            var iban = findViewById<EditText>(R.id.ibanText).text.toString()
+            var date = findViewById<EditText>(R.id.dateText).text.toString()
 
             service.registerCompany(name,surname,email,pass,holder,iban,date)
 

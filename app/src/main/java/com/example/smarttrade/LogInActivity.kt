@@ -3,6 +3,7 @@ package com.example.smarttrade
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,8 +30,17 @@ class LogInActivity : AppCompatActivity() {
         logInButt.setOnClickListener{
             val userText = findViewById<EditText>(R.id.username)
             val passText = findViewById<EditText>(R.id.password)
-            service.logIn(userText.text.toString(), passText.text.toString())
-            println(userText.text.toString())
+            try {
+                if(service.logIn(userText.text.toString(), passText.text.toString())){
+                    startActivity(Intent(this, CatalogActivity::class.java))
+
+                }
+
+            }catch(e:Exception){
+                val errorText = findViewById<TextView>(R.id.errorText)
+                errorText.text=e.toString()
+                errorText.visibility= View.VISIBLE
+            }
         }
 
         signIn.setOnClickListener() {

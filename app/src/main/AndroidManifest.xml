@@ -32,6 +32,10 @@
             android:name=".CompanyRegisterActivity"
             android:exported="true"/>
 
+        <activity
+            android:name=".CatalogActivity"
+            android:exported="true"/>
+
 
 
     </application>
