@@ -26,19 +26,22 @@ class LogInActivity : AppCompatActivity() {
         setContentView(R.layout.login)
         val logInButt = findViewById<Button>(R.id.logIn)
         val signIn = findViewById<TextView>(R.id.signIn)
+        val errorText = findViewById<TextView>(R.id.errorText)
+
 
         logInButt.setOnClickListener{
-            val userText = findViewById<EditText>(R.id.username)
-            val passText = findViewById<EditText>(R.id.password)
+            val userText = findViewById<EditText>(R.id.username).text.toString()
+            val passText = findViewById<EditText>(R.id.password).text.toString()
             try {
-                if(service.logIn(userText.text.toString(), passText.text.toString())){
-                    startActivity(Intent(this, CatalogActivity::class.java))
+                service.logIn(userText, passText)
+                var intent = Intent(this, CatalogActivity::class.java)
+                intent.putExtra("user",userText)
+                startActivity(intent)
+                errorText.visibility= View.INVISIBLE
 
-                }
 
             }catch(e:Exception){
-                val errorText = findViewById<TextView>(R.id.errorText)
-                errorText.text=e.toString()
+                errorText.text=e.message
                 errorText.visibility= View.VISIBLE
             }
         }
