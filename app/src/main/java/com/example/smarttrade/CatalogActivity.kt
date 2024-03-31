@@ -20,11 +20,12 @@ class CatalogActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
+        val service = BusinessLogic()
         setContentView(R.layout.catalog_page)
 
 
         val recycler = findViewById<RecyclerView>(R.id.recyclerView)
-        var list = getProduct()
+        var list = service.getProduct(this)
 
         val adapter : ProductsAdapter = ProductsAdapter(this, list)
 
@@ -32,7 +33,7 @@ class CatalogActivity : AppCompatActivity() {
 
         recycler.setLayoutManager(LinearLayoutManager(this))
 
-
+        
 
 
 
@@ -40,21 +41,5 @@ class CatalogActivity : AppCompatActivity() {
 
     }
 
-    fun getProduct() : List<Product>{
-        var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
 
-        val prod1 = Product("Lavadora", "Lava que flipas", bitmap)
-        val prod2 = Product("Lavadora", "Lava que flipas la segunda vez tb", bitmap)
-        val prod3 = Product("Lavadora", "Lava que flipas la segunda vez tb1", bitmap)
-        val prod4 = Product("Lavadora", "Lava que flipas la segunda vez tb2", bitmap)
-        val prod5 = Product("Lavadora", "Lava que flipas la segunda vez tb3", bitmap)
-        val prod6 = Product("Lavadora", "Lava que flipas la segunda vez tb4", bitmap)
-        val prod7 = Product("Lavadora", "Lava que flipas la segunda vez tb5", bitmap)
-        val prod8 = Product("Lavadora", "Lava que flipas la segunda vez tb6", bitmap)
-
-        val list = mutableListOf<Product>(prod1, prod2, prod3, prod4, prod5, prod6,prod7,prod8)
-
-        return list
-
-    }
 }

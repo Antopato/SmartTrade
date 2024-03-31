@@ -9,12 +9,13 @@
         android:layout_width="362dp"
         android:layout_height="118dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_border"
-        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:cardCornerRadius="18dp"
+        app:strokeWidth="3dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@
                 android:id="@+id/product_name"
                 android:layout_width="259dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="5dp"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:text="Name of the prodruct"
@@ -35,7 +37,7 @@
             <TextView
                 android:id="@+id/product_desc"
                 android:layout_width="259dp"
-                android:layout_height="86dp"
+                android:layout_height="69dp"
                 android:paddingStart="10dp"
                 android:paddingLeft="5dp"
                 android:text="TextView"
