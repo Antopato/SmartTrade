@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="403dp"
         android:layout_height="772dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
