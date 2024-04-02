@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewHolder"
@@ -59,7 +60,7 @@
         android:id="@+id/editTextMail"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Email"
@@ -73,7 +74,7 @@
         android:id="@+id/editTextNif"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="NIF"
@@ -87,7 +88,7 @@
         android:id="@+id/editTextPassword"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Password"
@@ -101,7 +102,7 @@
         android:id="@+id/editTextAddress"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Address"
@@ -115,7 +116,7 @@
         android:id="@+id/editTextPayment"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Payment method"
@@ -130,7 +131,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="#34A60C"
@@ -155,6 +156,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="421dp"
+        android:layout_height="224dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
