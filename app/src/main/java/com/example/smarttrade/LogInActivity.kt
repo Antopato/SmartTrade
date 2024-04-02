@@ -3,6 +3,7 @@ package com.example.smarttrade
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +15,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarttrade.BusinessLogic
 
-class MainActivity : AppCompatActivity() {
+class LogInActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +26,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.login)
         val logInButt = findViewById<Button>(R.id.logIn)
         val signIn = findViewById<TextView>(R.id.signIn)
+        val errorText = findViewById<TextView>(R.id.errorText)
+
 
         logInButt.setOnClickListener{
-            val userText = findViewById<EditText>(R.id.username)
-            val passText = findViewById<EditText>(R.id.password)
-            service.logIn(userText.text.toString(), passText.text.toString())
-            println(userText.text.toString())
+            val userText = findViewById<EditText>(R.id.username).text.toString()
+            val passText = findViewById<EditText>(R.id.password).text.toString()
+            try {
+                service.logIn(userText, passText)
+                var intent = Intent(this, CatalogActivity::class.java)
+                intent.putExtra("user",userText)
+                startActivity(intent)
+                errorText.visibility= View.INVISIBLE
+
+
+            }catch(e:Exception){
+                errorText.text=e.message
+                errorText.visibility= View.VISIBLE
+            }
         }
 
         signIn.setOnClickListener() {
