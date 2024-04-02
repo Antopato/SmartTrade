@@ -10,12 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.ProductsAdapter
+import com.example.smarttrade.adapters.RecyclerViewInterface
 import com.example.smarttrade.classes.Product
 import java.io.File
 import java.io.FileInputStream
 import java.sql.Blob
 
-class CatalogActivity : AppCompatActivity() {
+class CatalogActivity : AppCompatActivity(), RecyclerViewInterface {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?){
@@ -27,7 +28,7 @@ class CatalogActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recyclerView)
         var list = service.getProduct(this)
 
-        val adapter : ProductsAdapter = ProductsAdapter(this, list)
+        val adapter : ProductsAdapter = ProductsAdapter(this, list, this)
 
         recycler.adapter= adapter
 
