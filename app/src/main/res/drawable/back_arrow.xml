@@ -1,0 +1,9 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/transparent" />
+
+    <!-- Imagen de la flecha -->
+    <item
+        android:drawable="@drawable/flecha"
+        android:width="30dp"
+        android:height="30dp" />
+</layer-list>
