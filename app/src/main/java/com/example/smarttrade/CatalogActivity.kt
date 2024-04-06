@@ -1,9 +1,11 @@
 package com.example.smarttrade
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +36,11 @@ class CatalogActivity : AppCompatActivity(), RecyclerViewInterface {
 
         recycler.setLayoutManager(LinearLayoutManager(this))
 
-        
+        val buttonAddProduct = findViewById<Button>(R.id.buttonAddProduct)
+        buttonAddProduct.setOnClickListener {
+            val intent = Intent(this, AddProductActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

@@ -1,7 +1,9 @@
 package com.example.smarttrade
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,12 @@ class AddProductActivity : AppCompatActivity() {
         val options = resources.getStringArray(R.array.options)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
+
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, CatalogActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

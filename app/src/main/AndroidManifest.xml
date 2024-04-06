@@ -10,6 +10,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".CertificateValidationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CertificateRequestsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddProductActivity"
             android:exported="true" />
         <activity
