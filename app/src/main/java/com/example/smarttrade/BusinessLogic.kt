@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Product
 import android.graphics.Bitmap
+import com.example.smarttrade.classes.Certificate
 import com.example.smarttrade.classes.Price
 import java.io.FileInputStream
 
@@ -54,5 +55,16 @@ class BusinessLogic {
         val list = mutableListOf<Price>(price1,price2,price3,price4)
         return list
 
+    }
+
+    fun getCeritificate(context:Context):List<Certificate>{
+        var bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.lavadora)
+        val cert1 = Certificate("Lavadora1", "Siemens1", "Siemens1", bitmap)
+        val cert2 = Certificate("Lavadora2", "Siemens2", "Siemens2", bitmap)
+        val cert3 = Certificate("Lavadora3", "Siemens3", "Siemens3", bitmap)
+        val cert4 = Certificate("Lavadora4", "Siemens4", "Siemens4", bitmap)
+
+        val list = mutableListOf<Certificate>(cert1,cert2,cert3,cert4)
+        return list
     }
 }

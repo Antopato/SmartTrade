@@ -42,21 +42,21 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/carrito"
+            android:src="@drawable/usuario"
             android:layout_weight="1">
         </ImageView>
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/carrito"
+            android:src="@drawable/hogar"
             android:layout_weight="1">
         </ImageView>
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/carrito"
+            android:src="@drawable/ajustes"
             android:layout_weight="1">
         </ImageView>
 
@@ -76,6 +76,7 @@
     </EditText>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pending certification requests"
@@ -89,6 +90,17 @@
         android:fontFamily="@font/roboto_medium">
 
     </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutActionBar"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 

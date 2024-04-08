@@ -42,6 +42,12 @@ class CatalogActivity : AppCompatActivity(), RecyclerViewInterface {
             startActivity(intent)
         }
 
+        val buttonCertificate = findViewById<Button>(R.id.buttonCertificate)
+        buttonCertificate.setOnClickListener {
+            val intent = Intent(this, CertificateRequestsActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
 
