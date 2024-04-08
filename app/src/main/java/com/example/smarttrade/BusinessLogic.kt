@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Product
 import android.graphics.Bitmap
+import com.example.smarttrade.classes.Price
 import java.io.FileInputStream
 
 
@@ -41,6 +42,16 @@ class BusinessLogic {
 
         val list = mutableListOf<Product>(prod1, prod2, prod3, prod4, prod5, prod6,prod7,prod8)
 
+        return list
+
+    }
+    fun getPrice():List<Price>{
+        val price1 = Price("Siemens", 200)
+        val price2 = Price("Siemens", 400)
+        val price3 = Price("Siemens", 1200)
+        val price4 = Price("Siemens", 22200)
+
+        val list = mutableListOf<Price>(price1,price2,price3,price4)
         return list
 
     }

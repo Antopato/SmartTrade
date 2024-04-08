@@ -3,42 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="215dp"
         android:layout_height="219dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText"
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/nameText"
-        android:layout_width="114dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="275dp"
+        android:layout_height="31dp"
         android:layout_marginTop="50dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/descriptionTex"
-        android:layout_width="148dp"
-        android:layout_height="214dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="361dp"
+        android:layout_height="73dp"
         android:fontFamily="@font/roboto_medium"
         android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -48,4 +49,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/bottom" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycled_price"
+        android:layout_width="404dp"
+        android:layout_height="215dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTex" />
+
+    <Button
+        android:id="@+id/buy_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_button"
+        android:text="BUY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycled_price" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
