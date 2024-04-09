@@ -69,51 +69,64 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val adicional5 = findViewById<EditText>(R.id.editText5)
 
         when(selectedItem) {
-            "SmartPhone" -> {
+            "Smartphone" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
-                adicional1.setText("Display")
-                adicional2.setText("Size")
-                adicional3.setText("Processor")
-                adicional4.setText("Guarantee")
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Display")
+                adicional2.setHint("Size")
+                adicional3.setHint("Processor")
+                adicional4.setHint("Guarantee")
             }
             "Computer" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
-                adicional1.setText("Operating System")
-                adicional2.setText("RAM")
-                adicional3.setText("Storage")
-                adicional4.setText("Guarantee")
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Operating System")
+                adicional2.setHint("RAM")
+                adicional3.setHint("Storage")
+                adicional4.setHint("Guarantee")
             }
             "HouseHold" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
-                adicional1.setText("Power Consumption")
-                adicional2.setText("Noise Level")
-                adicional3.setText("Guarantee")
+                adicional4.visibility = View.GONE
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Power Consumption")
+                adicional2.setHint("Noise Level")
+                adicional3.setHint("Guarantee")
             }
             "Fashion Top" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
-                adicional1.setText("Type")
-                adicional2.setText("Size")
+                adicional3.visibility = View.GONE
+                adicional4.visibility = View.GONE
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Type")
+                adicional2.setHint("Size")
             }
             "Fashion Bottom" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
-                adicional1.setText("Type")
-                adicional2.setText("Size")
+                adicional3.visibility = View.GONE
+                adicional4.visibility = View.GONE
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Type")
+                adicional2.setHint("Size")
             }
             "Foot Wear" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
-                adicional1.setText("Type")
-                adicional2.setText("Size")
+                adicional3.visibility = View.GONE
+                adicional4.visibility = View.GONE
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Type")
+                adicional2.setHint("Size")
             }
             "Drinks" -> {
                 adicional1.visibility = View.VISIBLE
@@ -121,11 +134,11 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
                 adicional5.visibility = View.VISIBLE
-                adicional1.setText("Type")
-                adicional2.setText("Calories")
-                adicional3.setText("Expiration Date")
-                adicional4.setText("Units")
-                adicional5.setText("Quantity")
+                adicional1.setHint("Type")
+                adicional2.setHint("Calories")
+                adicional3.setHint("Expiration Date")
+                adicional4.setHint("Units")
+                adicional5.setHint("Quantity")
             }
             "Fish" -> {
                 adicional1.visibility = View.VISIBLE
@@ -133,39 +146,43 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
                 adicional5.visibility = View.VISIBLE
-                adicional1.setText("Calories")
-                adicional2.setText("Fishing Method")
-                adicional3.setText("Expiration Date")
-                adicional4.setText("Units")
-                adicional5.setText("Quantity")
+                adicional1.setHint("Calories")
+                adicional2.setHint("Fishing Method")
+                adicional3.setHint("Expiration Date")
+                adicional4.setHint("Units")
+                adicional5.setHint("Quantity")
             }
             "Meat" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
-                adicional1.setText("Origin")
-                adicional2.setText("Units")
-                adicional3.setText("Quantity")
+                adicional4.visibility = View.VISIBLE
+                adicional5.visibility = View.VISIBLE
+                adicional1.setHint("Origin")
+                adicional2.setHint("Units")
+                adicional3.setHint("Quantity")
             }
             "Vegetables" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
-                adicional1.setText("Origin")
-                adicional2.setText("Season")
-                adicional3.setText("Units")
-                adicional4.setText("Quantity")
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Origin")
+                adicional2.setHint("Season")
+                adicional3.setHint("Units")
+                adicional4.setHint("Quantity")
             }
             "Fruits" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
-                adicional1.setText("Calories")
-                adicional2.setText("Expiration Date")
-                adicional3.setText("Units")
-                adicional4.setText("Quantity")
+                adicional5.visibility = View.GONE
+                adicional1.setHint("Calories")
+                adicional2.setHint("Expiration Date")
+                adicional3.setHint("Units")
+                adicional4.setHint("Quantity")
             }
             "None" -> {
                 adicional1.visibility = View.GONE
