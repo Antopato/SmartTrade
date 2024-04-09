@@ -56,7 +56,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
-        spinner.onItemClickListener = this
+        spinner.onItemSelectedListener = this
 
     }
 
