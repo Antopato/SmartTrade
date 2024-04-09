@@ -16,13 +16,13 @@ import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 
-class ProductsAdapter(var context: Context, var list: List<Product>, var listener: RecyclerViewInterface) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>(), RecyclerViewInterface {
+class ProductsAdapter(var context: Context, var list: List<Product>) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
         val view =  inflater.inflate(R.layout.recycler_row, parent, false)
-        val viewHold = MyViewHolder(view,listener,context,list)
+        val viewHold = MyViewHolder(view,context,list)
 
         return viewHold
     }
@@ -31,16 +31,13 @@ class ProductsAdapter(var context: Context, var list: List<Product>, var listene
         holder.desc.setText(list.get(position).Description)
         holder.name.setText(list.get(position).Name)
         holder.image.setImageBitmap(list.get(position).img)
-
-
-
     }
 
     override fun getItemCount(): Int {
         return list.count()
     }
 
-    class MyViewHolder(itemView: View, private val listener: RecyclerViewInterface,context:Context,list:List<Product>) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View,context:Context,list:List<Product>) : RecyclerView.ViewHolder(itemView){
         val image : ImageView = itemView.findViewById(R.id.product_image)
         val name : TextView = itemView.findViewById(R.id.product_name)
         val desc : TextView = itemView.findViewById(R.id.product_desc);

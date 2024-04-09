@@ -16,7 +16,7 @@ import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 
 
-class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.Adapter<PriceAdapter.PriceHolder>(), RecyclerViewInterface {
+class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceHolder {
         val inflater = LayoutInflater.from(context)
