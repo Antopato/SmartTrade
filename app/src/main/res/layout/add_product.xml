@@ -22,28 +22,32 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/carrito"></ImageView>
+            android:src="@drawable/carrito">
+        </ImageView>
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/usuario"></ImageView>
+            android:src="@drawable/usuario">
+        </ImageView>
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/hogar"></ImageView>
+            android:src="@drawable/hogar">
+        </ImageView>
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ajustes"></ImageView>
+            android:src="@drawable/ajustes">
+        </ImageView>
 
     </LinearLayout>
 
@@ -58,7 +62,8 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        app:layout_constraintTop_toTopOf="parent">
+    </Button>
 
     <ScrollView
         android:layout_width="413dp"
@@ -180,7 +185,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></EditText>
+                    app:layout_constraintTop_toTopOf="parent">
+                </EditText>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -199,7 +205,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:overlapAnchor="false"></Spinner>
+                    android:overlapAnchor="false">
+                </Spinner>
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edit_text_border"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="texto1"
+                    android:paddingStart="10dp"
+                    android:visibility="gone">
+                </EditText>
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edit_text_border"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="texto2"
+                    android:paddingStart="10dp"
+                    android:visibility="gone">
+                </EditText>
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edit_text_border"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="texto3"
+                    android:paddingStart="10dp"
+                    android:visibility="gone">
+                </EditText>
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edit_text_border"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="texto4"
+                    android:paddingStart="10dp"
+                    android:visibility="gone">
+                </EditText>
+                <EditText
+                    android:id="@+id/editText5"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/edit_text_border"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="texto5"
+                    android:paddingStart="10dp"
+                    android:visibility="gone">
+                </EditText>
+
+
 
                 <Button
                     android:id="@+id/buttonAddProduct"
@@ -213,7 +283,8 @@
                     android:padding="10dp"
                     android:text="Add Product"
                     android:textColor="@color/white"
-                    android:textSize="20sp"></Button>
+                    android:textSize="20sp">
+                </Button>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -232,7 +303,8 @@
                 android:src="@drawable/pngwing"
                 app:layout_constraintStart_toEndOf="@+id/linearLayoutProduct1"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/pngwing"></ImageView>
+                app:srcCompat="@drawable/pngwing">
+            </ImageView>
 
             <LinearLayout
                 android:id="@+id/linearLayoutProduct1"
@@ -272,7 +344,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></EditText>
+                    app:layout_constraintTop_toTopOf="parent">
+                </EditText>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

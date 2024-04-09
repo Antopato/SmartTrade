@@ -2,8 +2,16 @@
     <string name="app_name">SmartTrade</string>
     <string-array name="options">
         <item>None</item>
-        <item>Electronics</item>
-        <item>Fashion</item>
-        <item>Food</item>
+        <item>Smartphone</item>
+        <item>HouseHold</item>
+        <item>Computer</item>
+        <item>Fashion Top</item>
+        <item>Fashion Bottom</item>
+        <item>Foot Wear</item>
+        <item>Drinks</item>
+        <item>Fish</item>
+        <item>Fruit</item>
+        <item>Meat</item>
+        <item>Vegetable</item>
     </string-array>
 </resources>
