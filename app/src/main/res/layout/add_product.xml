@@ -229,9 +229,10 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@mipmap/lavadora"
+                android:src="@drawable/pngwing"
                 app:layout_constraintStart_toEndOf="@+id/linearLayoutProduct1"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pngwing"></ImageView>
 
             <LinearLayout
                 android:id="@+id/linearLayoutProduct1"

@@ -47,10 +47,10 @@ class BusinessLogic {
 
     }
     fun getPrice():List<Price>{
-        val price1 = Price("Siemens", 200)
-        val price2 = Price("Siemens", 400)
-        val price3 = Price("Siemens", 1200)
-        val price4 = Price("Siemens", 22200)
+        val price1 = Price("Siemens", 200, "Lavadora1")
+        val price2 = Price("Siemens", 400, "Lavadora4")
+        val price3 = Price("Siemens", 1200, "Lavadora3")
+        val price4 = Price("Siemens", 22200, "Lavadora2")
 
         val list = mutableListOf<Price>(price1,price2,price3,price4)
         return list

@@ -30,6 +30,7 @@ class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.
         holder.company.setText(list.get(position).company)
         val string = list.get(position).price.toString() + "€"
         holder.price.setText(string)
+        holder.name.setText(list.get(position).name)
     }
 
     override fun getItemCount(): Int {
@@ -39,11 +40,24 @@ class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.
     class PriceHolder(itemView: View, context: Context, list: List<Price>) : RecyclerView.ViewHolder(itemView) {
         val company : TextView = itemView.findViewById(R.id.company_name)
         val price : TextView = itemView.findViewById(R.id.price_text)
+        val name : TextView = itemView.findViewById(R.id.prodName)
         var selected :Boolean = false
 
         init{
             itemView.setOnClickListener {
+                val intent = Intent(context, ProductActivity::class.java)
+
+                intent.putExtra("name",list.get(adapterPosition).name)
+                intent.putExtra("desc","description")
+
+
+
+                context.startActivity(intent)
+
+
+                /*
                 val carView : CardView = itemView.findViewById(R.id.cardView)
+
                 if(!selected) {
                     carView.setBackgroundColor(Color.parseColor("#8BD1EF"))
                     selected =true
@@ -51,6 +65,7 @@ class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.
                     carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
                     selected=false
                 }
+                */
 
             }
 

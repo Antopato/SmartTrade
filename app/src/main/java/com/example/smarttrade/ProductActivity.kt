@@ -1,9 +1,11 @@
 package com.example.smarttrade
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,14 +24,17 @@ class ProductActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val desc = intent.getStringExtra("desc")
-        val img = intent.getStringExtra("image")
 
         val nametext = findViewById<TextView>(R.id.nameText)
         val desctext = findViewById<TextView>(R.id.descriptionTex)
         val imageview = findViewById<ImageView>(R.id.image)
         val recycler = findViewById<RecyclerView>(R.id.recycled_price)
+        val backbutt = findViewById<Button>(R.id.backButt)
 
-
+        backbutt.setOnClickListener(){
+            val intent = Intent(this, CatalogActivity::class.java)
+            startActivity(intent)
+        }
         var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
 
         nametext.text=name
