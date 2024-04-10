@@ -99,19 +99,46 @@
         android:paddingStart="10dp"/>
 
     <EditText
-        android:id="@+id/editTextAddress"
+        android:id="@+id/editTextStreet"
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Address"
+        android:hint="Street"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
         android:paddingStart="10dp"/>
 
+    <EditText
+        android:id="@+id/editTextProvince"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Province"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStreet"
+        android:paddingStart="10dp"/>
+
+    <EditText
+        android:id="@+id/editTextCity"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextProvince"
+        android:paddingStart="10dp"/>
     <EditText
         android:id="@+id/editTextPayment"
         android:layout_width="350dp"
@@ -123,7 +150,20 @@
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddress"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPostalCode"
+        android:paddingStart="10dp"/>
+    <EditText
+        android:id="@+id/editTextPostalCode"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Postal code"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCity"
         android:paddingStart="10dp"/>
 
     <Button
@@ -149,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Costumer Details"
         android:textSize="25sp"
