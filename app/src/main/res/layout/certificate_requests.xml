@@ -43,6 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/usuario"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             android:layout_weight="1">
         </ImageView>
         <ImageView
@@ -50,6 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/hogar"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             android:layout_weight="1">
         </ImageView>
         <ImageView
@@ -57,6 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ajustes"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             android:layout_weight="1">
         </ImageView>
 

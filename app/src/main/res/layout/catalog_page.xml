@@ -37,6 +37,8 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             app:srcCompat="@drawable/usuario" />
 
         <ImageView
@@ -44,6 +46,8 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             app:srcCompat="@drawable/hogar" />
 
         <ImageView
@@ -51,6 +55,8 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
             app:srcCompat="@drawable/ajustes" />
 
     </LinearLayout>
