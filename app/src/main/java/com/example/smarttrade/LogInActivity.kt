@@ -5,15 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.smarttrade.ui.theme.SmartTradeTheme
-import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import com.example.smarttrade.BusinessLogic
 
 class LogInActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -21,7 +20,7 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val service = BusinessLogic();
+        val service = BusinessLogic(this);
 
         setContentView(R.layout.login)
         val logInButt = findViewById<Button>(R.id.logIn)
@@ -34,8 +33,10 @@ class LogInActivity : AppCompatActivity() {
             val passText = findViewById<EditText>(R.id.password).text.toString()
             try {
                 service.logIn(userText, passText)
-                var intent = Intent(this, CatalogActivity::class.java)
-                intent.putExtra("user",userText)
+                //var intent = Intent(this, CatalogActivity::class.java)
+                //intent.putExtra("user",userText)
+                println("Ha pasado el true")
+
                 startActivity(intent)
                 errorText.visibility= View.INVISIBLE
 

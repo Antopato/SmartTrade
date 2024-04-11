@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,7 +17,7 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
-        val service = BusinessLogic()
+        val service = BusinessLogic(this)
         var list = service.getPrice()
         setContentView(R.layout.product_page)
 

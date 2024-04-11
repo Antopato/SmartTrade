@@ -15,7 +15,7 @@ class CertificateRequestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val service = BusinessLogic()
+        val service = BusinessLogic(this)
         setContentView(R.layout.certificate_requests)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

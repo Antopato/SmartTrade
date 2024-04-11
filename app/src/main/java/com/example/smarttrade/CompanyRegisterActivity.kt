@@ -13,7 +13,7 @@ class CompanyRegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.company_register)
-        val service = BusinessLogic()
+        val service = BusinessLogic(this)
 
         val registerButt = findViewById<Button>(R.id.registerButt);
 

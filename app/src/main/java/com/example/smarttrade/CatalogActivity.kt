@@ -11,16 +11,17 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.adapters.ProductsAdapter
 
 class CatalogActivity : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        val service = BusinessLogic()
+
+        val service = BusinessLogic(this)
+        service.getProduct(this)
+
         setContentView(R.layout.catalog_page)
 
         var maxPrice : Int
@@ -35,12 +36,8 @@ class CatalogActivity : AppCompatActivity() {
         filterLayout.visibility = View.INVISIBLE
 
 
-        var list = service.getProduct(this)
 
 
-        val adapter : ProductsAdapter = ProductsAdapter(this, list)
-        recycler.adapter= adapter
-        recycler.setLayoutManager(LinearLayoutManager(this))
 
         val tag1 = findViewById<Spinner>(R.id.tag1)
         val tag2 = findViewById<Spinner>(R.id.tag2)
