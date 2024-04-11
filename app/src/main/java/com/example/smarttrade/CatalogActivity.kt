@@ -34,7 +34,9 @@ class CatalogActivity : AppCompatActivity() {
         val filterLayout = findViewById<ConstraintLayout>(R.id.filterLayout)
         filterLayout.visibility = View.INVISIBLE
 
+
         var list = service.getProduct(this)
+
 
         val adapter : ProductsAdapter = ProductsAdapter(this, list)
         recycler.adapter= adapter

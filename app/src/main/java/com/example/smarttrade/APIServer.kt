@@ -33,5 +33,11 @@ interface APIServer {
     @PUT
     fun createAddress(@Url url:String,@Body address: Address)
 
+    @GET
+    fun getAllProducts() : Response<List<Product>>
+
+    @GET
+    suspend fun getUserById(@Url url:String) : Response<User>
+
 
 }
