@@ -1,5 +1,10 @@
 package com.example.smarttrade.classes
 
 import android.graphics.Bitmap
-data class Certificate(val Name:String, val Company:String, val Brand:String, val Img: Bitmap) {
+class Certificate(
+    var certification_id: Int,
+    var certify: Boolean,
+    var certified_by: String,
+    var pending: Boolean
+) {
 }

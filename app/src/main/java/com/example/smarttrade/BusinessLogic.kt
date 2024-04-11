@@ -76,6 +76,7 @@ class BusinessLogic {
 
         var prod1 = Product("Lavadora","Lava que flipas",bitmap)
         var list = listOf<Product>(prod1)
+
         return list
     }
 
@@ -106,5 +107,7 @@ fun getPrice():List<Price>{
         return list
     }
 }
+
+
 
 

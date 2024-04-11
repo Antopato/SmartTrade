@@ -1,6 +1,19 @@
 package com.example.smarttrade.classes
 
-import android.graphics.Bitmap
+open class Product(
+    var productId : Int,
+    var name: String,
+    var price: Double,
+    var description: String,
+    var production: String,
+    var additionalInfo: String,
+    var image: String,
+    var seller: String,
+    var stock: Int,
+    var certificationId: Int,
+    var brand: String,
+    var materials: String
+)
 
-data class Product(val Name:String, val Description:String, val img: Bitmap)
+
 
