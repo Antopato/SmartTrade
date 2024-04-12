@@ -2,18 +2,14 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Price
-import com.example.smarttrade.classes.Product
 
 
 class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
@@ -27,10 +23,10 @@ class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: PriceHolder, position: Int) {
-        holder.company.setText(list.get(position).company)
-        val string = list.get(position).price.toString() + "€"
-        holder.price.setText(string)
-        holder.name.setText(list.get(position).name)
+        //holder.company.setText(list.get(position).company)
+        //val string = list.get(position).price.toString() + "€"
+        //holder.price.setText(string)
+        //holder.name.setText(list.get(position).name)
     }
 
     override fun getItemCount(): Int {
@@ -47,8 +43,8 @@ class PriceAdapter (var context: Context, var list: List<Price>) : RecyclerView.
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductActivity::class.java)
 
-                intent.putExtra("name",list.get(adapterPosition).name)
-                intent.putExtra("desc","description")
+                //intent.putExtra("name",list.get(adapterPosition).name)
+                //intent.putExtra("desc","description")
 
 
 

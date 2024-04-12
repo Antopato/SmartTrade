@@ -33,8 +33,8 @@ class LogInActivity : AppCompatActivity() {
             val passText = findViewById<EditText>(R.id.password).text.toString()
             try {
                 service.logIn(userText, passText)
-                //var intent = Intent(this, CatalogActivity::class.java)
-                //intent.putExtra("user",userText)
+                var intent = Intent(this, CatalogActivity::class.java)
+                intent.putExtra("user",userText)
                 println("Ha pasado el true")
 
                 startActivity(intent)

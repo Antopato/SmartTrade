@@ -24,10 +24,10 @@ class CertificatesAdapter(var context: Context, var list: List<Certificate>) : R
     }
 
     override fun onBindViewHolder(holder: CertificatesAdapter.CertificateHolder, position: Int) {
-        holder.productName.setText(list.get(position).Name)
-        holder.productCompany.setText(list.get(position).Company)
-        holder.productBrand.setText(list.get(position).Brand)
-        holder.productImage.setImageBitmap(list.get(position).Img)
+        //holder.productName.setText(list.get(position).Name)
+        //holder.productCompany.setText(list.get(position).Company)
+        //holder.productBrand.setText(list.get(position).Brand)
+        //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
     class CertificateHolder(itemView: View, context: Context, list:List<Certificate>) : RecyclerView.ViewHolder(itemView){
@@ -40,10 +40,10 @@ class CertificatesAdapter(var context: Context, var list: List<Certificate>) : R
             itemView.setOnClickListener {
                 val intent = Intent(context, CertificateValidationActivity::class.java)
 
-                intent.putExtra("name", list.get(adapterPosition).Name)
-                intent.putExtra("company", list.get(adapterPosition).Company)
-                intent.putExtra("brand", list.get(adapterPosition).Brand)
-                intent.putExtra("image", list.get(adapterPosition).Img.toString())
+                //intent.putExtra("name", list.get(adapterPosition).Name)
+                //intent.putExtra("company", list.get(adapterPosition).Company)
+                //intent.putExtra("brand", list.get(adapterPosition).Brand)
+                //intent.putExtra("image", list.get(adapterPosition).Img.toString())
                 //faltan materials, production y aditional information
 
                 context.startActivity(intent)

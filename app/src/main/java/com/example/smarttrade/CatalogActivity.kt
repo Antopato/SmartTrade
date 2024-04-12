@@ -20,7 +20,7 @@ class CatalogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val service = BusinessLogic(this)
-        service.getProduct(this)
+        val list = service.getProducts(this)
 
         setContentView(R.layout.catalog_page)
 

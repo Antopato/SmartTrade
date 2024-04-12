@@ -1,17 +1,13 @@
 package com.example.smarttrade.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.CatalogActivity
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
@@ -28,9 +24,9 @@ class ProductsAdapter(var context: Context, var list: List<Product>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.desc.setText(list.get(position).Description)
-        holder.name.setText(list.get(position).Name)
-        holder.image.setImageBitmap(list.get(position).img)
+        //holder.desc.setText(list.get(position).Description)
+        //holder.name.setText(list.get(position).Name)
+        //holder.image.setImageBitmap(list.get(position).img)
     }
 
     override fun getItemCount(): Int {
@@ -46,9 +42,9 @@ class ProductsAdapter(var context: Context, var list: List<Product>) : RecyclerV
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductActivity::class.java)
 
-                intent.putExtra("name",list.get(adapterPosition).Name)
-                intent.putExtra("desc",list.get(adapterPosition).Description)
-                intent.putExtra("image",list.get(adapterPosition).img.toString())
+                //intent.putExtra("name",list.get(adapterPosition).Name)
+                //intent.putExtra("desc",list.get(adapterPosition).Description)
+                //intent.putExtra("image",list.get(adapterPosition).img.toString())
 
                 context.startActivity(intent)
 

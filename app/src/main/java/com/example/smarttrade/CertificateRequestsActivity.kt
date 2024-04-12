@@ -7,9 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.adapters.CertificatesAdapter
 
 class CertificateRequestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +29,9 @@ class CertificateRequestsActivity : AppCompatActivity() {
 
         val recyclerView : RecyclerView = findViewById(R.id.recyclerView)
         val list = service.getCeritificate(this)
-        val adapter : CertificatesAdapter = CertificatesAdapter(this, list)
+        //val adapter : CertificatesAdapter = CertificatesAdapter(this, list)
 
-        recyclerView.adapter = adapter
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
+        //recyclerView.adapter = adapter
+        //recyclerView.setLayoutManager(LinearLayoutManager(this))
     }
 }

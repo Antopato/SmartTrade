@@ -3,16 +3,10 @@ package com.example.smarttrade
 import android.app.Activity
 import android.content.Context
 import android.graphics.BitmapFactory
-import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.adapters.ProductsAdapter
-import com.example.smarttrade.classes.Certificate
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.smarttrade.classes.User
 import kotlinx.coroutines.runBlocking
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -32,8 +26,15 @@ class BusinessLogic(private val activity: Activity) {
         if(mail!=""){
             if(pass!=""){
                 runBlocking {
-                    var user = call.getUserById(mail).await()
+                    var user : User? = call.getUserById(mail).await()
                     println(user.toString())
+                    if(user == null){
+                        throw(Exception("The mail is incorrect"))
+                    }else{
+                        if(pass!=user.password){
+                            throw(Exception("Incorrect password"))
+                        }
+                    }
                 }
 
                 return true
@@ -52,30 +53,13 @@ class BusinessLogic(private val activity: Activity) {
 
     }
 
-    fun getProduct(context: Context)  {
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<List<Product>> = getRetrofit().create(APIServer::class.java).getAllProducts("products/")
-            if(call.isSuccessful){
-                activity.runOnUiThread(){
-                    val list = call.body()
-                    if(list!=null) {
-
-                        val recycler = activity.findViewById<RecyclerView>(R.id.recyclerView)
-
-                        val adapter = ProductsAdapter(activity.applicationContext, list)
-
-                        recycler.adapter=adapter
-
-
-                    }
-                }
-            }else{
-                println(call.errorBody())
-
-            }
+    fun getProducts(context: Context) : List<Product?> {
+        var list : List<Product?>
+        runBlocking {
+            list = call.getAllProducts().await()
 
         }
+        return list
 
     }
 
@@ -95,11 +79,12 @@ fun getPrice():List<Price>{
 
     }
 
-    fun getCeritificate(context:Context):List<Certificate>{
+    fun getCeritificate(context:Context){
+
         var bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.lavadora)
 
-
-        return list
+        //var list = List<Certificate>
+        //return list
     }
 }
 
