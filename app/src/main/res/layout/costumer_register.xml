@@ -140,18 +140,30 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextProvince"
         android:paddingStart="10dp"/>
     <EditText
-        android:id="@+id/editTextPayment"
+        android:id="@+id/editTextBirthDate"
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Payment method"
+        android:hint="Birth date"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPostalCode"
         android:paddingStart="10dp"/>
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBirthDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        >
+    </TextView>
     <EditText
         android:id="@+id/editTextPostalCode"
         android:layout_width="350dp"
@@ -181,7 +193,7 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPayment"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBirthDate"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -189,7 +201,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Costumer Details"
         android:textSize="25sp"

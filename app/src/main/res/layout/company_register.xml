@@ -24,7 +24,7 @@
         android:id="@+id/registerButt"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_button"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
@@ -171,7 +171,7 @@
         android:id="@+id/editTextPostalCode"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Postal code"
@@ -181,12 +181,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
 
+    <TextView
+    android:id="@+id/textViewError"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/red"
+    android:textSize="12sp"
+    app:layout_constraintTop_toBottomOf="@+id/editTextPostalCode"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="5dp"
+    >
+</TextView>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

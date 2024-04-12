@@ -3,9 +3,11 @@ package com.example.smarttrade
 import android.app.Activity
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.widget.EditText
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.typeofusers.Costumer
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -85,6 +87,12 @@ fun getPrice():List<Price>{
 
         //var list = List<Certificate>
         //return list
+    }
+
+    fun createCostumer(costumer: Costumer) {
+        runBlocking {
+            call.createCostumer(costumer)
+        }
     }
 }
 
