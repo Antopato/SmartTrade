@@ -2,6 +2,12 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="CatalogActivity">
+        <State />
+      </entry>
+      <entry key="CertificateRequestsActivity">
+        <State />
+      </entry>
       <entry key="CompanyRegisterActivity">
         <State />
       </entry>

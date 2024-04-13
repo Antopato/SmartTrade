@@ -1,29 +1,18 @@
 package com.example.smarttrade
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.widget.EditText
-import com.example.smarttrade.classes.Certificate
+import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Costumer
 import kotlinx.coroutines.runBlocking
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
 
 
 class BusinessLogic() {
 
     var call = HTTPcalls()
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https:localhost:8888/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
 
     fun logIn(mail:String, pass:String): User? {
 
@@ -98,8 +87,8 @@ fun getPrice():List<Price>{
         }
     }
 
-    fun getUncertifiedCertificates(): List<Certificate> {
-        var list : List<Certificate>
+    fun getUncertifiedCertificates(): List<Certification> {
+        var list : List<Certification>
         runBlocking {
             list = call.getUncertifiedCertificates().await()
         }

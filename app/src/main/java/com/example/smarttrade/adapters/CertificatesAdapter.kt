@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.CertificateValidationActivity
 import com.example.smarttrade.R
-import com.example.smarttrade.classes.Certificate
+import com.example.smarttrade.classes.Certification
 
-class CertificatesAdapter(var context: Context, var list: List<Certificate>) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
+class CertificatesAdapter(var context: Context, var list: List<Certification>) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CertificateHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
         val view : View = inflater.inflate(R.layout.recycler_row_certificate, parent, false)
@@ -30,7 +30,7 @@ class CertificatesAdapter(var context: Context, var list: List<Certificate>) : R
         //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
-    class CertificateHolder(itemView: View, context: Context, list:List<Certificate>) : RecyclerView.ViewHolder(itemView){
+    class CertificateHolder(itemView: View, context: Context, list:List<Certification>) : RecyclerView.ViewHolder(itemView){
         var productImage : ImageView = itemView.findViewById(R.id.imageViewProductImage)
         var productName : TextView = itemView.findViewById(R.id.textViewProductName)
         var productCompany : TextView = itemView.findViewById(R.id.textViewProductCompany)

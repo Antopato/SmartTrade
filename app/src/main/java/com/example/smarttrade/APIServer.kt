@@ -2,7 +2,7 @@ package com.example.smarttrade
 
 import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.typeofusers.Administrator
-import com.example.smarttrade.classes.Certificate
+import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.example.smarttrade.classes.typeofusers.Merchant
 import com.example.smarttrade.classes.Product
@@ -24,9 +24,9 @@ interface APIServer {
     @GET
     suspend fun getAdministrators(@Url url: String): Response<List<Administrator>>
     @GET
-    suspend fun getCertificates(@Url url: String): Response<List<Certificate>>
+    suspend fun getCertificates(@Url url: String): Response<List<Certification>>
     @PUT
-    suspend fun createCertificate(@Url url:String,@Body certificate: Certificate): Call<Certificate>
+    suspend fun createCertificate(@Url url:String,@Body certification: Certification): Call<Certification>
     @PUT
     suspend fun createProduct(@Url url:String,@Body product: Product): Call<Product>
     @GET

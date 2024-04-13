@@ -1,11 +1,11 @@
 package com.example.smarttrade
 
-import android.app.Activity
-import com.example.smarttrade.classes.Certificate
+import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 
-class HTTPcalls(private val activity : Activity) {
+class HTTPcalls() {
 
     val idMario = "192.168.1.97"
     fun getUserById(mail : String) : Deferred<User?> {
@@ -72,7 +72,7 @@ class HTTPcalls(private val activity : Activity) {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://192.168.1.97:8080/products/")
+            val url = URL("http://192.168.1.97:8080/products")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -96,9 +96,9 @@ class HTTPcalls(private val activity : Activity) {
                      val jsonResponse = response.toString()
                      println("json" + jsonResponse)
                      val gson = Gson()
-                     val product: Product = gson.fromJson(jsonResponse, Product::class.java)
-                     val list = mutableListOf<Product>()
-                     list.add(product)
+                     val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                     println(list)
+                     println(list[0].name)
                      return@async list
                  }
 
@@ -136,9 +136,9 @@ class HTTPcalls(private val activity : Activity) {
             connection.disconnect()
         }
     }
-    fun getUncertifiedCertificates(): Deferred<List<Certificate>> {
+    fun getUncertifiedCertificates(): Deferred<List<Certification>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://192.168.1.97:8080/certificates/uncertified")
+            val url = URL("http://192.168.1.97:8080/certification/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -157,21 +157,22 @@ class HTTPcalls(private val activity : Activity) {
 
                 if(response.isEmpty()){
                     println("Esto está vacío")
-                    return@async emptyList<Certificate>()
+                    return@async emptyList<Certification>()
                 }else {
                     val jsonResponse = response.toString()
-                    println("json" + jsonResponse)
+                    println("json: $jsonResponse")
                     val gson = Gson()
-                    val certificate: Certificate = gson.fromJson(jsonResponse, Certificate::class.java)
-                    println(certificate.certification_id)
+                    val list: List<Certification> = gson.fromJson(jsonResponse, object : TypeToken<List<Certification>>() {}.type)
+                    println(list)
+                    println(list[0].certification_id)
                     reader.close()
 
-                    return@async listOf(certificate)
+                    return@async list
                 }
 
             } else {
                 println("Esto va mal")
-                return@async emptyList<Certificate>()
+                return@async emptyList<Certification>()
             }
         }
     }
