@@ -1,6 +1,7 @@
 package com.example.smarttrade
 
 import android.app.Activity
+import com.example.smarttrade.classes.Certificate
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Costumer
@@ -14,6 +15,8 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 
 class HTTPcalls(private val activity : Activity) {
@@ -114,11 +117,13 @@ class HTTPcalls(private val activity : Activity) {
 
     fun createCostumer(costumer: Costumer){
         CoroutineScope(Dispatchers.IO).async {
-            val gson = Gson()
-            val json = gson.toJson(costumer)
+            val json = Json.encodeToString(costumer)
+            println(json)
+            println(costumer)
             val url = URL("http://192.168.1.97:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
+            println("He enviado la petición")
             connection.doOutput = true
             connection.setRequestProperty("Content-Type", "application/json")
             val outPutStream: OutputStream = connection.outputStream
@@ -129,6 +134,45 @@ class HTTPcalls(private val activity : Activity) {
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
             connection.disconnect()
+        }
+    }
+    fun getUncertifiedCertificates(): Deferred<List<Certificate>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://192.168.1.97:8080/certificates/uncertified")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            print(responseCode)
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                if(response.isEmpty()){
+                    println("Esto está vacío")
+                    return@async emptyList<Certificate>()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val certificate: Certificate = gson.fromJson(jsonResponse, Certificate::class.java)
+                    println(certificate.certification_id)
+                    reader.close()
+
+                    return@async listOf(certificate)
+                }
+
+            } else {
+                println("Esto va mal")
+                return@async emptyList<Certificate>()
+            }
         }
     }
 }
