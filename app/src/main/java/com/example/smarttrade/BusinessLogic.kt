@@ -6,7 +6,6 @@ import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
-import com.example.smarttrade.classes.typeofusers.Costumer
 import kotlinx.coroutines.runBlocking
 
 
@@ -47,22 +46,33 @@ class BusinessLogic() {
 
     }
 
-    fun getProducts() : List<Product?> {
+    fun getProducts() : List<Product> {
         var list : List<Product?>
+        var listCer : List<Certification>
+        var finalList = mutableListOf<Product>()
         runBlocking {
             list = call.getAllProducts().await()
+            listCer = call.getUncertifiedCertificates().await()
 
+            var idList = mutableListOf<Int>()
+
+            for(certificate in listCer){
+                idList.add(certificate.certification_id)
+            }
+
+            for(product in list){
+                if(idList.indexOf(product!!.certificationId) == -1){
+                    finalList.add(product)
+                }
+            }
         }
-        return list
+        return finalList
 
     }
 
 
 
-
-
-
-fun getPrice():List<Price>{
+    fun getPrice():List<Price>{
         val price1 = Price("Siemens", 200, "Lavadora1")
         val price2 = Price("Siemens", 400, "Lavadora4")
         val price3 = Price("Siemens", 1200, "Lavadora3")
@@ -80,19 +90,35 @@ fun getPrice():List<Price>{
         //var list = List<Certificate>
         //return list
     }
-
+/*
     fun createCostumer(costumer: Costumer) {
         runBlocking {
-            call.createCostumer(costumer)
+            call.
+            createCostumer(costumer)
         }
     }
-
-    fun getUncertifiedCertificates(): List<Certification> {
+*/
+    fun getUncertifiedCertificates(): List<Product> {
         var list : List<Certification>
+        var products : List<Product?>
+        var finalList = mutableListOf<Product>()
         runBlocking {
             list = call.getUncertifiedCertificates().await()
+            products = call.getAllProducts().await()
+            var listId = mutableListOf<Int>()
+
+            for(certificate in list){
+                listId.add(certificate.certification_id)
+            }
+
+            for(product in products){
+                if(listId.indexOf(product!!.certificationId) != -1){
+                    finalList.add(product)
+                }
+
+            }
         }
-        return list
+        return finalList
     }
 }
 

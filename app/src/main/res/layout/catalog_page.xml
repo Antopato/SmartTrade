@@ -105,7 +105,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/searchText"
             android:layout_width="318dp"
             android:layout_height="49dp"
             android:layout_marginStart="10dp"
@@ -127,8 +127,8 @@
             android:layout_marginStart="8dp"
             android:background="@drawable/edit_text_border"
             android:text="F"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextText"
-            app:layout_constraintStart_toEndOf="@+id/editTextText"
+            app:layout_constraintBottom_toBottomOf="@+id/searchText"
+            app:layout_constraintStart_toEndOf="@+id/searchText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>

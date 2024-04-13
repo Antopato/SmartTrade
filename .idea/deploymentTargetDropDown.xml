@@ -8,13 +8,7 @@
       <entry key="CertificateRequestsActivity">
         <State />
       </entry>
-      <entry key="CompanyRegisterActivity">
-        <State />
-      </entry>
-      <entry key="CostumerRegisterActivity">
-        <State />
-      </entry>
-      <entry key="SmartTrade">
+      <entry key="app">
         <State />
       </entry>
     </value>

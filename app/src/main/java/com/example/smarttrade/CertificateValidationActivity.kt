@@ -10,10 +10,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.smarttrade.classes.Product
 
 class CertificateValidationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val product = intent.getSerializableExtra("product") as Product?
         enableEdgeToEdge()
         setContentView(R.layout.certificate_validation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -27,20 +29,26 @@ class CertificateValidationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val productName = intent.getStringExtra("name")
-        val productCompany = intent.getStringExtra("company")
-        val productBrand = intent.getStringExtra("brand")
+        //val productName = intent.getStringExtra("name")
+        //val productCompany = intent.getStringExtra("company")
+        //val productBrand = intent.getStringExtra("brand")
         //val productImage = intent.getStringExtra("image")
 
         val textViewProductName = findViewById<TextView>(R.id.textViewProductName)
         val textViewProductCompany = findViewById<TextView>(R.id.textViewCompany)
         val textViewProductBrand = findViewById<TextView>(R.id.textViewBrand)
+        val textViewProductProduction = findViewById<TextView>(R.id.textViewProduction)
+        val textViewProductMaterial = findViewById<TextView>(R.id.textViewMaterials)
+        val textViewProductAdition = findViewById<TextView>(R.id.textViewAditionalInformation)
         val imageViewProductImage = findViewById<ImageView>(R.id.imageViewProductImage)
 
         val bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
-        textViewProductName.text = productName
-        textViewProductCompany.text = "Company: " + productCompany
-        textViewProductBrand.text = "Brand: " + productBrand
+        textViewProductName.text = product!!.name
+        textViewProductCompany.text = "Company " + product!!.seller
+        textViewProductBrand.text = "Brand: " + product!!.brand
+        textViewProductProduction.text = "Production: "+ product!!.production
+        textViewProductMaterial.text = "Materials "+ product!!.materials
+        textViewProductAdition.text= "Aditional information "+product!!.additionalInfo
         imageViewProductImage.setImageBitmap(bitmap)
     }
 }

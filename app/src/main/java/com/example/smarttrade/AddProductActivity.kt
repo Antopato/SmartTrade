@@ -11,17 +11,18 @@ import android.widget.ImageView
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.activity.result.contract.ActivityResultContracts.*
+import com.example.smarttrade.classes.User
 
 class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     AdapterView.OnItemClickListener {
 
 
     lateinit var updateImage : ImageView
+    val user = intent.getSerializableExtra("user") as User
 
     val pickMedia = registerForActivityResult(PickVisualMedia()){ uri ->
         if(uri!=null){
@@ -49,6 +50,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val buttonBack = findViewById<Button>(R.id.buttonBack)
         buttonBack.setOnClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
         }
 

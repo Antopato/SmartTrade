@@ -5,24 +5,27 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.PriceAdapter
+import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.User
 
 class ProductActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
+        val user= intent.getSerializableExtra("user") as User
 
         val service = BusinessLogic()
         var list = service.getPrice()
         setContentView(R.layout.product_page)
 
-        val name = intent.getStringExtra("name")
-        val desc = intent.getStringExtra("desc")
+        val product = intent.getSerializableExtra("product") as Product
 
         val nametext = findViewById<TextView>(R.id.nameText)
         val desctext = findViewById<TextView>(R.id.descriptionTex)
@@ -32,12 +35,13 @@ class ProductActivity : AppCompatActivity() {
 
         backbutt.setOnClickListener(){
             val intent = Intent(this, CatalogActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
         }
         var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
 
-        nametext.text=name
-        desctext.text=desc
+        nametext.text=product.name
+        desctext.text=product.description
         imageview.setImageBitmap(bitmap)
 
         val adapter = PriceAdapter(this,list)

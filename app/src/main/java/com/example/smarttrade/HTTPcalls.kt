@@ -3,7 +3,6 @@ package com.example.smarttrade
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
-import com.example.smarttrade.classes.typeofusers.Costumer
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -12,20 +11,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+//import kotlinx.serialization.encodeToString
+//import kotlinx.serialization.json.Json
 
 
 class HTTPcalls() {
 
     val idMario = "192.168.1.97"
+
+    val myId = "192.168.1.59"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
-                val url = URL("http://192.168.1.97:8080/clients/client/"+mail)
+                val url = URL("http://$myId:8080/users/"+mail)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connect()
@@ -72,7 +72,7 @@ class HTTPcalls() {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://192.168.1.97:8080/products")
+            val url = URL("http://$myId:8080/products")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -96,10 +96,13 @@ class HTTPcalls() {
                      val jsonResponse = response.toString()
                      println("json" + jsonResponse)
                      val gson = Gson()
+                     val finallist = mutableListOf<Product>()
                      val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
-                     println(list)
-                     println(list[0].name)
-                     return@async list
+                     for(product in list){
+                         print(product.name)
+                         finallist.add(product)
+                     }
+                     return@async finallist
                  }
 
 
@@ -115,7 +118,7 @@ class HTTPcalls() {
 
     }
 
-    fun createCostumer(costumer: Costumer){
+    /*fun createCostumer(costumer: Costumer){
         CoroutineScope(Dispatchers.IO).async {
             val json = Json.encodeToString(costumer)
             println(json)
@@ -135,10 +138,10 @@ class HTTPcalls() {
             println(codigoRespuesta)
             connection.disconnect()
         }
-    }
+    }*/
     fun getUncertifiedCertificates(): Deferred<List<Certification>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://192.168.1.97:8080/certification/uncertified")
+            val url = URL("http://$myId:8080/certification/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
