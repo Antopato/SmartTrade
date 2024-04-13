@@ -20,7 +20,7 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val service = BusinessLogic(this);
+        val service = BusinessLogic();
 
         setContentView(R.layout.login)
         val logInButt = findViewById<Button>(R.id.logIn)

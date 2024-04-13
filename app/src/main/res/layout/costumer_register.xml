@@ -146,7 +146,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Birth date"
+        android:hint="Birth date (yyyy-MM-dd)"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -15,7 +15,7 @@ class CostumerRegisterActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.costumer_register)
 
-        val service = BusinessLogic(this)
+        val service = BusinessLogic()
         val type = "CLIENT"
 
         val balance = 0

@@ -19,8 +19,8 @@ class CatalogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
-        val service = BusinessLogic(this)
-        val list = service.getProducts(this)
+        val service = BusinessLogic()
+        val list = service.getProducts()
 
         setContentView(R.layout.catalog_page)
 

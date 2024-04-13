@@ -17,7 +17,7 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
-        val service = BusinessLogic(this)
+        val service = BusinessLogic()
         var list = service.getPrice()
         setContentView(R.layout.product_page)
 

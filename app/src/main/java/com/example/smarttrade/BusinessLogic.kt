@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.widget.EditText
+import com.example.smarttrade.classes.Certificate
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
@@ -14,9 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 
-class BusinessLogic(private val activity: Activity) {
+class BusinessLogic() {
 
-    var call = HTTPcalls(activity)
+    var call = HTTPcalls()
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https:localhost:8888/")
@@ -56,7 +57,7 @@ class BusinessLogic(private val activity: Activity) {
 
     }
 
-    fun getProducts(context: Context) : List<Product?> {
+    fun getProducts() : List<Product?> {
         var list : List<Product?>
         runBlocking {
             list = call.getAllProducts().await()
@@ -94,6 +95,14 @@ fun getPrice():List<Price>{
         runBlocking {
             call.createCostumer(costumer)
         }
+    }
+
+    fun getUncertifiedCertificates(): List<Certificate> {
+        var list : List<Certificate>
+        runBlocking {
+            list = call.getUncertifiedCertificates().await()
+        }
+        return list
     }
 }
 
