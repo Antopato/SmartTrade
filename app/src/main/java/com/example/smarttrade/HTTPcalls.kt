@@ -19,10 +19,15 @@ import java.net.URL
 class HTTPcalls(private val activity : Activity) {
 
     val idMario = "192.168.1.97"
+    val myId="192.168.0.21"
+
+    fun getProductByIdType(){
+
+    }
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
-                val url = URL("http://192.168.1.97:8080/clients/client/"+mail)
+                val url = URL("http://$myId:8080/clients/client/"+mail)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connect()
@@ -69,7 +74,7 @@ class HTTPcalls(private val activity : Activity) {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://192.168.1.97:8080/products/")
+            val url = URL("http://$myId:8080/products/")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -98,8 +103,6 @@ class HTTPcalls(private val activity : Activity) {
                      list.add(product)
                      return@async list
                  }
-
-
                  //return cliente
 
              } else {
@@ -116,7 +119,7 @@ class HTTPcalls(private val activity : Activity) {
         CoroutineScope(Dispatchers.IO).async {
             val gson = Gson()
             val json = gson.toJson(costumer)
-            val url = URL("http://192.168.1.97:8080/clients/add")
+            val url = URL("http://$myId:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true

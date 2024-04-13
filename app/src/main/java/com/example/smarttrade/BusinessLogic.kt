@@ -23,23 +23,24 @@ class BusinessLogic(private val activity: Activity) {
             .build()
     }
 
-    fun logIn(mail:String, pass:String): Boolean {
+    fun logIn(mail:String, pass:String): User? {
 
         if(mail!=""){
             if(pass!=""){
+                var user : User?
                 runBlocking {
-                    var user : User? = call.getUserById(mail).await()
+                    user = call.getUserById(mail).await()
                     println(user.toString())
                     if(user == null){
                         throw(Exception("The mail is incorrect"))
                     }else{
-                        if(pass!=user.password){
+                        if(pass!= user!!.password){
                             throw(Exception("Incorrect password"))
                         }
                     }
                 }
 
-                return true
+                return user
 
             }else{
                 throw(Exception("The password section is void"))
