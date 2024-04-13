@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
+
 class BusinessLogic(private val activity: Activity) {
 
     var call = HTTPcalls(activity)

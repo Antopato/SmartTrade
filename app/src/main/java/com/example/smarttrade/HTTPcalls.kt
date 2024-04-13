@@ -14,6 +14,8 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 
 class HTTPcalls(private val activity : Activity) {
@@ -103,6 +105,8 @@ class HTTPcalls(private val activity : Activity) {
                      list.add(product)
                      return@async list
                  }
+
+
                  //return cliente
 
              } else {
