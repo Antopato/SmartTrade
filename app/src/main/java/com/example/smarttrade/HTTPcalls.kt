@@ -19,7 +19,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 
-class HTTPcalls() {
+class HTTPcalls(private val activity : Activity) {
 
     val idMario = "192.168.1.97"
     fun getUserById(mail : String) : Deferred<User?> {
@@ -173,20 +173,6 @@ class HTTPcalls() {
                 println("Esto va mal")
                 return@async emptyList<Certificate>()
             }
-
         }
-    }
-    /*inline fun <reified T: Any> createProduct(product: T, tipo: String){
-        CoroutineScope(Dispatchers.IO).async {
-            val json = Json.encodeToString(product)
-            println(json)
-            println(product)
-            val
-            val url = ""
-        }
-    }*/
-
-    fun getClassName(objeto: Any): String {
-        return objeto::class.simpleName ?: "Unknown"
     }
 }

@@ -32,10 +32,14 @@ class LogInActivity : AppCompatActivity() {
             val userText = findViewById<EditText>(R.id.username).text.toString()
             val passText = findViewById<EditText>(R.id.password).text.toString()
             try {
-                service.logIn(userText, passText)
+                val user = service.logIn(userText, passText)
+                if (user != null) {
+                    println("El tipo es "+ user.type)
+                }else{
+                    println("por alguna razón es null")
+                }
                 var intent = Intent(this, CatalogActivity::class.java)
-                intent.putExtra("user",userText)
-                println("Ha pasado el true")
+                intent.putExtra("user",user)
 
                 startActivity(intent)
                 errorText.visibility= View.INVISIBLE
