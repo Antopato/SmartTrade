@@ -38,9 +38,8 @@ class CostumerRegisterActivity : AppCompatActivity(){
 
         buttonRegisterCostumer.setOnClickListener(){
             val allFilled = list.all { it.text.isNotEmpty() }
-            val costumer = Costumer(name.text.toString() + " " + surname.text.toString(), password.text.toString(), email.text.toString(), type, birthdate.text.toString(), balance)
+            val costumer = Costumer(name.text.toString(), password.text.toString(), email.text.toString(), type, birthdate.text.toString(), balance)
             if(allFilled){
-                print(costumer)
                 service.createCostumer(costumer)
                 val intent = Intent(this, CatalogActivity::class.java)
                 startActivity(intent)

@@ -6,6 +6,7 @@ import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.typeofusers.Costumer
 import kotlinx.coroutines.runBlocking
 
 
@@ -90,13 +91,14 @@ class BusinessLogic() {
         //var list = List<Certificate>
         //return list
     }
-/*
-    fun createCostumer(costumer: Costumer) {
+
+    fun createCostumer(costumer: Costumer) : User? {
+        val user : User?
         runBlocking {
-            call.createCostumer(costumer)
+            user = call.createCostumer(costumer).await()
         }
+        return user
     }
-*/
     fun getUncertifiedCertificates(): List<Product> {
         var list : List<Certification>
         var products : List<Product?>

@@ -29,8 +29,7 @@ class CatalogActivity : AppCompatActivity() {
         setContentView(R.layout.catalog_page)
 
 
-        val user = intent.getSerializableExtra("user") as User
-        println("Tipo en catalog "+user.type)
+        val user = intent.getSerializableExtra("user") as User?
         val buttonCertificate = findViewById<Button>(R.id.buttonCertificate)
         val buttonAddProduct = findViewById<Button>(R.id.buttonAddProduct)
 

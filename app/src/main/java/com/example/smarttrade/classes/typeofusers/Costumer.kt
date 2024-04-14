@@ -9,7 +9,7 @@ class Costumer(
     password: String,
     email: String,
     type : String,
-    var birthdate: String,
+    var birthdateString: String,
     var balance: Int
 ): User(name, password, email,type), Serializable {
 }

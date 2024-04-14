@@ -21,7 +21,7 @@ import java.net.URL
 
 class HTTPcalls() {
 
-    val idMario = "192.168.1.97"
+    val idMario = "192.168.0.20"
 
     val myId = "192.168.1.59"
     fun getUserById(mail : String) : Deferred<User?> {
@@ -121,21 +121,32 @@ class HTTPcalls() {
 
     }
 
-    fun createCostumer(costumer: Costumer): Deferred<Costumer?> {
+    fun createCostumer(costumer: Costumer): Deferred<User?> {
         println("Orchata")
         return CoroutineScope(Dispatchers.IO).async {
-            val gson = Gson()
-            val json = gson.toJson(costumer)
-            println(json)
-            println(costumer)
             val url = URL("http://$idMario:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
             connection.doOutput = true
-            connection.setRequestProperty("Content-Type", "application/json")
-            val outPutStream = BufferedWriter(OutputStreamWriter(connection.outputStream))
-            outPutStream.write(json.toString())
+            val balance = costumer.balance
+            val birthdateString = costumer.birthdateString
+            val email = costumer.email
+            val name = costumer.name
+            val password = costumer.password
+            val type = "CLIENT"
+
+            val requestBody = StringBuilder().apply {
+                append("balance=$balance&")
+                append("birthdateString=$birthdateString&")
+                append("email=$email&")
+                append("name=$name&")
+                append("password=$password&")
+                append("type=$type")
+            }.toString()
+
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
             outPutStream.flush()
             outPutStream.close()
 

@@ -14,7 +14,7 @@ import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 
-class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
+class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User?) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -40,7 +40,7 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
         return list.count()
     }
 
-    class MyViewHolder(itemView: View,context:Context,list:List<Product?>, user : User) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View,context:Context,list:List<Product?>, user : User?) : RecyclerView.ViewHolder(itemView){
         val image : ImageView = itemView.findViewById(R.id.product_image)
         val name : TextView = itemView.findViewById(R.id.product_name)
         val desc : TextView = itemView.findViewById(R.id.product_desc);
