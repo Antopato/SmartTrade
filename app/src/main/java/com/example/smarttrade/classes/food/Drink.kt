@@ -15,6 +15,8 @@ class Drink(
     certificationId: Int,
     materials: String,
     brand: String,
+    productType :String,
+
     var drinksId: Int,
     var alcohol: Int,
     var drinkType: String,
@@ -22,5 +24,5 @@ class Drink(
     var expiringDate: String,
     var quantity: Int,
     var unit: String
-): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials) {
+): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials,productType) {
 }

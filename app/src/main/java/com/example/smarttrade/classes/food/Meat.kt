@@ -14,10 +14,11 @@ class Meat(productId: Int,
            certificationId: Int,
            materials: String,
            brand: String,
+           productType :String,
            var meatId: Int,
            var origin: String,
            var calories: Int,
            var expiringDate: String,
            var quantity: Int,
-           var unit: String): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials) {
+           var unit: String): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType) {
 }

@@ -6,7 +6,6 @@ import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
-import com.example.smarttrade.classes.typeofusers.Costumer
 import kotlinx.coroutines.runBlocking
 
 
@@ -91,15 +90,13 @@ class BusinessLogic() {
         //var list = List<Certificate>
         //return list
     }
-
+/*
     fun createCostumer(costumer: Costumer) {
-        println(costumer)
         runBlocking {
-            call.
-            createCostumer(costumer).await()
+            call.createCostumer(costumer)
         }
     }
-
+*/
     fun getUncertifiedCertificates(): List<Product> {
         var list : List<Certification>
         var products : List<Product?>
@@ -121,6 +118,45 @@ class BusinessLogic() {
             }
         }
         return finalList
+    }
+
+    fun getImageByType(type:String, id:Int){
+        when(type){
+            "COMPUTER" ->{
+                val image = call.getComputerImage("electonics/computer/"+id)
+            }
+            "HOUSEHOLD" ->{
+                val image = call.getComputerImage("electonics/household/"+id)
+            }
+            "SMARTPHONE" ->{
+                val image = call.getComputerImage("electonics/smartphone/"+id)
+            }
+            "MEAT" ->{
+                val image = call.getComputerImage("food/meat/"+id)
+            }
+            "FRUIT" ->{
+                val image = call.getComputerImage("food/fruit/"+id)
+            }
+            "DRINKS" ->{
+                val image = call.getComputerImage("food/drink/"+id)
+            }
+            "VEGETABLES" ->{
+                val image = call.getComputerImage("food/vegetables/"+id)
+            }
+            "FISH" ->{
+                val image = call.getComputerImage("food/fish/"+id)
+            }
+            "FOOTWEAR" ->{
+                val image = call.getComputerImage("fashion/footwear/"+id)
+            }
+            "FASHIONBOT" ->{
+                val image = call.getComputerImage("fashion/fashionbot/"+id)
+            }
+            "FASHIONTOP" ->{
+                val image = call.getComputerImage("fashion/fashiontop/"+id)
+            }
+
+        }
     }
 }
 

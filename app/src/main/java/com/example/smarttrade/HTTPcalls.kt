@@ -188,4 +188,32 @@ class HTTPcalls() {
             }
         }
     }
+
+    fun getComputerImage(urlString: String): Deferred<Unit> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/products/$urlString")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+
+
+            } else {
+                println("Esto va mal en get image")
+            }
+
+        }
+    }
 }

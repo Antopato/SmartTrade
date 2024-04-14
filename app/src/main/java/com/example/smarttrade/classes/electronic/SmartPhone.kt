@@ -15,9 +15,10 @@ class SmartPhone(
     certificationId: Int,
     materials: String,
     brand: String,
+    productType :String,
     var smartphoneId: Int,
     var display: String,
     var size: Double,
     var processor: String,
     var guarantee: Int
-) : Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials)
+) : Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType)
