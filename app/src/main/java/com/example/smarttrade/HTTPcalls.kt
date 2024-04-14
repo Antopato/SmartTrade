@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -21,7 +22,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.1.97"
 
-    val myId = "192.168.1.59"
+    val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
@@ -180,29 +181,24 @@ class HTTPcalls() {
         }
     }
 
-    fun getComputerImage(urlString: String): Deferred<Unit> {
+    fun getComputerImage(urlString: String): Deferred<ByteArray> {
+        lateinit var bytes:ByteArray
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$urlString")
+            val url = URL("http://10.0.2.2:8080/products/$urlString")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
+            println("estableciendo conexion")
             connection.connect()
             val responseCode = connection.responseCode
             println(responseCode)
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = connection.inputStream
-                val reader = BufferedReader(InputStreamReader(inputStream))
-                val response = StringBuilder()
-                var line: String? = reader.readLine()
-                while (line != null) {
-                    response.append(line)
-                    line = reader.readLine()
-                }
-
-
-
+                val inputStream = BufferedInputStream(connection.inputStream)
+                bytes = inputStream.readBytes()
+                return@async bytes
             } else {
                 println("Esto va mal en get image")
+                return@async ByteArray(0)
             }
 
         }

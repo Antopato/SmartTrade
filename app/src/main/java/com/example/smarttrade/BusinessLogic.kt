@@ -2,12 +2,13 @@ package com.example.smarttrade
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import androidx.compose.ui.text.toUpperCase
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.runBlocking
-
 
 class BusinessLogic() {
 
@@ -120,43 +121,63 @@ class BusinessLogic() {
         return finalList
     }
 
-    fun getImageByType(type:String, id:Int){
-        when(type){
-            "COMPUTER" ->{
-                val image = call.getComputerImage("electonics/computer/"+id)
-            }
-            "HOUSEHOLD" ->{
-                val image = call.getComputerImage("electonics/household/"+id)
-            }
-            "SMARTPHONE" ->{
-                val image = call.getComputerImage("electonics/smartphone/"+id)
-            }
-            "MEAT" ->{
-                val image = call.getComputerImage("food/meat/"+id)
-            }
-            "FRUIT" ->{
-                val image = call.getComputerImage("food/fruit/"+id)
-            }
-            "DRINKS" ->{
-                val image = call.getComputerImage("food/drink/"+id)
-            }
-            "VEGETABLES" ->{
-                val image = call.getComputerImage("food/vegetables/"+id)
-            }
-            "FISH" ->{
-                val image = call.getComputerImage("food/fish/"+id)
-            }
-            "FOOTWEAR" ->{
-                val image = call.getComputerImage("fashion/footwear/"+id)
-            }
-            "FASHIONBOT" ->{
-                val image = call.getComputerImage("fashion/fashionbot/"+id)
-            }
-            "FASHIONTOP" ->{
-                val image = call.getComputerImage("fashion/fashiontop/"+id)
-            }
+    fun getImageByType(type:String, id:Int):ByteArray
+    {
+         var image:ByteArray
+        runBlocking {
+            println("buscadon imagenes de cualqueri tipo")
+            when (type) {
+                "COMPUTER" -> {
+                    image = call.getComputerImage("electronics/computer/image/" + id).await()
+                }
 
+                "HOUSEHOLD" -> {
+                    image = call.getComputerImage("electronics/household/image/" + id).await()
+                }
+
+                "PHONE" -> {
+                    image = call.getComputerImage("electronics/smartphone/image/" + id).await()
+                }
+
+                "MEAT" -> {
+                    image = call.getComputerImage("food/meat/image/" + id).await()
+                }
+
+                "FRUIT" -> {
+                    image = call.getComputerImage("food/fruit/image/" + id).await()
+                }
+
+                "DRINK" -> {
+                    image = call.getComputerImage("food/drink/image/" + id).await()
+                }
+
+                "VEGETABLE" -> {
+                    image = call.getComputerImage("food/vegetables/image/" + id).await()
+                }
+
+                "FISH" -> {
+                    image = call.getComputerImage("food/fish/image/" + id).await()
+                }
+
+                "FOOTWEAR" -> {
+                    image = call.getComputerImage("fashion/footwear/image/" + id).await()
+                }
+
+                "FASHIONBOTTOM" -> {
+                    image = call.getComputerImage("fashion/fashionbot/image/" + id).await()
+                }
+
+                "FASHIONTOP" -> {
+                    image = call.getComputerImage("fashion/fashiontop/image/" + id).await()
+                }
+                else -> {
+                    println("no he econtrado el tipo")
+                    image = ByteArray(0)
+                }
+            }
         }
+        println(image.toString())
+        return image
     }
 }
 

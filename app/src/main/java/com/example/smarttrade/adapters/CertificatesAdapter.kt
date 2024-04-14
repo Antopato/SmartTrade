@@ -2,17 +2,20 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.CertificateValidationActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 
 class CertificatesAdapter(var context: Context, var list: List<Product>) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
+    val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CertificateHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
         val view : View = inflater.inflate(R.layout.recycler_row_certificate, parent, false)
@@ -27,6 +30,9 @@ class CertificatesAdapter(var context: Context, var list: List<Product>) : Recyc
         holder.productName.setText(list.get(position).name)
         holder.productCompany.setText(list.get(position).seller)
         holder.productBrand.setText(list.get(position).brand)
+        val type = list.get(position)!!.productType
+        val image = service.getImageByType(type, list[position]!!.productId)
+        holder.productImage.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
         //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
