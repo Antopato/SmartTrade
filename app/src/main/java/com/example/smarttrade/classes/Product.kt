@@ -1,5 +1,4 @@
 package com.example.smarttrade.classes
-
 import java.io.Serializable
 
 open class Product(
