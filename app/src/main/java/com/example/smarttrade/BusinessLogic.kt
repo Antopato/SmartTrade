@@ -125,6 +125,36 @@ class BusinessLogic() {
             "COMPUTER" ->{
                 val image = call.getComputerImage("electonics/computer/"+id)
             }
+            "HOUSEHOLD" ->{
+                val image = call.getComputerImage("electonics/household/"+id)
+            }
+            "SMARTPHONE" ->{
+                val image = call.getComputerImage("electonics/smartphone/"+id)
+            }
+            "MEAT" ->{
+                val image = call.getComputerImage("food/meat/"+id)
+            }
+            "FRUIT" ->{
+                val image = call.getComputerImage("food/fruit/"+id)
+            }
+            "DRINKS" ->{
+                val image = call.getComputerImage("food/drink/"+id)
+            }
+            "VEGETABLES" ->{
+                val image = call.getComputerImage("food/vegetables/"+id)
+            }
+            "FISH" ->{
+                val image = call.getComputerImage("food/fish/"+id)
+            }
+            "FOOTWEAR" ->{
+                val image = call.getComputerImage("fashion/footwear/"+id)
+            }
+            "FASHIONBOT" ->{
+                val image = call.getComputerImage("fashion/fashionbot/"+id)
+            }
+            "FASHIONTOP" ->{
+                val image = call.getComputerImage("fashion/fashiontop/"+id)
+            }
 
         }
     }
