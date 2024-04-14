@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 //import kotlinx.serialization.encodeToString
@@ -205,6 +206,24 @@ class HTTPcalls() {
                 println("Esto va mal en get image")
             }
 
+        }
+    }
+
+    fun updateCertification(id:Int,bool:Boolean,admin_id:String): Deferred<Unit>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/certification/save/$bool$id$admin_id")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            println("He enviado la petición")
+            connection.doOutput = true
+            connection.setRequestProperty("Content-Type", "application/json")
+            /*val outPutStream: OutputStream = connection.outputStream
+            outPutStream.flush()
+            outPutStream.close()*/
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+            connection.disconnect()
         }
     }
 }

@@ -158,6 +158,18 @@ class BusinessLogic() {
 
         }
     }
+
+    fun validateCertificate(product:Product?, user: User){
+        if (product != null) {
+            call.updateCertification(product.certificationId,true,user.email)
+        }
+    }
+
+    fun declineCertificate(product:Product?, user: User){
+        if (product != null) {
+            call.updateCertification(product.certificationId,false,user.email)
+        }
+    }
 }
 
 
