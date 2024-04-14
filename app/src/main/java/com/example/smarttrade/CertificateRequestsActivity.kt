@@ -40,7 +40,7 @@ class CertificateRequestsActivity : AppCompatActivity() {
         println(listOfProducts)
 
 
-        val adapter : CertificatesAdapter = CertificatesAdapter(this, listUncertified)
+        val adapter = CertificatesAdapter(this, listUncertified)
         recyclerView.adapter = adapter
         recyclerView.setLayoutManager(LinearLayoutManager(this))
     }

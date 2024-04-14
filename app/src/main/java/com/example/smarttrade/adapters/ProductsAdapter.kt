@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.squareup.picasso.Picasso
 
-class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
+class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User?, var listImages: MutableList<String?>) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,14 +29,14 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.desc.setText(list.get(position)!!.description  )
         holder.name.setText(list.get(position)!!.name )
-        //holder.image.setImageBitmap(list.get(position).img)
+        Picasso.get().load(listImages.get(position)).placeholder(R.drawable.back_arrow).into(holder.image)
     }
 
     override fun getItemCount(): Int {
         return list.count()
     }
 
-    class MyViewHolder(itemView: View,context:Context,list:List<Product?>, user : User) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View,context:Context,list:List<Product?>, user : User?) : RecyclerView.ViewHolder(itemView){
         val image : ImageView = itemView.findViewById(R.id.product_image)
         val name : TextView = itemView.findViewById(R.id.product_name)
         val desc : TextView = itemView.findViewById(R.id.product_desc);

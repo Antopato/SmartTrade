@@ -1,6 +1,7 @@
 package com.example.smarttrade.classes.typeofusers
 
 import com.example.smarttrade.classes.User
+import java.io.Serializable
 import java.util.Date
 
 class Merchant(
@@ -10,5 +11,4 @@ class Merchant(
     type: String,
     var incorporation_date: Date,
     var enterprise_name: String
-): User(name, password, email, type) {
-}
+): User(name, password, email, type), Serializable

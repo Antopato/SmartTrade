@@ -29,8 +29,8 @@ class CatalogActivity : AppCompatActivity() {
         setContentView(R.layout.catalog_page)
 
 
-        val user = intent.getSerializableExtra("user") as User
-        println("Tipo en catalog "+user.type)
+        val user = intent.getSerializableExtra("user") as User?
+        //println("Tipo en catalog "+user.type)
         val buttonCertificate = findViewById<Button>(R.id.buttonCertificate)
         val buttonAddProduct = findViewById<Button>(R.id.buttonAddProduct)
 
@@ -46,6 +46,11 @@ class CatalogActivity : AppCompatActivity() {
 
         val service = BusinessLogic()
         val list = service.getProducts()
+        val listOfImages: MutableList<String?> = mutableListOf()
+
+        for(product in list){
+            listOfImages.add(product.image)
+        }
 
 
         var maxPrice : Int
@@ -58,7 +63,7 @@ class CatalogActivity : AppCompatActivity() {
 
 
 
-        val adapter = ProductsAdapter(this,list,user)
+        val adapter = ProductsAdapter(this,list,user,listOfImages)
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
 
@@ -84,7 +89,7 @@ class CatalogActivity : AppCompatActivity() {
                         println(product.name)
                     }
                 }
-                val adapterFilter = ProductsAdapter(this,list,user)
+                val adapterFilter = ProductsAdapter(this,list,user,listOfImages)
                 recycler.adapter = adapterFilter
                 println("He cambiado el adapter")
                 adapterFilter.notifyDataSetChanged()
