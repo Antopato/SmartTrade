@@ -14,7 +14,8 @@ open class Product(
     var stock: Int,
     var certificationId: Int,
     var brand: String,
-    var materials: String
+    var materials: String,
+    var productType : String
 ) : Serializable
 
 

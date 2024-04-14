@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
@@ -15,7 +16,7 @@ import com.example.smarttrade.classes.User
 
 class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
-
+    val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
         val view =  inflater.inflate(R.layout.recycler_row, parent, false)
@@ -27,6 +28,9 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.desc.setText(list.get(position)!!.description  )
         holder.name.setText(list.get(position)!!.name )
+        val type = list.get(position)!!.productType
+        println(list.get(position)!!.name + " " + type)
+        //service.getImageByType(list.get(position)!!)
         //holder.image.setImageBitmap(list.get(position).img)
     }
 

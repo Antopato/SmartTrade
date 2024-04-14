@@ -93,8 +93,7 @@ class BusinessLogic() {
 /*
     fun createCostumer(costumer: Costumer) {
         runBlocking {
-            call.
-            createCostumer(costumer)
+            call.createCostumer(costumer)
         }
     }
 */
@@ -119,6 +118,15 @@ class BusinessLogic() {
             }
         }
         return finalList
+    }
+
+    fun getImageByType(type:String, id:Int){
+        when(type){
+            "COMPUTER" ->{
+                val image = call.getComputerImage("electonics/computer/"+id)
+            }
+
+        }
     }
 }
 
