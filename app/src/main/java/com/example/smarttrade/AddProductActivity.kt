@@ -22,7 +22,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
 
     lateinit var updateImage : ImageView
-    val user = intent.getSerializableExtra("user") as User
+
 
     val pickMedia = registerForActivityResult(PickVisualMedia()){ uri ->
         if(uri!=null){
@@ -35,15 +35,35 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.add_product)
+        val user = intent.getSerializableExtra("user") as User
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
         updateImage = findViewById<ImageView>(R.id.uploadImage)
+        val addProductbutt = findViewById<Button>(R.id.buttonAddProduct)
 
         val spinner : Spinner = findViewById(R.id.spinnerCategories)
         val options = resources.getStringArray(R.array.options)
+
+        val name = findViewById<EditText>(R.id.editTextName)
+        val price = findViewById<EditText>(R.id.editTextPrice)
+        val company = findViewById<EditText>(R.id.editTextCompany)
+        val brand = findViewById<EditText>(R.id.editTextBrand)
+        val description = findViewById<EditText>(R.id.editTextDescription)
+        val material = findViewById<EditText>(R.id.editTextMaterials)
+        val production = findViewById<EditText>(R.id.editTextProduction)
+        val additionalInfo = findViewById<EditText>(R.id.editTextAdditionalInfo)
+
+        val adicional1 = findViewById<EditText>(R.id.editText1)
+        val adicional2 = findViewById<EditText>(R.id.editText2)
+        val adicional3 = findViewById<EditText>(R.id.editText3)
+        val adicional4 = findViewById<EditText>(R.id.editText4)
+        val adicional5 = findViewById<EditText>(R.id.editText5)
+
+
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         spinner.adapter = adapter
 
@@ -60,10 +80,34 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         spinner.onItemSelectedListener = this
 
+        addProductbutt.setOnClickListener(){
+            println(spinner.selectedItem)
+
+            val nameText = name.text
+            val priceText = price.text
+            val companyText = company.text
+            val brandText = brand.text
+            val descriptionText = description.text
+            val materialText = material.text
+            val productionText = production.text
+            val additionalInfoText = additionalInfo.text
+
+            when(spinner.selectedItem){
+                "PHONE" -> {
+                    val display = adicional1.text
+                    val size = adicional2.text
+                    val processor = adicional3.text
+                    val guarantee = adicional4.text
+
+                    //val phone : Json
+
+                }
+            }
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val selectedItem = parent?.getItemAtPosition(position).toString()
+        val selectedItem = parent?.selectedItem
         val adicional1 = findViewById<EditText>(R.id.editText1)
         val adicional2 = findViewById<EditText>(R.id.editText2)
         val adicional3 = findViewById<EditText>(R.id.editText3)
@@ -71,7 +115,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val adicional5 = findViewById<EditText>(R.id.editText5)
 
         when(selectedItem) {
-            "Smartphone" -> {
+            "PHONE" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -82,7 +126,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.setHint("Processor")
                 adicional4.setHint("Guarantee")
             }
-            "Computer" -> {
+            "COMPUTER" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -93,7 +137,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.setHint("Storage")
                 adicional4.setHint("Guarantee")
             }
-            "HouseHold" -> {
+            "HOUSEHOLD" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -103,7 +147,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional2.setHint("Noise Level")
                 adicional3.setHint("Guarantee")
             }
-            "Fashion Top" -> {
+            "FASHIONTOP" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.GONE
@@ -112,7 +156,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional1.setHint("Type")
                 adicional2.setHint("Size")
             }
-            "Fashion Bottom" -> {
+            "FASHIONBOTTOM" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.GONE
@@ -121,7 +165,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional1.setHint("Type")
                 adicional2.setHint("Size")
             }
-            "Foot Wear" -> {
+            "FOOTWEAR" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.GONE
@@ -130,7 +174,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional1.setHint("Type")
                 adicional2.setHint("Size")
             }
-            "Drinks" -> {
+            "DRINK" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -142,7 +186,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional4.setHint("Units")
                 adicional5.setHint("Quantity")
             }
-            "Fish" -> {
+            "FISH" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -154,7 +198,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional4.setHint("Units")
                 adicional5.setHint("Quantity")
             }
-            "Meat" -> {
+            "MEAT" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -164,7 +208,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional2.setHint("Units")
                 adicional3.setHint("Quantity")
             }
-            "Vegetables" -> {
+            "VEGETABLE" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
@@ -175,7 +219,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.setHint("Units")
                 adicional4.setHint("Quantity")
             }
-            "Fruits" -> {
+            "FRUIT" -> {
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE

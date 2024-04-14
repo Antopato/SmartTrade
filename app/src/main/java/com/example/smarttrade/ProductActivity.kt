@@ -3,10 +3,8 @@ package com.example.smarttrade
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +19,13 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         val user= intent.getSerializableExtra("user") as User
-        val image = intent.getSerializableExtra("image") as BitmapDrawable
+        //val image = intent.getSerializableExtra("image") as BitmapDrawable
         val service = BusinessLogic()
-        var list = service.getPrice()
         setContentView(R.layout.product_page)
 
         val product = intent.getSerializableExtra("product") as Product
+
+        var list = service.getCategoryProducts(product.productType)
 
         val nametext = findViewById<TextView>(R.id.nameText)
         val desctext = findViewById<TextView>(R.id.descriptionTex)
@@ -43,9 +42,9 @@ class ProductActivity : AppCompatActivity() {
 
         nametext.text=product.name
         desctext.text=product.description
-        imageview.setImageBitmap(image.bitmap)
+        //imageview.setImageBitmap(image.bitmap)
 
-        val adapter = PriceAdapter(this,list)
+        val adapter = PriceAdapter(this,list,user)
 
         recycler.adapter= adapter
 

@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.User
 
 class CertificateValidationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val service = BusinessLogic()
         super.onCreate(savedInstanceState)
         val product = intent.getSerializableExtra("product") as Product?
+        val user = intent.getSerializableExtra("user") as User
         enableEdgeToEdge()
         setContentView(R.layout.certificate_validation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -27,6 +29,7 @@ class CertificateValidationActivity : AppCompatActivity() {
         val buttonBack = findViewById<Button>(R.id.buttonBack)
         buttonBack.setOnClickListener {
             intent = Intent(this, CertificateRequestsActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
         }
 

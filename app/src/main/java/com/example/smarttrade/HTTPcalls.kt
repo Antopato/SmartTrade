@@ -12,10 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import java.io.BufferedInputStream
 import java.io.BufferedReader
-import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 //import kotlinx.serialization.encodeToString
@@ -26,7 +24,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.0.20"
 
-    val myId = "10.0.2.2"
+    val myId = "192.168.0.21"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
@@ -220,6 +218,52 @@ class HTTPcalls() {
             } else {
                 println("Esto va mal en get image")
                 return@async ByteArray(0)
+            }
+
+        }
+    }
+    fun getCategoryProducts(stringUrl : String) : Deferred<List<Product>>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/products/$stringUrl")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+
+            val responseCode = connection.responseCode
+            println(responseCode)
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                if(response.isEmpty()){
+                    println("Esto está vacío")
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val finallist = mutableListOf<Product>()
+                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    for(product in list){
+                        print(product.name)
+                        finallist.add(product)
+                    }
+                    return@async finallist
+                }
+
+
+                //return cliente
+
+            } else {
+                println("Esto va mal")
+                return@async emptyList()
+
             }
 
         }

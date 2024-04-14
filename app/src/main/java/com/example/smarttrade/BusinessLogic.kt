@@ -3,7 +3,6 @@ package com.example.smarttrade
 import android.content.Context
 import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Certification
-import com.example.smarttrade.classes.Price
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import kotlinx.coroutines.Deferred
@@ -74,13 +73,60 @@ class BusinessLogic() {
 
 
 
-    fun getPrice():List<Price>{
-        val price1 = Price("Siemens", 200, "Lavadora1")
-        val price2 = Price("Siemens", 400, "Lavadora4")
-        val price3 = Price("Siemens", 1200, "Lavadora3")
-        val price4 = Price("Siemens", 22200, "Lavadora2")
+    fun getCategoryProducts(type:String):List<Product>{
+        var list : List<Product>
+        runBlocking{
+            when (type) {
+                "COMPUTER" -> {
+                    list = call.getCategoryProducts("electronics/computer").await()
+                }
 
-        val list = mutableListOf<Price>(price1,price2,price3,price4)
+                "HOUSEHOLD" -> {
+                    list = call.getCategoryProducts("electronics/household").await()
+                }
+
+                "PHONE" -> {
+                    list = call.getCategoryProducts("electronics/smartphone").await()
+                }
+
+                "MEAT" -> {
+                    list = call.getCategoryProducts("food/meat").await()
+                }
+
+                "FRUIT" -> {
+                    list = call.getCategoryProducts("food/fruit").await()
+                }
+
+                "DRINK" -> {
+                    list = call.getCategoryProducts("food/drink").await()
+                }
+
+                "VEGETABLE" -> {
+                    list = call.getCategoryProducts("food/vegetables").await()
+                }
+
+                "FISH" -> {
+                    list = call.getCategoryProducts("food/fish").await()
+                }
+
+                "FOOTWEAR" -> {
+                    list = call.getCategoryProducts("fashion/footwear" ).await()
+                }
+
+                "FASHIONBOTTOM" -> {
+                    list = call.getCategoryProducts("fashion/fashionbot" ).await()
+                }
+
+                "FASHIONTOP" -> {
+                    list = call.getCategoryProducts("fashion/fashiontop").await()
+                }
+
+                else -> {
+                    println("no he econtrado el tipo")
+                    list = mutableListOf<Product>()
+                }
+            }
+        }
         return list
 
     }

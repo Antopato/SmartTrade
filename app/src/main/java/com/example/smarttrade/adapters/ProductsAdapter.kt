@@ -60,7 +60,7 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
                 val intent = Intent(context, ProductActivity::class.java)
                 intent.putExtra("product", list.get(adapterPosition))
                 intent.putExtra("user",user)
-                intent.putExtra("image", image.drawable as Serializable)
+                //intent.putExtra("image", image.drawable as Serializable)
 
                 //intent.putExtra("name",list.get(adapterPosition).Name)
                 //intent.putExtra("desc",list.get(adapterPosition).Description)

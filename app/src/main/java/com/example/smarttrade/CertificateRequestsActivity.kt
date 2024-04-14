@@ -15,10 +15,12 @@ import com.example.smarttrade.classes.User
 class CertificateRequestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val user = intent.getSerializableExtra("user") as User
         enableEdgeToEdge()
         val service = BusinessLogic()
         setContentView(R.layout.certificate_requests)
+
+        val user = intent.getSerializableExtra("user") as User
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -40,7 +42,7 @@ class CertificateRequestsActivity : AppCompatActivity() {
         println(listOfProducts)
 
 
-        val adapter = CertificatesAdapter(this, listUncertified)
+        val adapter : CertificatesAdapter = CertificatesAdapter(this, listUncertified,user)
         recyclerView.adapter = adapter
         recyclerView.setLayoutManager(LinearLayoutManager(this))
     }
