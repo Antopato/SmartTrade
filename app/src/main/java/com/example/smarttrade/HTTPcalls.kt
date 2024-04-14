@@ -202,7 +202,7 @@ class HTTPcalls() {
 
 
             } else {
-                println("Esto va mal")
+                println("Esto va mal en get image")
             }
 
         }

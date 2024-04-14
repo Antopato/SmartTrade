@@ -15,9 +15,10 @@ class Computer (
     certificationId: Int,
     materials: String,
     brand: String,
+    productType :String,
     var computerId: Int,
     var operatingSystem: String,
     var storageType: String,
     var ram: Int,
     var guarantee: Int
-    ): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials)
+    ): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType)

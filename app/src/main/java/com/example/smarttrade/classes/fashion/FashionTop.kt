@@ -15,9 +15,10 @@ class FashionTop(
     certificationId: Int,
     materials: String,
     brand: String,
+    productType :String,
     var topId: Int,
     var topType: String,
     var size : Int
 
-): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials) {
+): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType) {
 }

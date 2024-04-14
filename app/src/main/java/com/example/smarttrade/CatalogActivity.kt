@@ -47,6 +47,8 @@ class CatalogActivity : AppCompatActivity() {
         val service = BusinessLogic()
         val list = service.getProducts()
 
+        val recyclerList = mutableListOf<Product?>()
+        recyclerList.addAll(list)
 
         var maxPrice : Int
         var categoryFilter : List<String>
@@ -58,7 +60,7 @@ class CatalogActivity : AppCompatActivity() {
 
 
 
-        val adapter = ProductsAdapter(this,list,user)
+        val adapter = ProductsAdapter(this,recyclerList,user)
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
 
@@ -84,13 +86,9 @@ class CatalogActivity : AppCompatActivity() {
                         println(product.name)
                     }
                 }
-                val adapterFilter = ProductsAdapter(this,list,user)
-                recycler.adapter = adapterFilter
-                println("He cambiado el adapter")
-                adapterFilter.notifyDataSetChanged()
-                recycler.adapter = adapterFilter
-                recycler.setLayoutManager(LinearLayoutManager(this))
-
+                recyclerList.clear()
+                recyclerList.addAll(filterList)
+                adapter.notifyDataSetChanged()
 
                 return@setOnKeyListener true
             }else{
@@ -136,13 +134,38 @@ class CatalogActivity : AppCompatActivity() {
         applyFilter.setOnClickListener(){
             val string = seekValue.text
             val number = string.dropLast(1).toString().toInt()
-            if(number!=0){
-                maxPrice=number
+            val priceList = mutableListOf<Product>()
+            if(number!=0) {maxPrice=number}
+            else{maxPrice=100000000}
+
+            for(product in list){
+                if(product.price<=maxPrice) {
+                    priceList.add(product)
+                }
             }
-            /*
-            tag1.selectedItem
-            tag2.selectedItem
-            tag3.selectedItem*/
+
+
+            val cat1 =tag1.selectedItem
+            val cat2 =tag2.selectedItem
+            val cat3 =tag3.selectedItem
+            val categoryList = mutableListOf<Product>()
+
+            for(product in priceList){
+                val cond1 = cat1=="None" || cat1==product.productType
+                val cond2 = cat2=="None" || cat2==product.productType
+                val cond3 = cat3=="None" || cat3==product.productType
+
+                if(cond1 && cond2 && cond3){
+                    categoryList.add(product)
+                }else if(cat1==product.productType ||
+                         cat2==product.productType ||
+                         cat3==product.productType ){
+                     categoryList.add(product)
+                }
+            }
+            recyclerList.clear()
+            recyclerList.addAll(categoryList)
+            adapter.notifyDataSetChanged()
 
 
         }

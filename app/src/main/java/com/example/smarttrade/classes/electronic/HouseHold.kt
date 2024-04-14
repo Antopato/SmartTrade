@@ -15,6 +15,7 @@ class HouseHold(
     certificationId: Int,
     materials: String,
     brand: String,
+    productType : String,
     var powerConsumption: Int,
     var noiseLevel: Double,
-    var guarantee: Int): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials)
+    var guarantee: Int): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType)

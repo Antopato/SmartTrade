@@ -26,12 +26,14 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.desc.setText(list.get(position)!!.description  )
-        holder.name.setText(list.get(position)!!.name )
+        holder.desc.setText(list.get(position)!!.description)
+        holder.name.setText(list.get(position)!!.name)
         val type = list.get(position)!!.productType
-        println(list.get(position)!!.name + " " + type)
         //service.getImageByType(list.get(position)!!)
         //holder.image.setImageBitmap(list.get(position).img)
+        println("Buscando imagen de $type")
+        val image = service.getImageByType(type,list.get(position)!!.productId)
+
     }
 
     override fun getItemCount(): Int {
