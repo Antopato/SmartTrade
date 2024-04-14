@@ -98,7 +98,6 @@ class CatalogActivity : AppCompatActivity() {
         buttonAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductActivity::class.java)
             intent.putExtra("user", user)
-            println(user.name + " es el usuario")
             startActivity(intent)
         }
 
