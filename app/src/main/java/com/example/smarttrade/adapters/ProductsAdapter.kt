@@ -2,6 +2,9 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +16,11 @@ import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import java.io.Serializable
 
 class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User?) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
@@ -32,8 +40,9 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
         //service.getImageByType(list.get(position)!!)
         //holder.image.setImageBitmap(list.get(position).img)
         println("Buscando imagen de $type")
-        val image = service.getImageByType(type,list.get(position)!!.productId)
-
+            val image = service.getImageByType(type, list[position]!!.productId)
+            println("he acabdo de buscar el tipo $type")
+            holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
     }
 
     override fun getItemCount(): Int {
@@ -47,9 +56,11 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
 
         init{
             itemView.setOnClickListener {
+
                 val intent = Intent(context, ProductActivity::class.java)
                 intent.putExtra("product", list.get(adapterPosition))
                 intent.putExtra("user",user)
+                intent.putExtra("image", image.drawable as Serializable)
 
                 //intent.putExtra("name",list.get(adapterPosition).Name)
                 //intent.putExtra("desc",list.get(adapterPosition).Description)

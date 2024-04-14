@@ -3,6 +3,7 @@ package com.example.smarttrade
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -20,7 +21,7 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         val user= intent.getSerializableExtra("user") as User
-
+        val image = intent.getSerializableExtra("image") as BitmapDrawable
         val service = BusinessLogic()
         var list = service.getPrice()
         setContentView(R.layout.product_page)
@@ -42,7 +43,7 @@ class ProductActivity : AppCompatActivity() {
 
         nametext.text=product.name
         desctext.text=product.description
-        imageview.setImageBitmap(bitmap)
+        imageview.setImageBitmap(image.bitmap)
 
         val adapter = PriceAdapter(this,list)
 

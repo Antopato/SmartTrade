@@ -14,6 +14,7 @@ import com.example.smarttrade.classes.Product
 
 class CertificateValidationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val service = BusinessLogic()
         super.onCreate(savedInstanceState)
         val product = intent.getSerializableExtra("product") as Product?
         enableEdgeToEdge()
@@ -29,6 +30,14 @@ class CertificateValidationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val buttonAccept = findViewById<Button>(R.id.buttonAccept)
+        buttonAccept.setOnClickListener {
+            service.validateCertificate(product,user)
+        }
+        val buttonDecline = findViewById<Button>(R.id.buttonDecline)
+        buttonDecline.setOnClickListener {
+            service.declineCertificate(product,user)
+        }
         //val productName = intent.getStringExtra("name")
         //val productCompany = intent.getStringExtra("company")
         //val productBrand = intent.getStringExtra("brand")
