@@ -20,5 +20,5 @@ class Computer (
     var operatingSystem: String,
     var storageType: String,
     var ram: Int,
-    var guarantee: Int
+    var guarrantee: Int
     ): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType)

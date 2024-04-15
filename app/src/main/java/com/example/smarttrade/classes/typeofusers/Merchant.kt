@@ -9,6 +9,6 @@ class Merchant(
     password: String,
     email: String,
     type: String,
-    var incorporation_date: Date,
+    var incorporation_date: String,
     var enterprise_name: String
 ): User(name, password, email, type), Serializable
