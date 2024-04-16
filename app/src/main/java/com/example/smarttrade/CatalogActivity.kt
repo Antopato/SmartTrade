@@ -80,7 +80,7 @@ class CatalogActivity : AppCompatActivity() {
                 var filter = searchView.text
                 var filterList = mutableListOf<Product>()
                 for (product in list){
-                    if(product.name.contains(filter)){
+                    if(product!!.name.contains(filter)){
                         filterList.add(product)
                         println(product.name)
                     }
@@ -137,7 +137,7 @@ class CatalogActivity : AppCompatActivity() {
             else{maxPrice=100000000}
 
             for(product in list){
-                if(product.price<=maxPrice) {
+                if(product!!.price<=maxPrice) {
                     priceList.add(product)
                 }
             }

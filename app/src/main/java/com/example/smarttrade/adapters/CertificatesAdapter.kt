@@ -15,7 +15,7 @@ import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 
-class CertificatesAdapter(var context: Context, var list: List<Product>, var user: User) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
+class CertificatesAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CertificateHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
@@ -28,16 +28,16 @@ class CertificatesAdapter(var context: Context, var list: List<Product>, var use
     }
 
     override fun onBindViewHolder(holder: CertificatesAdapter.CertificateHolder, position: Int) {
-        holder.productName.setText(list.get(position).name)
-        holder.productCompany.setText(list.get(position).seller)
-        holder.productBrand.setText(list.get(position).brand)
+        holder.productName.setText(list.get(position)!!.name)
+        holder.productCompany.setText(list.get(position)!!.seller)
+        holder.productBrand.setText(list.get(position)!!.brand)
         val type = list.get(position)!!.productType
         val image = service.getImageByType(type, list[position]!!.productId)
         holder.productImage.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
         //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
-    class CertificateHolder(itemView: View, context: Context, list:List<Product>, user : User) : RecyclerView.ViewHolder(itemView){
+    class CertificateHolder(itemView: View, context: Context, list:List<Product?>, user : User) : RecyclerView.ViewHolder(itemView){
         var productImage : ImageView = itemView.findViewById(R.id.imageViewProductImage)
         var productName : TextView = itemView.findViewById(R.id.textViewProductName)
         var productCompany : TextView = itemView.findViewById(R.id.textViewProductCompany)

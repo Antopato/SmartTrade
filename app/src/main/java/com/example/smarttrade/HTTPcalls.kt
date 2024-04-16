@@ -75,7 +75,7 @@ class HTTPcalls() {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products")
+            val url = URL("http://$myId:8080/products/certified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -159,9 +159,9 @@ class HTTPcalls() {
             }
         }
     }
-    fun getUncertifiedCertificates(): Deferred<List<Certification>> {
+    fun getUncertifiedCertificates(): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/certification/uncertified")
+            val url = URL("http://$myId:8080/products/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -180,14 +180,14 @@ class HTTPcalls() {
 
                 if(response.isEmpty()){
                     println("Esto está vacío")
-                    return@async emptyList<Certification>()
+                    return@async emptyList<Product>()
                 }else {
                     val jsonResponse = response.toString()
                     println("json: $jsonResponse")
                     val gson = Gson()
-                    val list: List<Certification> = gson.fromJson(jsonResponse, object : TypeToken<List<Certification>>() {}.type)
+                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
                     println(list)
-                    println(list[0].certification_id)
+                    println(list[0].certificationId)
                     reader.close()
 
                     return@async list
@@ -195,7 +195,7 @@ class HTTPcalls() {
 
             } else {
                 println("Esto va mal")
-                return@async emptyList<Certification>()
+                return@async emptyList<Product>()
             }
         }
     }
@@ -291,6 +291,47 @@ class HTTPcalls() {
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
             connection.disconnect()
+        }
+    }
+
+    fun getRejected(): Deferred<List<Certification>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/products/uncertified")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            print(responseCode)
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                if(response.isEmpty()){
+                    println("Esto está vacío")
+                    return@async emptyList<Certification>()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json: $jsonResponse")
+                    val gson = Gson()
+                    val list: List<Certification> = gson.fromJson(jsonResponse, object : TypeToken<List<Certification>>() {}.type)
+                    println(list)
+                    println(list[0].certification_id)
+                    reader.close()
+
+                    return@async list
+                }
+
+            } else {
+                println("Esto va mal")
+                return@async emptyList<Certification>()
+            }
         }
     }
 }
