@@ -2,25 +2,21 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.io.Serializable
+import java.io.ByteArrayOutputStream
 
 class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User?) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
@@ -60,8 +56,12 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
                 val intent = Intent(context, ProductActivity::class.java)
                 intent.putExtra("product", list.get(adapterPosition))
                 intent.putExtra("user",user)
-                //intent.putExtra("image", image.drawable as Serializable)
 
+                val bitmap = (image.drawable).toBitmap()
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val byteArray = stream.toByteArray()
+                intent.putExtra("image", byteArray)
                 //intent.putExtra("name",list.get(adapterPosition).Name)
                 //intent.putExtra("desc",list.get(adapterPosition).Description)
                 //intent.putExtra("image",list.get(adapterPosition).img.toString())

@@ -1,13 +1,11 @@
 package com.example.smarttrade.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
@@ -39,7 +37,7 @@ class PriceAdapter (var context: Context, var list: List<Product>, var user : Us
         val price : TextView = itemView.findViewById(R.id.price_text)
         val name : TextView = itemView.findViewById(R.id.prodName)
         var selected :Boolean = false
-
+/*
         init{
             itemView.setOnClickListener {
                 val intent = Intent(context, ProductActivity::class.java)
@@ -64,7 +62,7 @@ class PriceAdapter (var context: Context, var list: List<Product>, var user : Us
 
             }
 
-        }
+        }*/
     }
 
 

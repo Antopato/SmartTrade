@@ -250,6 +250,7 @@ class HTTPcalls() {
             }
         }
     }
+
     fun getComputerImage(urlString: String): Deferred<ByteArray> {
         lateinit var bytes:ByteArray
         return CoroutineScope(Dispatchers.IO).async {
