@@ -6,6 +6,16 @@ import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
+import com.example.smarttrade.classes.electronic.HouseHold
+import com.example.smarttrade.classes.electronic.SmartPhone
+import com.example.smarttrade.classes.fashion.FashionBot
+import com.example.smarttrade.classes.fashion.FashionTop
+import com.example.smarttrade.classes.fashion.FootWear
+import com.example.smarttrade.classes.food.Drink
+import com.example.smarttrade.classes.food.Fish
+import com.example.smarttrade.classes.food.Fruit
+import com.example.smarttrade.classes.food.Meat
+import com.example.smarttrade.classes.food.Vegetable
 import kotlinx.coroutines.Deferred
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.example.smarttrade.classes.typeofusers.Merchant
@@ -220,9 +230,69 @@ class BusinessLogic() {
         }
     }
 
-    fun createComputer(computer: Computer, email: String, imageFile: File){
+    fun createComputer(computer: Computer, email: String){
         runBlocking {
-            call.createComputer(computer, email, imageFile).await()
+            call.createComputer(computer, email).await()
+        }
+    }
+
+    fun createPhone(phone: SmartPhone, email: String){
+        runBlocking {
+            call.createPhone(phone, email).await()
+        }
+    }
+
+    fun createHousehold(household: HouseHold, email: String){
+        runBlocking {
+            call.createHousehold(household, email).await()
+        }
+    }
+
+    fun createFootwear(footwear: FootWear, email: String){
+        runBlocking {
+            call.createFootwear(footwear, email).await()
+        }
+    }
+
+    fun createFashionTop(fashionTop: FashionTop, email: String){
+        runBlocking {
+            call.createFashiontop(fashionTop, email).await()
+        }
+    }
+
+    fun createFashioBot(fashionBot: FashionBot, email: String){
+        runBlocking {
+            call.createFashionbot(fashionBot, email).await()
+        }
+    }
+
+    fun createFruit(fruit: Fruit, email: String){
+        runBlocking {
+            call.createFruit(fruit, email).await()
+        }
+    }
+
+    fun createFish(fish: Fish, email: String){
+        runBlocking {
+            call.createFish(fish, email).await()
+        }
+    }
+
+    fun createDrink(drink: Drink, email: String){
+        runBlocking {
+            call.createDrink(drink, email).await()
+        }
+    }
+
+    fun createMeat(meat: Meat, email: String){
+        runBlocking {
+            call.createMeat(meat, email).await()
+        }
+    }
+
+    fun createVegetable(vegetable: Vegetable, email: String){
+        runBlocking {
+            call.createVegetables(vegetable, email).await()
         }
     }
 

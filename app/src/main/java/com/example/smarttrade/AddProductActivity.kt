@@ -18,6 +18,16 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.drawToBitmap
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
+import com.example.smarttrade.classes.electronic.HouseHold
+import com.example.smarttrade.classes.electronic.SmartPhone
+import com.example.smarttrade.classes.fashion.FashionBot
+import com.example.smarttrade.classes.fashion.FashionTop
+import com.example.smarttrade.classes.fashion.FootWear
+import com.example.smarttrade.classes.food.Drink
+import com.example.smarttrade.classes.food.Fish
+import com.example.smarttrade.classes.food.Fruit
+import com.example.smarttrade.classes.food.Meat
+import com.example.smarttrade.classes.food.Vegetable
 import java.io.File
 
 
@@ -82,7 +92,6 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             startActivity(intent)
         }
 
-        var path = "app/src/main/res/mipmap-hdpi/lavadora.jpg"
 
         updateImage.setOnClickListener() {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
@@ -98,15 +107,31 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
             when (spinner.selectedItem) {
                 "PHONE" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Display")
-                    adicional2.setHint("Size")
-                    adicional3.setHint("Processor")
-                    adicional4.setHint("Guarantee")
+                    val phone = SmartPhone(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "PHONE",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toDouble(),
+                        adicional3.text.toString(),
+                        adicional4.text.toString().toInt()
+
+                    )
+                    val email = user.email
+                    service.createPhone(phone, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "COMPUTER" -> {
@@ -131,113 +156,255 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         adicional4.text.toString().toInt()
                     )
                     val email = user.email
-                    val image = File(path)
-
-                    service.createComputer(computer, email, image)
+                    service.createComputer(computer, email)
                     val intent = Intent(this, CatalogActivity::class.java)
                     startActivity(intent)
                 }
 
                 "HOUSEHOLD" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.GONE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Power Consumption")
-                    adicional2.setHint("Noise Level")
-                    adicional3.setHint("Guarantee")
+                    val household = HouseHold(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "HOUSEHOLD",
+                        0,
+                        adicional1.text.toString().toDouble(),
+                        adicional2.text.toString().toInt(),
+                    )
+
+                    val email = user.email
+                    service.createHousehold(household, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "FASHIONTOP" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.GONE
-                    adicional4.visibility = View.GONE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Type")
-                    adicional2.setHint("Size")
+                    val fashionTop = FashionTop(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "FASHIONTOP",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                    )
+                    val email = user.email
+                    service.createFashionTop(fashionTop, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "FASHIONBOTTOM" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.GONE
-                    adicional4.visibility = View.GONE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Type")
-                    adicional2.setHint("Size")
+                    val fashionBot = FashionBot(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "FASHIONBOT",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                    )
+                    val email = user.email
+                    service.createFashioBot(fashionBot, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "FOOTWEAR" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.GONE
-                    adicional4.visibility = View.GONE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Type")
-                    adicional2.setHint("Size")
+                    val footwear = FootWear(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "FOOTWEAR",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                    )
+                    val email = user.email
+                    service.createFootwear(footwear, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "DRINK" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.VISIBLE
-                    adicional1.setHint("Type")
-                    adicional2.setHint("Calories")
-                    adicional3.setHint("Expiration Date")
-                    adicional4.setHint("Units")
-                    adicional5.setHint("Quantity")
+                    val drink = Drink(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "DRINK",
+                        0,
+                        0,
+                        "",
+                        adicional1.text.toString().toInt(),
+                        adicional2.text.toString(),
+                        adicional3.text.toString().toInt(),
+                        adicional4.text.toString(),
+
+                        )
+                    val email = user.email
+                    service.createDrink(drink, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "FISH" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.VISIBLE
-                    adicional1.setHint("Calories")
-                    adicional2.setHint("Fishing Method")
-                    adicional3.setHint("Expiration Date")
-                    adicional4.setHint("Units")
-                    adicional5.setHint("Quantity")
+                    val fish = Fish(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "FISH",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                        adicional3.text.toString(),
+                        adicional4.text.toString().toInt(),
+                        adicional5.text.toString()
+                    )
+                    val email = user.email
+                    service.createFish(fish, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "MEAT" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.VISIBLE
-                    adicional1.setHint("Origin")
-                    adicional2.setHint("Units")
-                    adicional3.setHint("Quantity")
+                    val meat = Meat(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "MEAT",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                        adicional3.text.toString(),
+                        adicional4.text.toString().toInt(),
+                        adicional5.text.toString()
+                    )
+                    val email = user.email
+                    service.createMeat(meat, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "VEGETABLE" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Origin")
-                    adicional2.setHint("Season")
-                    adicional3.setHint("Units")
-                    adicional4.setHint("Quantity")
+                    val vegetable = Vegetable(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "VEGETABLE",
+                        0,
+                        adicional1.text.toString(),
+                        adicional2.text.toString(),
+                        calories = 0,
+                        expiringDate = "",
+                        adicional3.text.toString().toInt(),
+                        adicional4.text.toString(),
+
+                        )
+                    val email = user.email
+                    service.createVegetable(vegetable, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
 
                 "FRUIT" -> {
-                    adicional1.visibility = View.VISIBLE
-                    adicional2.visibility = View.VISIBLE
-                    adicional3.visibility = View.VISIBLE
-                    adicional4.visibility = View.VISIBLE
-                    adicional5.visibility = View.GONE
-                    adicional1.setHint("Calories")
-                    adicional2.setHint("Expiration Date")
-                    adicional3.setHint("Units")
-                    adicional4.setHint("Quantity")
+                    val fruit = Fruit(
+                        0,
+                        name.text.toString(),
+                        price.text.toString().toDouble(),
+                        description.text.toString(),
+                        production.text.toString(),
+                        additionalInfo.text.toString(),
+                        "imagen",
+                        seller.text.toString(),
+                        1,
+                        0,
+                        material.text.toString(),
+                        brand.text.toString(),
+                        "VEGETABLE",
+                        0,
+                        "",
+                        adicional1.text.toString().toInt(),
+                        adicional2.text.toString(),
+                        adicional3.text.toString().toInt(),
+                        adicional4.text.toString()
+                    )
+
+                    val email = user.email
+                    service.createFruit(fruit, email)
+                    val intent = Intent(this, CatalogActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
