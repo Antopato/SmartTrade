@@ -402,6 +402,4 @@ class HTTPcalls() {
             val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             return MultipartBody.Part.createFormData("file", file.name, requestFile)
         }
-
-
 }
