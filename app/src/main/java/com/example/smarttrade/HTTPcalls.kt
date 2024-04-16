@@ -26,6 +26,10 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 //import kotlinx.serialization.encodeToString
 //import kotlinx.serialization.json.Json
 
@@ -35,97 +39,98 @@ class HTTPcalls() {
     val idMario = "192.168.0.20"
 
     val myId = "10.0.2.2"
-    fun getUserById(mail : String) : Deferred<User?> {
-       return CoroutineScope(Dispatchers.IO).async {
-                println("Aquí al menos si "+ mail)
-                val url = URL("http://$myId:8080/users/"+mail)
-                val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                connection.connect()
-                println("He enviado la petición")
-                val responseCode = connection.responseCode
-                println(responseCode)
+    fun getUserById(mail: String): Deferred<User?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            println("Aquí al menos si " + mail)
+            val url = URL("http://$idMario:8080/users/" + mail)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            println("He enviado la petición")
+            val responseCode = connection.responseCode
+            println(responseCode)
 
-                println( connection.content.toString())
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    val inputStream = connection.inputStream
-                    val reader = BufferedReader(InputStreamReader(inputStream))
-                    val response = StringBuilder()
-                    var line: String? = reader.readLine()
-                    while (line != null) {
-                        response.append(line)
-                        line = reader.readLine()
-                    }
+            println(connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
 
-                    if(response.isEmpty()){
-                        println("Esto está vacío")
-                        return@async null
-                    }else {
-                        val jsonResponse = response.toString()
-                        println("json" + jsonResponse)
-                        val gson = Gson()
-                        val cliente: User = gson.fromJson(jsonResponse, User::class.java)
-                        println(cliente.email + " " + cliente.password)
-                        reader.close()
+                if (response.isEmpty()) {
+                    println("Esto está vacío")
+                    return@async null
+                } else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val cliente: User = gson.fromJson(jsonResponse, User::class.java)
+                    println(cliente.email + " " + cliente.password)
+                    reader.close()
 
-                        return@async cliente
-                    }
+                    return@async cliente
+                }
 
 
                 //return cliente
 
-                } else {
-                    println("Esto va mal")
-                    return@async null
+            } else {
+                println("Esto va mal")
+                return@async null
 
-                }
+            }
         }
 
     }
 
-    fun getAllProducts() : Deferred<List<Product>>{
-         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products")
+    fun getAllProducts(): Deferred<List<Product>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$idMario:8080/products")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
 
             val responseCode = connection.responseCode
 
-             if (responseCode == HttpURLConnection.HTTP_OK) {
-                 val inputStream = connection.inputStream
-                 val reader = BufferedReader(InputStreamReader(inputStream))
-                 val response = StringBuilder()
-                 var line: String? = reader.readLine()
-                 while (line != null) {
-                     response.append(line)
-                     line = reader.readLine()
-                 }
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
 
-                 if(response.isEmpty()){
-                     println("Esto está vacío")
-                     return@async emptyList()
-                 }else {
-                     val jsonResponse = response.toString()
-                     println("json" + jsonResponse)
-                     val gson = Gson()
-                     val finallist = mutableListOf<Product>()
-                     val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
-                     for(product in list){
-                         print(product.name)
-                         finallist.add(product)
-                     }
-                     return@async finallist
-                 }
+                if (response.isEmpty()) {
+                    println("Esto está vacío")
+                    return@async emptyList()
+                } else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val finallist = mutableListOf<Product>()
+                    val list: List<Product> =
+                        gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    for (product in list) {
+                        print(product.name)
+                        finallist.add(product)
+                    }
+                    return@async finallist
+                }
 
 
-                 //return cliente
+                //return cliente
 
-             } else {
-                 println("Esto va mal")
-                 return@async emptyList()
+            } else {
+                println("Esto va mal")
+                return@async emptyList()
 
-             }
+            }
 
         }
 
@@ -134,7 +139,7 @@ class HTTPcalls() {
     fun createCostumer(costumer: Costumer): Deferred<User?> {
         println("Orchata")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/clients/add")
+            val url = URL("http://$idMario:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -162,9 +167,9 @@ class HTTPcalls() {
 
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
-            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 return@async costumer
-            } else{
+            } else {
                 return@async null
             }
         }
@@ -199,16 +204,17 @@ class HTTPcalls() {
 
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
-            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 return@async merchant
-            } else{
+            } else {
                 return@async null
             }
         }
     }
+
     fun getUncertifiedCertificates(): Deferred<List<Certification>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/certification/uncertified")
+            val url = URL("http://$idMario:8080/certification/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -225,14 +231,17 @@ class HTTPcalls() {
                     line = reader.readLine()
                 }
 
-                if(response.isEmpty()){
+                if (response.isEmpty()) {
                     println("Esto está vacío")
                     return@async emptyList<Certification>()
-                }else {
+                } else {
                     val jsonResponse = response.toString()
                     println("json: $jsonResponse")
                     val gson = Gson()
-                    val list: List<Certification> = gson.fromJson(jsonResponse, object : TypeToken<List<Certification>>() {}.type)
+                    val list: List<Certification> = gson.fromJson(
+                        jsonResponse,
+                        object : TypeToken<List<Certification>>() {}.type
+                    )
                     println(list)
                     println(list[0].certification_id)
                     reader.close()
@@ -248,9 +257,9 @@ class HTTPcalls() {
     }
 
     fun getComputerImage(urlString: String): Deferred<ByteArray> {
-        lateinit var bytes:ByteArray
+        lateinit var bytes: ByteArray
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$urlString")
+            val url = URL("http://$idMario:8080/products/$urlString")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             println("estableciendo conexion")
@@ -269,9 +278,10 @@ class HTTPcalls() {
 
         }
     }
-    fun getCategoryProducts(stringUrl : String) : Deferred<List<Product>>{
+
+    fun getCategoryProducts(stringUrl: String): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$stringUrl")
+            val url = URL("http://$idMario:8080/products/$stringUrl")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -288,16 +298,17 @@ class HTTPcalls() {
                     line = reader.readLine()
                 }
 
-                if(response.isEmpty()){
+                if (response.isEmpty()) {
                     println("Esto está vacío")
                     return@async emptyList()
-                }else {
+                } else {
                     val jsonResponse = response.toString()
                     println("json" + jsonResponse)
                     val gson = Gson()
                     val finallist = mutableListOf<Product>()
-                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
-                    for(product in list){
+                    val list: List<Product> =
+                        gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    for (product in list) {
                         print(product.name)
                         finallist.add(product)
                     }
@@ -316,9 +327,9 @@ class HTTPcalls() {
         }
     }
 
-    fun updateCertification(id:Int,bool:Boolean,admin_id:String): Deferred<Unit>{
+    fun updateCertification(id: Int, bool: Boolean, admin_id: String): Deferred<Unit> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/certification/save/$id");
+            val url = URL("http://$idMario:8080/certification/save/$id");
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "PUT"
             connection.doOutput = true
@@ -341,7 +352,7 @@ class HTTPcalls() {
         }
     }
 
-    fun createComputer(computer: Computer, email: String): Deferred<Computer?> {
+    fun createComputer(computer: Computer, email: String, imageFile: File): Deferred<Computer?> {
         println("Computer")
         return CoroutineScope(Dispatchers.IO).async {
             val url = URL("http://$idMario:8080/products/electronics/computer/add")
@@ -352,7 +363,7 @@ class HTTPcalls() {
             val brand = computer.brand
             val description = computer.description
             val guarrantee = computer.guarrantee
-            val image = computer.image
+            val image = imageFile
             val name = computer.name
             val operatingSystem = computer.operatingSystem
             val ownerid = email
@@ -362,12 +373,14 @@ class HTTPcalls() {
             val stock = computer.stock
             val storageType = computer.storageType
 
+            val multiparImage = fileToMultipart(image)
+
 
             val requestBody = StringBuilder().apply {
                 append("brand=$brand&")
                 append("description=$description&")
                 append("guarrantee=$guarrantee&")
-                append("image=$image&")
+                append("image=$multiparImage&")
                 append("name=$name&")
                 append("operatingSystem=$operatingSystem&")
                 append("ownerid=$ownerid&")
@@ -385,24 +398,17 @@ class HTTPcalls() {
 
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
-            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 return@async computer
-            } else{
+            } else {
                 return@async null
             }
         }
     }
-
-    fun bitmapToFile(bitmap: Bitmap, directory: File, fileName: String): File {
-        val file = File(directory, fileName)
-
-        val fos = FileOutputStream(file)
-
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-
-        fos.flush()
-        fos.close()
-
-        return file
+    fun fileToMultipart(file: File): MultipartBody.Part {
+        val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("file", file.name, requestFile)
     }
+
+
 }

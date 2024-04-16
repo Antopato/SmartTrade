@@ -15,8 +15,11 @@ import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.drawToBitmap
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
+import java.io.File
+
 
 class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     AdapterView.OnItemClickListener {
@@ -25,6 +28,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     lateinit var updateImage : ImageView
 
     val service = BusinessLogic()
+    val callsService = HTTPcalls()
 
 
 
@@ -78,14 +82,19 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             startActivity(intent)
         }
 
+        var path = "app/src/main/res/mipmap-hdpi/lavadora.jpg"
+
         updateImage.setOnClickListener() {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
         spinner.onItemSelectedListener = this
 
+
         addProductbutt.setOnClickListener() {
             println(spinner.selectedItem)
+
+
 
             when (spinner.selectedItem) {
                 "PHONE" -> {
@@ -122,7 +131,9 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         adicional4.text.toString().toInt()
                     )
                     val email = user.email
-                    service.createComputer(computer, email)
+                    val image = File(path)
+
+                    service.createComputer(computer, email, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     startActivity(intent)
                 }

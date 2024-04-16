@@ -10,6 +10,7 @@ import kotlinx.coroutines.Deferred
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.example.smarttrade.classes.typeofusers.Merchant
 import kotlinx.coroutines.runBlocking
+import java.io.File
 
 
 class BusinessLogic() {
@@ -250,9 +251,9 @@ class BusinessLogic() {
         }
     }
 
-    fun createComputer(computer: Computer, email: String){
+    fun createComputer(computer: Computer, email: String, imageFile: File){
         runBlocking {
-            call.createComputer(computer, email).await()
+            call.createComputer(computer, email, imageFile).await()
         }
     }
 
