@@ -50,27 +50,12 @@ class BusinessLogic() {
 
     }
 
-    fun getProducts() : List<Product> {
+    fun getProducts() : List<Product?> {
         var list : List<Product?>
-        var listCer : List<Certification>
-        var finalList = mutableListOf<Product>()
         runBlocking {
             list = call.getAllProducts().await()
-            listCer = call.getUncertifiedCertificates().await()
-
-            var idList = mutableListOf<Int>()
-
-            for(certificate in listCer){
-                idList.add(certificate.certification_id)
-            }
-
-            for(product in list){
-                if(idList.indexOf(product!!.certificationId) == -1){
-                    finalList.add(product)
-                }
-            }
         }
-        return finalList
+        return list
 
     }
 
@@ -149,7 +134,6 @@ class BusinessLogic() {
         }
         return user
     }
-
     fun createMerchant(merchant: Merchant): User? {
         val user : User?
         runBlocking {
@@ -157,27 +141,12 @@ class BusinessLogic() {
         }
         return user
     }
-    fun getUncertifiedCertificates(): List<Product> {
-        var list : List<Certification>
+    fun getUncertifiedCertificates(): List<Product?> {
         var products : List<Product?>
-        var finalList = mutableListOf<Product>()
         runBlocking {
-            list = call.getUncertifiedCertificates().await()
-            products = call.getAllProducts().await()
-            var listId = mutableListOf<Int>()
-
-            for(certificate in list){
-                listId.add(certificate.certification_id)
-            }
-
-            for(product in products){
-                if(listId.indexOf(product!!.certificationId) != -1){
-                    finalList.add(product)
-                }
-
-            }
+            products = call.getUncertifiedCertificates().await()
         }
-        return finalList
+        return products
     }
 
     fun getImageByType(type:String, id:Int):ByteArray
