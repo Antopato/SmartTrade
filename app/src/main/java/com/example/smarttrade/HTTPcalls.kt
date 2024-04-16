@@ -3,7 +3,9 @@ package com.example.smarttrade
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.typeofusers.Costumer
+import com.example.smarttrade.classes.typeofusers.Merchant
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +18,14 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 //import kotlinx.serialization.encodeToString
 //import kotlinx.serialization.json.Json
 
@@ -293,45 +303,105 @@ class HTTPcalls() {
             connection.disconnect()
         }
     }
-
-    fun getRejected(): Deferred<List<Certification>> {
+    fun createMerchant(merchant: Merchant): Deferred<User?> {
+        println("MFI")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/uncertified")
+            val url = URL("http://$idMario:8080/merchants/add")
             val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connect()
-            val responseCode = connection.responseCode
-            print(responseCode)
+            connection.requestMethod = "POST"
+            println("He enviado la petición")
+            connection.doOutput = true
+            val email = merchant.email
+            val enterprise_name = merchant.enterprise_name
+            val name = merchant.name
+            val password = merchant.password
+            val type = "MERCHANT"
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = connection.inputStream
-                val reader = BufferedReader(InputStreamReader(inputStream))
-                val response = StringBuilder()
-                var line: String? = reader.readLine()
-                while (line != null) {
-                    response.append(line)
-                    line = reader.readLine()
-                }
+            val requestBody = StringBuilder().apply {
+                append("email=$email&")
+                append("enterprise_name=$enterprise_name&")
+                append("name=$name&")
+                append("password=$password&")
+                append("type=$type")
+            }.toString()
 
-                if(response.isEmpty()){
-                    println("Esto está vacío")
-                    return@async emptyList<Certification>()
-                }else {
-                    val jsonResponse = response.toString()
-                    println("json: $jsonResponse")
-                    val gson = Gson()
-                    val list: List<Certification> = gson.fromJson(jsonResponse, object : TypeToken<List<Certification>>() {}.type)
-                    println(list)
-                    println(list[0].certification_id)
-                    reader.close()
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
+            outPutStream.flush()
+            outPutStream.close()
 
-                    return@async list
-                }
-
-            } else {
-                println("Esto va mal")
-                return@async emptyList<Certification>()
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                return@async merchant
+            } else{
+                return@async null
             }
         }
+    }
+
+    fun createComputer(computer: Computer, email: String): Deferred<Computer?> {
+        println("Computer")
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$idMario:8080/products/electronics/computer/add")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            println("He enviado la petición")
+            connection.doOutput = true
+            val brand = computer.brand
+            val description = computer.description
+            val guarrantee = computer.guarrantee
+            val image = computer.image
+            val name = computer.name
+            val operatingSystem = computer.operatingSystem
+            val ownerid = email
+            val price = computer.price
+            val production = computer.production
+            val ram = computer.ram
+            val stock = computer.stock
+            val storageType = computer.storageType
+
+
+            val requestBody = StringBuilder().apply {
+                append("brand=$brand&")
+                append("description=$description&")
+                append("guarrantee=$guarrantee&")
+                append("image=$image&")
+                append("name=$name&")
+                append("operatingSystem=$operatingSystem&")
+                append("ownerid=$ownerid&")
+                append("price=$price&")
+                append("production=$production&")
+                append("ram=$ram&")
+                append("stock=$stock&")
+                append("storageType=$storageType")
+            }.toString()
+
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
+            outPutStream.flush()
+            outPutStream.close()
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                return@async computer
+            } else{
+                return@async null
+            }
+        }
+    }
+
+    fun bitmapToFile(bitmap: Bitmap, directory: File, fileName: String): File {
+        val file = File(directory, fileName)
+
+        val fos = FileOutputStream(file)
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+
+        fos.flush()
+        fos.close()
+
+        return file
     }
 }

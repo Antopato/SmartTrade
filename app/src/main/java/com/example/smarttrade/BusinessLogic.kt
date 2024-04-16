@@ -5,8 +5,10 @@ import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.electronic.Computer
 import kotlinx.coroutines.Deferred
 import com.example.smarttrade.classes.typeofusers.Costumer
+import com.example.smarttrade.classes.typeofusers.Merchant
 import kotlinx.coroutines.runBlocking
 
 
@@ -131,11 +133,17 @@ class BusinessLogic() {
         }
         return user
     }
+    fun createMerchant(merchant: Merchant): User? {
+        val user : User?
+        runBlocking {
+            user = call.createMerchant(merchant).await()
+        }
+        return user
+    }
     fun getUncertifiedCertificates(): List<Product?> {
         var products : List<Product?>
         runBlocking {
             products = call.getUncertifiedCertificates().await()
-            var listId = mutableListOf<Int>()
         }
         return products
     }
@@ -210,6 +218,13 @@ class BusinessLogic() {
             call.updateCertification(product.certificationId,false,user.email)
         }
     }
+
+    fun createComputer(computer: Computer, email: String){
+        runBlocking {
+            call.createComputer(computer, email).await()
+        }
+    }
+
 }
 
 
