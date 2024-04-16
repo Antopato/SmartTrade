@@ -19,6 +19,8 @@ class CertificateValidationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val product = intent.getSerializableExtra("product") as Product?
         val user = intent.getSerializableExtra("user") as User
+        val byteArray = intent.getByteArrayExtra("image")
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
         enableEdgeToEdge()
         setContentView(R.layout.certificate_validation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -54,7 +56,6 @@ class CertificateValidationActivity : AppCompatActivity() {
         val textViewProductAdition = findViewById<TextView>(R.id.textViewAditionalInformation)
         val imageViewProductImage = findViewById<ImageView>(R.id.imageViewProductImage)
 
-        val bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
         textViewProductName.text = product!!.name
         textViewProductCompany.text = "Company " + product!!.seller
         textViewProductBrand.text = "Brand: " + product!!.brand

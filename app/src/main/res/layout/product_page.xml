@@ -18,10 +18,10 @@
 
     <TextView
         android:id="@+id/nameText"
-        android:layout_width="275dp"
-        android:layout_height="31dp"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:text="TextView"
+        android:text="TextViewp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"

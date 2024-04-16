@@ -2,18 +2,21 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.CertificateValidationActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import java.io.ByteArrayOutputStream
 
 class CertificatesAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<CertificatesAdapter.CertificateHolder>() {
     val service = BusinessLogic()
@@ -48,6 +51,12 @@ class CertificatesAdapter(var context: Context, var list: List<Product?>, var us
                 val intent = Intent(context, CertificateValidationActivity::class.java)
                 intent.putExtra("product", list.get(adapterPosition))
                 intent.putExtra("user", user)
+
+                val bitmap = (productImage.drawable).toBitmap()
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val byteArray = stream.toByteArray()
+                intent.putExtra("image", byteArray)
                 //intent.putExtra("name", list.get(adapterPosition).Name)
                 //intent.putExtra("company", list.get(adapterPosition).Company)
                 //intent.putExtra("brand", list.get(adapterPosition).Brand)

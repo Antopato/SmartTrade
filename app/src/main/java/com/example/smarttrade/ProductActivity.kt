@@ -19,7 +19,9 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         val user= intent.getSerializableExtra("user") as User
-        //val image = intent.getSerializableExtra("image") as BitmapDrawable
+        val byteArray = intent.getByteArrayExtra("image")
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+
         val service = BusinessLogic()
         setContentView(R.layout.product_page)
 
@@ -38,11 +40,11 @@ class ProductActivity : AppCompatActivity() {
             intent.putExtra("user", user)
             startActivity(intent)
         }
-        var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
+        //var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
 
         nametext.text=product.name
         desctext.text=product.description
-        //imageview.setImageBitmap(image.bitmap)
+        imageview.setImageBitmap(bitmap)
 
         val adapter = PriceAdapter(this,list,user)
 
