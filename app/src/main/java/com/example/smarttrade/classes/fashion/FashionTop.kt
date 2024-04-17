@@ -18,7 +18,7 @@ class FashionTop(
     productType :String,
     var topId: Int,
     var topType: String,
-    var size : Int
+    var size : String
 
 ): Product(productId, name, price, description, production, additionalInfo, image, seller, stock, certificationId, brand, materials, productType) {
 }

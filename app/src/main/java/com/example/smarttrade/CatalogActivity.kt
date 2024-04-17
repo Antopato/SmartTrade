@@ -34,14 +34,14 @@ class CatalogActivity : AppCompatActivity() {
         val buttonAddProduct = findViewById<Button>(R.id.buttonAddProduct)
 
 
-        /*if(user.type == "CLIENT"){
+        if(user?.type == "CLIENT"){
             buttonCertificate.visibility = View.INVISIBLE
             buttonAddProduct.visibility = View.INVISIBLE
-        }else if(user.type == "ADMIN"){
+        }else if(user?.type == "ADMIN"){
             buttonAddProduct.visibility = View.INVISIBLE
         }else{
             buttonCertificate.visibility = View.INVISIBLE
-        }*/
+        }
 
         val service = BusinessLogic()
         val list = service.getProducts()

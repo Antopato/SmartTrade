@@ -74,6 +74,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val material = findViewById<EditText>(R.id.editTextMaterials)
         val production = findViewById<EditText>(R.id.editTextProduction)
         val additionalInfo = findViewById<EditText>(R.id.editTextAdditionalInfo)
+        additionalInfo.visibility = View.GONE
 
         val adicional1 = findViewById<EditText>(R.id.editText1)
         val adicional2 = findViewById<EditText>(R.id.editText2)
@@ -131,6 +132,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     val email = user.email
                     service.createPhone(phone, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -158,6 +160,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     val email = user.email
                     service.createComputer(computer, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -176,14 +179,15 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         material.text.toString(),
                         brand.text.toString(),
                         "HOUSEHOLD",
-                        0,
-                        adicional1.text.toString().toDouble(),
-                        adicional2.text.toString().toInt(),
+                        adicional1.text.toString().toInt(),
+                        adicional2.text.toString().toDouble(),
+                        adicional3.text.toString().toInt(),
                     )
 
                     val email = user.email
                     service.createHousehold(household, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -204,11 +208,12 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         "FASHIONTOP",
                         0,
                         adicional1.text.toString(),
-                        adicional2.text.toString().toInt(),
+                        adicional2.text.toString(),
                     )
                     val email = user.email
                     service.createFashionTop(fashionTop, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -234,6 +239,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     val email = user.email
                     service.createFashioBot(fashionBot, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -259,6 +265,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     val email = user.email
                     service.createFootwear(footwear, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -279,16 +286,16 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         "DRINK",
                         0,
                         0,
-                        "",
-                        adicional1.text.toString().toInt(),
-                        adicional2.text.toString(),
-                        adicional3.text.toString().toInt(),
-                        adicional4.text.toString(),
-
+                        adicional1.text.toString(),
+                        adicional2.text.toString().toInt(),
+                        adicional3.text.toString(),
+                        adicional5.text.toString().toInt(),
+                        adicional4.text.toString()
                         )
                     val email = user.email
                     service.createDrink(drink, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -311,12 +318,13 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         adicional1.text.toString(),
                         adicional2.text.toString().toInt(),
                         adicional3.text.toString(),
-                        adicional4.text.toString().toInt(),
-                        adicional5.text.toString()
+                        adicional5.text.toString().toInt(),
+                        adicional4.text.toString()
                     )
                     val email = user.email
                     service.createFish(fish, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -337,14 +345,15 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         "MEAT",
                         0,
                         adicional1.text.toString(),
-                        adicional2.text.toString().toInt(),
-                        adicional3.text.toString(),
-                        adicional4.text.toString().toInt(),
-                        adicional5.text.toString()
+                        100,
+                        "2024-05-18",
+                        adicional3.text.toString().toInt(),
+                        adicional2.text.toString()
                     )
                     val email = user.email
                     service.createMeat(meat, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -368,13 +377,14 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         adicional2.text.toString(),
                         calories = 0,
                         expiringDate = "",
-                        adicional3.text.toString().toInt(),
-                        adicional4.text.toString(),
+                        adicional4.text.toString().toInt(),
+                        adicional3.text.toString(),
 
                         )
                     val email = user.email
                     service.createVegetable(vegetable, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
 
@@ -397,13 +407,14 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         "",
                         adicional1.text.toString().toInt(),
                         adicional2.text.toString(),
-                        adicional3.text.toString().toInt(),
-                        adicional4.text.toString()
+                        adicional4.text.toString().toInt(),
+                        adicional3.text.toString()
                     )
 
                     val email = user.email
                     service.createFruit(fruit, email)
                     val intent = Intent(this, CatalogActivity::class.java)
+                    intent.putExtra("user", user)
                     startActivity(intent)
                 }
             }
@@ -504,8 +515,8 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.visibility = View.VISIBLE
                 adicional4.visibility = View.VISIBLE
                 adicional5.visibility = View.VISIBLE
-                adicional1.setHint("Calories")
-                adicional2.setHint("Fishing Method")
+                adicional1.setHint("Fishing Method")
+                adicional2.setHint("Calories")
                 adicional3.setHint("Expiration Date")
                 adicional4.setHint("Units")
                 adicional5.setHint("Quantity")
@@ -515,8 +526,8 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional1.visibility = View.VISIBLE
                 adicional2.visibility = View.VISIBLE
                 adicional3.visibility = View.VISIBLE
-                adicional4.visibility = View.VISIBLE
-                adicional5.visibility = View.VISIBLE
+                adicional4.visibility = View.GONE
+                adicional5.visibility = View.GONE
                 adicional1.setHint("Origin")
                 adicional2.setHint("Units")
                 adicional3.setHint("Quantity")
