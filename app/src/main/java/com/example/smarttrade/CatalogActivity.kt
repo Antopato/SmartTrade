@@ -18,20 +18,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.ProductsAdapter
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.databinding.CatalogPageBinding
 
 class CatalogActivity : AppCompatActivity() {
 
+    var maxPrice = 0
+    var minPrice = 0
+    val service = BusinessLogic()
+    val list = service.getProducts()
+
+
+    lateinit var binding : CatalogPageBinding
     @SuppressLint("MissingInflatedId", "CutPasteId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-
-
-        setContentView(R.layout.catalog_page)
+        binding = CatalogPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         val user = intent.getSerializableExtra("user") as User?
-        val buttonCertificate = findViewById<Button>(R.id.buttonCertificate)
-        val buttonAddProduct = findViewById<Button>(R.id.buttonAddProduct)
+        val buttonCertificate = binding.buttonCertificate
+        val buttonAddProduct = binding.buttonAddProduct
 
 
         if(user?.type == "CLIENT"){
@@ -43,35 +50,28 @@ class CatalogActivity : AppCompatActivity() {
             buttonCertificate.visibility = View.INVISIBLE
         }
 
-        val service = BusinessLogic()
-        val list = service.getProducts()
 
         val recyclerList = mutableListOf<Product?>()
+
+
         recyclerList.addAll(list)
 
-        var maxPrice : Int
-        var categoryFilter : List<String>
-
-        val recycler = findViewById<RecyclerView>(R.id.recyclerView)
-        val seekbar = findViewById<SeekBar>(R.id.seekBar)
-        val seekValue = findViewById<TextView>(R.id.seekvalue)
-        val searchView = findViewById<EditText>(R.id.searchText)
-
+        val recycler = binding.recyclerView
+        val seekbar = binding.seekBar
+        val seekValue = binding.seekvalue
+        val searchView = binding.searchText
 
 
         val adapter = ProductsAdapter(this,recyclerList,user)
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
 
-        val filterLayout = findViewById<ConstraintLayout>(R.id.filterLayout)
+        val filterLayout = binding.filterLayout
         filterLayout.visibility = View.INVISIBLE
 
-        val tag1 = findViewById<Spinner>(R.id.tag1)
-        val tag2 = findViewById<Spinner>(R.id.tag2)
-        val tag3 = findViewById<Spinner>(R.id.tag3)
-        bindSpinnData(tag1)
-        bindSpinnData(tag2)
-        bindSpinnData(tag3)
+        bindSpinnData(binding.tag1)
+        bindSpinnData(binding.tag2)
+        bindSpinnData(binding.tag3)
 
         searchView.setOnKeyListener { v, keyCode, event ->
             println(keyCode)
@@ -87,7 +87,7 @@ class CatalogActivity : AppCompatActivity() {
                 }
                 recyclerList.clear()
                 recyclerList.addAll(filterList)
-                adapter.notifyDataSetChanged()
+                adapter!!.notifyDataSetChanged()
 
                 return@setOnKeyListener true
             }else{
@@ -117,61 +117,103 @@ class CatalogActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        val filterbutt = findViewById<Button>(R.id.buttonFiler)
-
-        filterbutt.setOnClickListener(){
-            if(filterLayout.visibility == View.INVISIBLE){
-                filterLayout.visibility = View.VISIBLE
-            }else{
-                filterLayout.visibility =View.INVISIBLE
+        binding.minimumSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.minimumValue.text = "$progress€"
             }
 
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+
+        binding.buttonFiler.setOnClickListener(){
+            changeVisibilityFilter()
         }
 
-        val applyFilter = findViewById<Button>(R.id.apply_filter)
-        applyFilter.setOnClickListener(){
-            val string = seekValue.text
-            val number = string.dropLast(1).toString().toInt()
+        binding.applyFilter.setOnClickListener(){
+
             val priceList = mutableListOf<Product>()
-            if(number!=0) {maxPrice=number}
-            else{maxPrice=100000000}
 
-            for(product in list){
-                if(product!!.price<=maxPrice) {
-                    priceList.add(product)
-                }
-            }
+            val minimumlist = setMinimumValue(priceList)
+            val maximumlist = setMaximumValue(minimumlist)
+            val finalList = setCategoryFilter(maximumlist)
 
-
-            val cat1 =tag1.selectedItem
-            val cat2 =tag2.selectedItem
-            val cat3 =tag3.selectedItem
-            val categoryList = mutableListOf<Product>()
-
-            for(product in priceList){
-                val cond1 = cat1=="None" || cat1==product.productType
-                val cond2 = cat2=="None" || cat2==product.productType
-                val cond3 = cat3=="None" || cat3==product.productType
-
-                if(cond1 && cond2 && cond3){
-                    categoryList.add(product)
-                }else if(cat1==product.productType ||
-                         cat2==product.productType ||
-                         cat3==product.productType ){
-                     categoryList.add(product)
-                }
-            }
             recyclerList.clear()
-            recyclerList.addAll(categoryList)
-            adapter.notifyDataSetChanged()
-
+            recyclerList.addAll(finalList)
+            adapter!!.notifyDataSetChanged()
 
         }
+
 
 
 
 
     }
+    private fun setMinimumValue(pricelist : MutableList<Product>): MutableList<Product>{
+        val string = binding.minimumValue.text
+        val number = string.dropLast(1).toString().toInt()
+        minPrice=number
+
+        for(product in list) {
+            println(product!!.name + " " + product.price)
+            if (product!!.price >= minPrice) {
+                println(product.name + " cuesta más de " + minPrice)
+                pricelist.add(product)
+            }
+        }
+        return pricelist
+    }
+
+    private fun setMaximumValue(filterlist : MutableList<Product>) : MutableList<Product>{
+        val string = binding.seekvalue.text
+        val number = string.dropLast(1).toString().toInt()
+        val maxList = mutableListOf<Product>()
+        if(number!=0) {maxPrice=number}
+        else{maxPrice=100000000}
+
+        for(product in filterlist){
+            println(product.name + " " + product.price)
+            if(product!!.price<=maxPrice) {
+                println(product.name + " cuesta menos de " + minPrice)
+
+                maxList.add(product)
+            }
+        }
+        return maxList
+    }
+    private fun changeVisibilityFilter(){
+        if(binding.filterLayout.visibility == View.INVISIBLE){
+            binding.filterLayout.visibility = View.VISIBLE
+        }else{
+            binding.filterLayout.visibility =View.INVISIBLE
+        }
+    }
+    private fun setCategoryFilter(filterlist : MutableList<Product>) : MutableList<Product>{
+
+        val cat1 =binding.tag1.selectedItem
+        val cat2 =binding.tag2.selectedItem
+        val cat3 =binding.tag3.selectedItem
+
+        val categoryList = mutableListOf<Product>()
+
+        for(product in filterlist){
+            val cond1 = cat1=="None" || cat1==product.productType
+            val cond2 = cat2=="None" || cat2==product.productType
+            val cond3 = cat3=="None" || cat3==product.productType
+
+            if(cond1 && cond2 && cond3){
+                categoryList.add(product)
+            }else if(cat1==product.productType ||
+                cat2==product.productType ||
+                cat3==product.productType ){
+                categoryList.add(product)
+            }
+        }
+        return categoryList
+    }
+
 
     private fun bindSpinnData(spinner : Spinner){
         val options = resources.getStringArray(R.array.options)
@@ -179,6 +221,8 @@ class CatalogActivity : AppCompatActivity() {
         spinner.adapter = adapterSpinn
 
     }
+
+
 
 
 }
