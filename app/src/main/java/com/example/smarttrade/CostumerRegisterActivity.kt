@@ -7,31 +7,33 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarttrade.classes.typeofusers.Costumer
+import com.example.smarttrade.databinding.CostumerRegisterBinding
 
 class CostumerRegisterActivity : AppCompatActivity(){
 
-
+    lateinit var binding : CostumerRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.costumer_register)
+        binding = CostumerRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val service = BusinessLogic()
         val type = "CLIENT"
 
         val balance = 0
 
-        val buttonRegisterCostumer = findViewById<Button>(R.id.buttonRegisterCostumer)
-        val name = findViewById<EditText>(R.id.editTextName)
-        val surname = findViewById<EditText>(R.id.editTextSurname)
-        val email = findViewById<EditText>(R.id.editTextMail)
-        val password = findViewById<EditText>(R.id.editTextPassword)
-        val nif = findViewById<EditText>(R.id.editTextNif)
-        val street = findViewById<EditText>(R.id.editTextStreet)
-        val city = findViewById<EditText>(R.id.editTextCity)
-        val postalCode = findViewById<EditText>(R.id.editTextPostalCode)
-        val province = findViewById<EditText>(R.id.editTextProvince)
-        val error = findViewById<TextView>(R.id.textViewError)
-        val birthdate = findViewById<EditText>(R.id.editTextBirthDate)
+        val buttonRegisterCostumer = binding.buttonRegisterCostumer
+        val name = binding.editTextName
+        val surname = binding.editTextSurname
+        val email = binding.editTextMail
+        val password = binding.editTextPassword
+        val nif = binding.editTextNif
+        val street = binding.editTextStreet
+        val city = binding.editTextCity
+        val postalCode = binding.editTextPostalCode
+        val province = binding.editTextProvince
+        val error = binding.textViewError
+        val birthdate = binding.editTextBirthDate
 
         val list = listOf(name, surname, email, password, nif, street, city, postalCode, province, birthdate)
 

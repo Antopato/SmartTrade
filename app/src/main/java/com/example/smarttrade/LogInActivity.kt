@@ -12,25 +12,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.smarttrade.databinding.LoginBinding
 import com.example.smarttrade.ui.theme.SmartTradeTheme
 
 class LogInActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
 
+    lateinit var binding : LoginBinding
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = LoginBinding.inflate(layoutInflater)
         val service = BusinessLogic();
 
-        setContentView(R.layout.login)
-        val logInButt = findViewById<Button>(R.id.logIn)
-        val signIn = findViewById<TextView>(R.id.signIn)
-        val errorText = findViewById<TextView>(R.id.errorText)
+        setContentView(binding.root)
+        val errorText = binding.errorText
 
 
-        logInButt.setOnClickListener{
-            val userText = findViewById<EditText>(R.id.username).text.toString()
-            val passText = findViewById<EditText>(R.id.password).text.toString()
+        binding.logIn.setOnClickListener{
+            val userText = binding.username.text.toString()
+            val passText = binding.password.text.toString()
             try {
                 val user = service.logIn(userText, passText)
                 if (user != null) {
@@ -51,7 +51,7 @@ class LogInActivity : AppCompatActivity() {
             }
         }
 
-        signIn.setOnClickListener() {
+        binding.signIn.setOnClickListener() {
             println("Has pulsado register")
             startActivity(Intent(this, CostumerRegisterActivity::class.java))
         }

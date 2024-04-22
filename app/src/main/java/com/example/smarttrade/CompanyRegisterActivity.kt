@@ -10,28 +10,32 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.classes.typeofusers.Merchant
+import com.example.smarttrade.databinding.CompanyRegisterBinding
 
 class CompanyRegisterActivity : AppCompatActivity() {
+
+    lateinit var binding : CompanyRegisterBinding
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.company_register)
+        binding = CompanyRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val service = BusinessLogic()
 
         val registerButt = findViewById<Button>(R.id.registerButt)
 
-        val name = findViewById<EditText>(R.id.textName)
-        val surname = findViewById<EditText>(R.id.surnameText)
-        val email = findViewById<EditText>(R.id.emailText)
-        val password = findViewById<EditText>(R.id.passwordText)
-        val holder = findViewById<EditText>(R.id.holderText)
-        val iban = findViewById<EditText>(R.id.ibanText)
-        val date = findViewById<EditText>(R.id.dateText)
-        val street = findViewById<EditText>(R.id.editViewStreet)
-        val city = findViewById<EditText>(R.id.editTextCity)
-        val province = findViewById<EditText>(R.id.editViewProvince)
-        val postalCode = findViewById<EditText>(R.id.editTextPostalCode)
-        val error = findViewById<TextView>(R.id.textViewError)
+        val name = binding.textName
+        val surname = binding.surnameText
+        val email = binding.emailText
+        val password = binding.passwordText
+        val holder = binding.holderText
+        val iban = binding.ibanText
+        val date = binding.dateText
+        val street = binding.editViewStreet
+        val city = binding.editTextCity
+        val province = binding.editViewProvince
+        val postalCode = binding.editTextPostalCode
+        val error = binding.textViewError
 
         val list: List<EditText> = listOf(name, surname, password, email, holder, iban, date, street, city, province, postalCode)
 

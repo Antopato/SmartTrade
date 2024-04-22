@@ -76,7 +76,6 @@ class CatalogActivity : AppCompatActivity() {
         searchView.setOnKeyListener { v, keyCode, event ->
             println(keyCode)
             if(keyCode== KeyEvent.KEYCODE_ENTER){
-                println("He entrado")
                 var filter = searchView.text
                 var filterList = mutableListOf<Product>()
                 for (product in list){
@@ -133,7 +132,6 @@ class CatalogActivity : AppCompatActivity() {
         }
 
         binding.applyFilter.setOnClickListener(){
-
             val priceList = mutableListOf<Product>()
 
             val minimumlist = setMinimumValue(priceList)
@@ -143,7 +141,6 @@ class CatalogActivity : AppCompatActivity() {
             recyclerList.clear()
             recyclerList.addAll(finalList)
             adapter!!.notifyDataSetChanged()
-
         }
 
 
