@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imageCar"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

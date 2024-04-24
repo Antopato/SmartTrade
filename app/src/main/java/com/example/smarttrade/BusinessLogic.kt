@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.electronic.HouseHold
@@ -302,6 +303,15 @@ class BusinessLogic() {
             products = call.getMerchantProductsById(id).await()
         }
         return products
+    }
+
+    fun getShoppingCar() : MutableList<Sell>{
+        val list = mutableListOf<Sell>()
+        val sell1 = Sell("lavadora","pele","100","1")
+        val sell2 = Sell("lavadora", "pel","150","1")
+        list.add(sell1)
+        list.add(sell2)
+        return list
     }
 
 }

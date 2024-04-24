@@ -56,6 +56,9 @@
         <activity
             android:name=".CatalogActivity"
             android:exported="true" />
+        <activity
+            android:name=".ShoppingCarActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
