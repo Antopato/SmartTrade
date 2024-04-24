@@ -296,6 +296,14 @@ class BusinessLogic() {
         }
     }
 
+    fun getMerchantProductsById(id: String): List<Product?>{
+        var products : List<Product?>
+        runBlocking {
+            products = call.getMerchantProductsById(id).await()
+        }
+        return products
+    }
+
 }
 
 

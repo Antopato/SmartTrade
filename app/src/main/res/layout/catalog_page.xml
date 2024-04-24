@@ -8,14 +8,30 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="404dp"
-        android:layout_height="685dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        android:layout_height="625dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.159" />
+
+    <TextView
+        android:id="@+id/textViewCatalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Products catalog"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto_medium"
+        >
+    </TextView>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -35,7 +51,7 @@
             app:srcCompat="@drawable/carrito" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/imageViewProfile"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

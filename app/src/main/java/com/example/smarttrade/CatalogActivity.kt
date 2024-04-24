@@ -25,7 +25,7 @@ class CatalogActivity : AppCompatActivity() {
     var maxPrice = 0
     var minPrice = 0
     val service = BusinessLogic()
-    val list = service.getProducts()
+    var list = emptyList<Product?>()
 
 
     lateinit var binding : CatalogPageBinding
@@ -44,16 +44,23 @@ class CatalogActivity : AppCompatActivity() {
         if(user?.type == "CLIENT"){
             buttonCertificate.visibility = View.INVISIBLE
             buttonAddProduct.visibility = View.INVISIBLE
+            list = service.getProducts()
         }else if(user?.type == "ADMIN"){
             buttonAddProduct.visibility = View.INVISIBLE
+            list = service.getProducts()
         }else{
             buttonCertificate.visibility = View.INVISIBLE
+            list = service.getMerchantProductsById(user!!.email)
+            binding.textViewCatalog.text = "My Products"
         }
 
+        binding.imageViewProfile.setOnClickListener {
+            val intent = Intent(this, UserProfileActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
+        }
 
         val recyclerList = mutableListOf<Product?>()
-
-
         recyclerList.addAll(list)
 
         val recycler = binding.recyclerView
@@ -218,8 +225,4 @@ class CatalogActivity : AppCompatActivity() {
         spinner.adapter = adapterSpinn
 
     }
-
-
-
-
 }

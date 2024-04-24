@@ -16,6 +16,7 @@ class InitialActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = InitialPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         binding.regCusButt.setOnClickListener() {
@@ -30,12 +31,5 @@ class InitialActivity : AppCompatActivity(){
         binding.regComButt.setOnClickListener(){
             startActivity(Intent(this, CompanyRegisterActivity::class.java))
         }
-
-
-
     }
-
-
-
-
 }
