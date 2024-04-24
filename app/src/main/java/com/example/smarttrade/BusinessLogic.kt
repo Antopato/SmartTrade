@@ -314,6 +314,21 @@ class BusinessLogic() {
         return list
     }
 
+    fun getMerchantProductsPending(id: String): List<Product?>{
+        var products : List<Product?>
+        runBlocking {
+            products = call.getMerchantProductsPending(id).await()
+        }
+        return products
+    }
+    fun getMerchantProductsDenied(id: String): List<Product?>{
+        var products : List<Product?>
+        runBlocking {
+            products = call.getMerchantProductsDenied(id).await()
+        }
+        return products
+    }
+
 }
 
 

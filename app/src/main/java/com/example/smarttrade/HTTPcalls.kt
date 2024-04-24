@@ -898,7 +898,6 @@ class HTTPcalls() {
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
-            println("He enviado la petición")
             val responseCode = connection.responseCode
             println(responseCode)
 
@@ -912,9 +911,7 @@ class HTTPcalls() {
                     response.append(line)
                     line = reader.readLine()
                 }
-
                 if(response.isEmpty()){
-                    println("Esto está vacío")
                     return@async emptyList()
                 }else {
                     val jsonResponse = response.toString()
@@ -927,10 +924,80 @@ class HTTPcalls() {
                     return@async list
                 }
             } else {
-                println("Esto va mal")
                 return@async emptyList()
             }
         }
+    }
+    fun getMerchantProductsPending(id: String) : Deferred<List<Product?>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$idMario:8080/products/$id/pending")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
 
+            println( connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Product?> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+    fun getMerchantProductsDenied(id: String) : Deferred<List<Product?>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$idMario:8080/products/$id/denied")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            println( connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Product?> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
     }
 }
