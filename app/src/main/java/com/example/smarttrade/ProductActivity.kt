@@ -18,6 +18,7 @@ import com.example.smarttrade.databinding.ProductPageBinding
 class ProductActivity : AppCompatActivity() {
 
     lateinit var binding : ProductPageBinding
+    lateinit var adapter : PriceAdapter
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -25,7 +26,7 @@ class ProductActivity : AppCompatActivity() {
 
         val service = BusinessLogic()
         setContentView(binding.root)
-
+        binding.addCarButt.isEnabled=false
         val user= intent.getSerializableExtra("user") as User
         val byteArray = intent.getByteArrayExtra("image")
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
@@ -45,9 +46,21 @@ class ProductActivity : AppCompatActivity() {
         binding.descriptionTex.text=product.description
         binding.image.setImageBitmap(bitmap)
 
-        val adapter = PriceAdapter(this,list,user)
+        adapter = PriceAdapter(this,list,user,this)
 
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
+
+        binding.addCarButt.setOnClickListener(){
+            val product = adapter.selectedProduct
+            service.addProductToCar(product)
+        }
+    }
+    fun notifyButt(){
+        if (adapter.selectedGlobal){
+            binding.addCarButt.isEnabled=true
+        }else{
+            binding.addCarButt.isEnabled=false
+        }
     }
 }

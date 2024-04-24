@@ -329,6 +329,9 @@ class BusinessLogic() {
         return products
     }
 
+    fun addProductToCar(product: Product){
+
+    }
 }
 
 

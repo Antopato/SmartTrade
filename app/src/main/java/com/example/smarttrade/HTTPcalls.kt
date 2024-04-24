@@ -40,7 +40,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.0.20"
 
-    val myId = "10.237.10.37"
+    val myId = "192.168.0.21"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
@@ -894,7 +894,7 @@ class HTTPcalls() {
 
     fun getMerchantProductsById(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id")
+            val url = URL("http://$myId:8080/products/$id")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -930,7 +930,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsPending(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id/pending")
+            val url = URL("http://$myId:8080/products/$id/pending")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -966,7 +966,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsDenied(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id/denied")
+            val url = URL("http://$myId:8080/products/$id/denied")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()

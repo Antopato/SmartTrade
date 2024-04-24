@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/nameText"
-        android:layout_width="290dp"
-        android:layout_height="50dp"
+        android:layout_width="332dp"
+        android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:text="TextViewp"
         android:textAlignment="center"
@@ -60,13 +60,13 @@
         app:layout_constraintTop_toBottomOf="@+id/descriptionTex" />
 
     <Button
-        android:id="@+id/buy_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/addCarButt"
+        android:layout_width="111dp"
+        android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/circle_button"
-        android:text="BUY"
+        android:text="ADD TO CAR"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycled_price" />
 

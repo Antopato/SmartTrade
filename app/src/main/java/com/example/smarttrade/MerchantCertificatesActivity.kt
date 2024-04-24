@@ -19,12 +19,12 @@ class MerchantCertificatesActivity : AppCompatActivity() {
 
     lateinit var binding: MerchantCertificatesBinding
     val service = BusinessLogic()
-    val user = intent.getSerializableExtra("user") as User
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.merchant_certificates)
+        val user = intent.getSerializableExtra("user") as User
         binding = MerchantCertificatesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

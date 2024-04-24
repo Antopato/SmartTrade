@@ -102,8 +102,14 @@ class CatalogActivity : AppCompatActivity() {
         }
 
         binding.imageCar.setOnClickListener{
-            val intent = Intent(this, ShoppingCarActivity::class.java)
-            startActivity(intent)
+            if(user.type=="CLIENT"){
+                val intent = Intent(this, ShoppingCarActivity::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, MerchantCertificatesActivity::class.java)
+                intent.putExtra("user",user)
+                startActivity(intent)
+            }
         }
         buttonAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductActivity::class.java)

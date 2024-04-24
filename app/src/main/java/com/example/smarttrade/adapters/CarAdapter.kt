@@ -38,7 +38,9 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
         holder.name.setText(list.get(position)!!.name)
         holder.price.setText(list.get(position)!!.price + "€")
         holder.amount.setText(list.get(position)!!.amount)
-        sum += list.get(position)!!.price.toInt()
+        val unitPrice = list.get(position).price.toInt()
+        val amount = list.get(position).amount.toInt()
+        sum += unitPrice*amount
         observer.change()
         println(sum )
         //val image = service.getImageByType(type, list[position]!!.productId)
@@ -49,6 +51,7 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
             val number = holder.amount.text.toString().toInt()
             if(number-1 >0 ){
                 holder.amount.text = (number-1).toString()
+                list.get(position).amount = (number-1).toString()
                 var value = list.get(position).price
                 sum -= value.toInt()
                 observer.change()
@@ -56,6 +59,7 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
         }
         holder.plusButton.setOnClickListener(){
             val number = holder.amount.text.toString().toInt() +1
+            list.get(position).amount = number.toString()
             holder.amount.text = number.toString()
             var value = list.get(position).price
             sum+= value.toInt()
