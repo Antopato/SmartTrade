@@ -33,8 +33,7 @@ class MerchantCertificatesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.buttonPending.setBackgroundColor(0x34A60C)
-        binding.buttonPending.setTextColor(0xFFFFFF)
+        binding.buttonPending.setBackgroundResource(R.drawable.rounded_button)
 
         val listOfPending = service.getMerchantProductsPending(user.email)
 
@@ -47,10 +46,8 @@ class MerchantCertificatesActivity : AppCompatActivity() {
         recycler.setLayoutManager(LinearLayoutManager(this))
 
         binding.buttonPending.setOnClickListener {
-            binding.buttonPending.setBackgroundColor(0x34A60C)
-            binding.buttonPending.setTextColor(0xFFFFFF)
-            binding.buttonDenied.setBackgroundColor(0xB1FA97)
-            binding.buttonDenied.setTextColor(0x000000)
+            binding.buttonPending.setBackgroundResource(R.drawable.rounded_button)
+            binding.buttonDenied.setBackgroundResource(R.drawable.rounded_button_back)
 
             val actualListOfPending = service.getMerchantProductsPending(user.email)
             recyclerList.clear()
@@ -58,10 +55,8 @@ class MerchantCertificatesActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
         binding.buttonDenied.setOnClickListener {
-            binding.buttonDenied.setBackgroundColor(0x34A60C)
-            binding.buttonDenied.setTextColor(0xFFFFFF)
-            binding.buttonPending.setBackgroundColor(0xB1FA97)
-            binding.buttonPending.setTextColor(0x000000)
+            binding.buttonDenied.setBackgroundResource(R.drawable.rounded_button)
+            binding.buttonPending.setBackgroundResource(R.drawable.rounded_button_back)
 
             val actualListOfDenied = service.getMerchantProductsDenied(user.email)
             recyclerList.clear()
