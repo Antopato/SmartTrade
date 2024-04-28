@@ -28,12 +28,13 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/round_image"
             android:scaleX="0.75"
             android:scaleY="0.75"
             app:srcCompat="@drawable/usuario" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/catalogImage"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,19 +53,6 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rounded_button_back"
-        android:drawableStart="@drawable/back_arrow"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </Button>
     <TextView
         android:id="@+id/textViewProfile"
         android:layout_width="wrap_content"

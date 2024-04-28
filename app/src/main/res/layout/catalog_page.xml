@@ -60,7 +60,7 @@
             app:srcCompat="@drawable/usuario" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/catalogImage"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

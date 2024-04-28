@@ -26,19 +26,24 @@ class UserProfileActivity : AppCompatActivity() {
             textViewPasswordInput.text = user.password
         }
 
-        binding.buttonBack.setOnClickListener {
-            val intent = Intent(this, CatalogActivity::class.java)
-            startActivity(intent)
+        binding.catalogImage.setOnClickListener {
+            val back = Intent(this, CatalogActivity::class.java)
+            back.putExtra("user",user)
+            startActivity(back)
         }
 
-        /*binding.buttonWishList.setOnClickListener {
-            val intent = Intent(this, WishListActivity::class.java)
-            startActivity(intent)
-        }*/
+        binding.buttonWishList.setOnClickListener {
+            val whislist = Intent(this, ListsActivity::class.java)
+            whislist.putExtra("user",user)
+            whislist.putExtra("type", "whislist")
+            startActivity(whislist)
+        }
 
-        /*binding.buttonForLaterList.setOnClickListener {
-            val intent = Intent(this, ForLaterListActivity::class.java)
-            startActivity(intent)
-        }*/
+        binding.buttonForLaterList.setOnClickListener {
+            val forLater = Intent(this, ListsActivity::class.java)
+            forLater.putExtra("user",user)
+            forLater.putExtra("type", "whislist")
+            startActivity(forLater)
+        }
     }
 }

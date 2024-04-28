@@ -56,67 +56,18 @@
                 app:layout_constraintTop_toTopOf="@+id/listProductImage" />
 
             <TextView
-                android:id="@+id/sellerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/listProductDescription"
+                android:layout_width="176dp"
+                android:layout_height="88dp"
                 android:layout_marginTop="10dp"
-                android:text="Pele@gmail"
+                android:text="Lava que flipas"
                 app:layout_constraintStart_toStartOf="@+id/listProductName"
                 app:layout_constraintTop_toBottomOf="@+id/listProductName" />
-
-            <TextView
-                android:id="@+id/priceText"
-                android:layout_width="75dp"
-                android:layout_height="23dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:text="300€"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sellerName" />
-
-            <Button
-                android:id="@+id/minusButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="-"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/listProductImage"
-                app:layout_constraintTop_toBottomOf="@+id/priceText"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <Button
-                android:id="@+id/plusButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:text="+"
-                android:textSize="10sp"
-                app:layout_constraintStart_toEndOf="@+id/amountText"
-                app:layout_constraintTop_toBottomOf="@+id/priceText"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/amountText"
-                android:layout_width="20dp"
-                android:layout_height="30dp"
-                android:text="1"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/minusButton"
-                app:layout_constraintStart_toEndOf="@+id/minusButton"
-                app:layout_constraintTop_toTopOf="@+id/minusButton" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/group"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="minusButton" />
+                android:layout_height="wrap_content" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -124,25 +75,13 @@
             android:id="@+id/listDeleteButton"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/red_button"
             android:text="X"
             android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/forLaterButton"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/yellow_butt"
-            android:text="for Later"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/listDeleteButton"
-            app:layout_constraintStart_toStartOf="@+id/listDeleteButton"
-            app:layout_constraintTop_toBottomOf="@+id/listDeleteButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

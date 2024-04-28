@@ -332,6 +332,25 @@ class BusinessLogic() {
     fun addProductToCar(product: Product){
 
     }
+
+    fun getWhislist() : List<Product>{
+        return emptyList()
+    }
+    fun getForLaterList() : List<Product>{
+        return emptyList()
+    }
+    fun addToLaterList(userId : String, productId :String) {
+
+    }
+    fun addToWhislist(user:User, product:Product){
+
+    }
+    fun deleteProdFromWhislist(){
+
+    }
+    fun deleteProdFromLater(){
+
+    }
 }
 
 

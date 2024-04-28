@@ -62,6 +62,9 @@
         <activity
             android:name=".ShoppingCarActivity"
             android:exported="true" />
+        <activity
+            android:name=".ListsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -31,7 +31,6 @@ class ShoppingCarActivity : AppCompatActivity(), Observer {
         val total = adapter.getTotal()
         binding.totalText.text = total.toString() + "€"
 
-
     }
 
     override fun change(){

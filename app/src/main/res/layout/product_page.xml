@@ -71,6 +71,17 @@
         app:layout_constraintTop_toBottomOf="@+id/recycled_price" />
 
     <Button
+        android:id="@+id/toWhislistButt"
+        android:layout_width="111dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/circle_button"
+        android:text="To Whislist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycled_price" />
+
+    <Button
         android:id="@+id/backButt"
         android:layout_width="50dp"
         android:layout_height="30dp"

@@ -2,25 +2,17 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.ShoppingCarActivity
-import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
-import com.example.smarttrade.classes.User
-import java.io.ByteArrayOutputStream
 
 class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer : ShoppingCarActivity) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
     var sum = 0
@@ -65,6 +57,11 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
             sum+= value.toInt()
             observer.change()
         }
+        holder.laterButton.setOnClickListener(){
+            service.addToLaterList("userID","productID")
+            sum=0
+            observer.changeData(position)
+        }
         holder.deleteButton.setOnClickListener(){
             sum=0
             observer.changeData(position)
@@ -83,12 +80,13 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
     }
     class MyViewHolder(itemView: View, context: Context, list:List<Sell?>) : RecyclerView.ViewHolder(itemView){
         val price : TextView = itemView.findViewById(R.id.priceText)
-        val name : TextView = itemView.findViewById(R.id.productName)
+        val name : TextView = itemView.findViewById(R.id.listProductName)
         val seller : TextView = itemView.findViewById(R.id.sellerName);
         val plusButton : Button = itemView.findViewById(R.id.plusButton)
         val minusButton : Button = itemView.findViewById(R.id.minusButton)
         val amount : TextView = itemView.findViewById(R.id.amountText)
-        val deleteButton : Button = itemView.findViewById(R.id.deleteButton)
+        val deleteButton : Button = itemView.findViewById(R.id.listDeleteButton)
+        val laterButton : Button = itemView.findViewById(R.id.forLaterButton)
         init{
             name.setOnClickListener {
 

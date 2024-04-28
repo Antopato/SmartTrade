@@ -36,9 +36,9 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
         //service.getImageByType(list.get(position)!!)
         //holder.image.setImageBitmap(list.get(position).img)
         println("Buscando imagen de $type")
-            val image = service.getImageByType(type, list[position]!!.productId)
-            println("he acabdo de buscar el tipo $type")
-            holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
+        val image = service.getImageByType(type, list[position]!!.productId)
+        println("he acabdo de buscar el tipo $type")
+        holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
     }
 
     override fun getItemCount(): Int {

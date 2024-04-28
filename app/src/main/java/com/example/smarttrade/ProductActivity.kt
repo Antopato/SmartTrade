@@ -55,6 +55,10 @@ class ProductActivity : AppCompatActivity() {
             val product = adapter.selectedProduct
             service.addProductToCar(product)
         }
+
+        binding.toWhislistButt.setOnClickListener(){
+            service.addToWhislist(user,product)
+        }
     }
     fun notifyButt(){
         if (adapter.selectedGlobal){
