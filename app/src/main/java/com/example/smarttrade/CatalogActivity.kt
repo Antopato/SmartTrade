@@ -112,7 +112,7 @@ class CatalogActivity : AppCompatActivity() {
             }
         }
         buttonAddProduct.setOnClickListener {
-            val intent = Intent(this, AddProductActivity::class.java)
+            val intent = Intent(this, CopyProductActivity::class.java)
             intent.putExtra("user", user)
             startActivity(intent)
         }

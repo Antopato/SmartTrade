@@ -46,7 +46,7 @@ class HTTPcalls() {
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
-                val url = URL("http://$myId:8080/users/"+mail)
+                val url = URL("http://$idMario:8080/users/"+mail)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connect()
@@ -93,7 +93,7 @@ class HTTPcalls() {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/certified")
+            val url = URL("http://$idMario:8080/products/certified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -142,7 +142,7 @@ class HTTPcalls() {
     fun createCostumer(costumer: Costumer): Deferred<User?> {
         println("Orchata")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/clients/add")
+            val url = URL("http://$idMario:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -181,7 +181,7 @@ class HTTPcalls() {
     fun createMerchant(merchant: Merchant): Deferred<User?> {
         println("MFI")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/merchants/add")
+            val url = URL("http://$idMario:8080/merchants/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -216,7 +216,7 @@ class HTTPcalls() {
     }
     fun getUncertifiedCertificates(): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/uncertified")
+            val url = URL("http://$idMario:8080/products/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -258,7 +258,7 @@ class HTTPcalls() {
     fun getComputerImage(urlString: String): Deferred<ByteArray> {
         lateinit var bytes:ByteArray
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$urlString")
+            val url = URL("http://$idMario:8080/products/$urlString")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             println("estableciendo conexion")
@@ -279,7 +279,7 @@ class HTTPcalls() {
     }
     fun getCategoryProducts(stringUrl : String) : Deferred<List<Product>>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$stringUrl")
+            val url = URL("http://$idMario:8080/products/$stringUrl")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -328,7 +328,7 @@ class HTTPcalls() {
 
     fun updateCertification(id:Int,bool:Boolean,admin_id:String): Deferred<Unit> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/certification/save/$id");
+            val url = URL("http://$idMario:8080/certification/save/$id");
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "PUT"
             connection.doOutput = true
@@ -353,7 +353,7 @@ class HTTPcalls() {
     fun createComputer(computer: Computer, email: String): Deferred<Computer?> {
         println("Computer")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/electronics/computer/add")
+            val url = URL("http://$idMario:8080/products/electronics/computer/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -402,7 +402,7 @@ class HTTPcalls() {
     fun createPhone(phone: SmartPhone, email: String): Deferred<SmartPhone?> {
         println("Computer")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/electronics/smartphone/add")
+            val url = URL("http://$idMario:8080/products/electronics/smartphone/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -455,7 +455,7 @@ class HTTPcalls() {
     fun createHousehold(household: HouseHold, email: String): Deferred<HouseHold?> {
         println("HOusehold")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/electronics/household/add")
+            val url = URL("http://$idMario:8080/products/electronics/household/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -504,7 +504,7 @@ class HTTPcalls() {
     fun createFashiontop(top: FashionTop, email: String): Deferred<FashionTop?> {
         println("Fashiontop")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/fashion/fashiontop/add")
+            val url = URL("http://$idMario:8080/products/fashion/fashiontop/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -551,7 +551,7 @@ class HTTPcalls() {
     fun createFashionbot(bot: FashionBot, email: String): Deferred<FashionBot?> {
         println("fashionbot")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/fashion/fashionbot/add")
+            val url = URL("http://$idMario:8080/products/fashion/fashionbot/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -599,7 +599,7 @@ class HTTPcalls() {
     fun createFootwear(footwear: FootWear, email: String): Deferred<FootWear?> {
         println("Footwear")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/fashion/footwear/add")
+            val url = URL("http://$idMario:8080/products/fashion/footwear/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -648,7 +648,7 @@ class HTTPcalls() {
     fun createFruit(fruit: Fruit, email: String): Deferred<Fruit?> {
         println("Fruit")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/food/fruit/add")
+            val url = URL("http://$idMario:8080/products/food/fruit/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -697,7 +697,7 @@ class HTTPcalls() {
     fun createFish(fish: Fish, email: String): Deferred<Fish?> {
         println("Fish")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/food/fish/add")
+            val url = URL("http://$idMario:8080/products/food/fish/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -746,7 +746,7 @@ class HTTPcalls() {
     fun createMeat(meat: Meat, email: String): Deferred<Meat?> {
         println("Meat")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/food/meat/add")
+            val url = URL("http://$idMario:8080/products/food/meat/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -795,7 +795,7 @@ class HTTPcalls() {
     fun createVegetables(vegetable: Vegetable, email: String): Deferred<Vegetable?> {
         println("Vegetables")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/food/vegetable/add")
+            val url = URL("http://$idMario:8080/products/food/vegetable/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -846,7 +846,7 @@ class HTTPcalls() {
     fun createDrink(drink: Drink, email: String): Deferred<Drink?> {
         println("drink")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/food/drink/add")
+            val url = URL("http://$idMario:8080/products/food/drink/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -896,7 +896,7 @@ class HTTPcalls() {
 
     fun getMerchantProductsById(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$id")
+            val url = URL("http://$idMario:8080/products/$id")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -932,7 +932,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsPending(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$id/pending")
+            val url = URL("http://$idMario:8080/products/$id/pending")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -968,7 +968,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsDenied(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/$id/denied")
+            val url = URL("http://$idMario:8080/products/$id/denied")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()

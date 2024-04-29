@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,25 +51,24 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
 
         init{
             itemView.setOnClickListener {
-                val inflater = LayoutInflater.from(context)
-                var popupView = inflater.inflate(R.layout.popup_price, null)
+                val widthInPixels = 920
+                val heightInPixels = 570
+                val popupView = LayoutInflater.from(itemView.context).inflate(R.layout.popup_price, null)
+                val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
 
-                val cancelButton = popupView.findViewById<TextView>(R.id.buttonCancel)
-                val confirmButton = popupView.findViewById<TextView>(R.id.buttonAdd)
-                val price = popupView.findViewById<TextView>(R.id.editTextPrice)
-
-                cancelButton.setOnClickListener {
-                    popupView.visibility = View.GONE
+                val buttonCancel = popupView.findViewById<View>(R.id.buttonCancel)
+                buttonCancel.setOnClickListener(){
+                    popupWindow.dismiss()
                 }
-                confirmButton.setOnClickListener(){
+                val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+                buttonAdd.setOnClickListener(){
                     val intent = Intent(context, CatalogActivity::class.java)
                     intent.putExtra("product", list.get(adapterPosition))
                     intent.putExtra("user", user)
-                    intent.putExtra("price", price.text.toString())
-                    //Crear el producto con httpcalls
+                    //logica de addexistentproduct
                     context.startActivity(intent)
                 }
-                popupView = PopupWindow(LayoutInflater.from(context).inflate(R.layout.popup_price, null), ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, false))
+                popupWindow.showAtLocation(itemView, Gravity.CENTER, 0, 0)
             }
         }
     }

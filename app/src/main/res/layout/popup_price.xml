@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="190dp"
     android:layout_gravity="center"
     android:gravity="center"
+    android:background="@drawable/rounded_popup"
     >
     <TextView
         android:layout_width="wrap_content"
@@ -25,14 +26,14 @@
         android:textColor="@color/black"
         android:background="@drawable/edit_text_border"
         android:paddingStart="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
     </EditText>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
