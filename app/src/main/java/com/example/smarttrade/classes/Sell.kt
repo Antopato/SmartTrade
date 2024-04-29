@@ -1,9 +1,10 @@
 package com.example.smarttrade.classes
 
 data class Sell(
-    var name: String,
-    var seller: String,
-    var price: String,
-    var amount: String
+    var sellId : Int,
+    var prodId : Int,
+    var selledId : String,
+    var stock : Int,
+    var price : Double
 
 )

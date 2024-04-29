@@ -2,10 +2,12 @@ package com.example.smarttrade.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
@@ -13,8 +15,9 @@ import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.ShoppingCarActivity
 import com.example.smarttrade.classes.Sell
+import com.example.smarttrade.classes.ShoppingCart
 
-class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer : ShoppingCarActivity) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
+class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val observer : ShoppingCarActivity) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
     var sum = 0
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,45 +29,50 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.seller.setText(list.get(position)!!.seller)
-        holder.name.setText(list.get(position)!!.name)
-        holder.price.setText(list.get(position)!!.price + "€")
-        holder.amount.setText(list.get(position)!!.amount)
-        val unitPrice = list.get(position).price.toInt()
-        val amount = list.get(position).amount.toInt()
+        val product = service.getProductById(list.get(position).prodId)
+        val userId = list.get(position).userId
+        holder.price.setText(list.get(position).price.toString() + "€")
+        holder.amount.setText(list.get(position).quantity)
+        holder.name.setText(product.name)
+
+        val unitPrice = list.get(position).price
+        val amount = list.get(position).quantity
         sum += unitPrice*amount
         observer.change()
-        println(sum )
-        //val image = service.getImageByType(type, list[position]!!.productId)
-        //println("he acabdo de buscar el tipo $type")
-        //holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
+        println(sum)
+
+        val image = service.getImageByType(product.productType, product.productId)
+        holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
 
         holder.minusButton.setOnClickListener(){
             val number = holder.amount.text.toString().toInt()
             if(number-1 >0 ){
                 holder.amount.text = (number-1).toString()
-                list.get(position).amount = (number-1).toString()
+                list.get(position).quantity = (number-1)
                 var value = list.get(position).price
-                sum -= value.toInt()
+                sum -= value
                 observer.change()
             }
         }
+
         holder.plusButton.setOnClickListener(){
             val number = holder.amount.text.toString().toInt() +1
-            list.get(position).amount = number.toString()
+            list.get(position).quantity = number
             holder.amount.text = number.toString()
             var value = list.get(position).price
-            sum+= value.toInt()
+            sum+= value
             observer.change()
         }
         holder.laterButton.setOnClickListener(){
-            service.addToLaterList("userID","productID")
+            service.addToLaterList(product.productId,userId)
+            service.deleteProdFromCart(product.productId,userId)
             sum=0
-            observer.changeData(position)
+            observer.changeData()
         }
         holder.deleteButton.setOnClickListener(){
+            service.deleteProdFromCart(product.productId,userId)
             sum=0
-            observer.changeData(position)
+            observer.changeData()
         }
 
     }
@@ -78,15 +86,17 @@ class CarAdapter(val context: Context, val list: MutableList<Sell>, val observer
         println("He devuelto sum con un valor de "+ sum)
         return sum
     }
-    class MyViewHolder(itemView: View, context: Context, list:List<Sell?>) : RecyclerView.ViewHolder(itemView){
+
+
+    class MyViewHolder(itemView: View, context: Context, list:List<ShoppingCart>) : RecyclerView.ViewHolder(itemView){
         val price : TextView = itemView.findViewById(R.id.priceText)
         val name : TextView = itemView.findViewById(R.id.listProductName)
-        val seller : TextView = itemView.findViewById(R.id.sellerName);
         val plusButton : Button = itemView.findViewById(R.id.plusButton)
         val minusButton : Button = itemView.findViewById(R.id.minusButton)
         val amount : TextView = itemView.findViewById(R.id.amountText)
         val deleteButton : Button = itemView.findViewById(R.id.listDeleteButton)
         val laterButton : Button = itemView.findViewById(R.id.forLaterButton)
+        val image : ImageView = itemView.findViewById(R.id.listProductImage)
         init{
             name.setOnClickListener {
 

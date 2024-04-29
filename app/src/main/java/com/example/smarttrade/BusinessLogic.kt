@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
+import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.electronic.HouseHold
@@ -305,15 +306,6 @@ class BusinessLogic() {
         return products
     }
 
-    fun getShoppingCar() : MutableList<Sell>{
-        val list = mutableListOf<Sell>()
-        val sell1 = Sell("lavadora","pele","100","1")
-        val sell2 = Sell("lavadora", "pel","150","1")
-        list.add(sell1)
-        list.add(sell2)
-        return list
-    }
-
     fun getMerchantProductsPending(id: String): List<Product?>{
         var products : List<Product?>
         runBlocking {
@@ -329,17 +321,35 @@ class BusinessLogic() {
         return products
     }
 
-    fun addProductToCar(product: Product){
+    fun getShoppingCar(id : String) : MutableList<ShoppingCart>{
+        var list = mutableListOf<ShoppingCart>()
+        runBlocking {
+            list.addAll(call.getCartById(id).await())
+        }
+        return list
+    }
 
+    fun deleteProdFromCart(id : Int, email : String){
+        runBlocking{
+            call.deleteProdFromCart(id,email)
+        }
+
+    }
+    fun addProductToCar(sell : Sell, email : String){
+        runBlocking {
+            call.addProdToCart(sell, email).await()
+        }
     }
 
     fun getWhislist() : List<Product>{
         return emptyList()
     }
+
     fun getForLaterList() : List<Product>{
         return emptyList()
     }
-    fun addToLaterList(userId : String, productId :String) {
+
+    fun addToLaterList(prodId : Int , userId : String) {
 
     }
     fun addToWhislist(user:User, product:Product){
@@ -349,6 +359,12 @@ class BusinessLogic() {
 
     }
     fun deleteProdFromLater(){
+
+    }
+
+    fun getProductById(id : Int) : Product{
+        val product Product
+        return product
 
     }
 }

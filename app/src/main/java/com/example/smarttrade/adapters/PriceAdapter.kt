@@ -8,18 +8,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.Observer
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 
 
-class PriceAdapter (var context: Context, var list: List<Product>, var user : User, var activity: ProductActivity) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
+class PriceAdapter (var context: Context, var list: List<Sell>, var user : User, var activity: ProductActivity) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
 
     val holderList = mutableListOf<PriceHolder>()
     var selectedGlobal = false
-    lateinit var selectedProduct : Product
+    lateinit var selectedProduct : Sell
+    val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.price_recycler, parent, false)
@@ -30,10 +33,9 @@ class PriceAdapter (var context: Context, var list: List<Product>, var user : Us
     }
 
     override fun onBindViewHolder(holder: PriceHolder, position: Int) {
-        holder.company.setText(list.get(position).seller)
+        holder.company.setText(list.get(position).sellId)
         val string = list.get(position).price.toString() + "€"
         holder.price.setText(string)
-        holder.name.setText(list.get(position).name)
 
         holder.itemViewP.setOnClickListener {
             holder.selectSeller()
@@ -47,8 +49,11 @@ class PriceAdapter (var context: Context, var list: List<Product>, var user : Us
     fun addObserver(viewHold : PriceHolder){
         holderList.add(viewHold)
     }
+    fun addProdToCar(){
+        service.addProductToCar(selectedProduct, user.email)
+    }
 
-    class PriceHolder(var itemView: View,var adapter : PriceAdapter,var list:List<Product> ) : RecyclerView.ViewHolder(itemView),
+    class PriceHolder(var itemView: View,var adapter : PriceAdapter,var list:List<Sell> ) : RecyclerView.ViewHolder(itemView),
         Observer {
         val company : TextView = itemView.findViewById(R.id.company_name)
         val price : TextView = itemView.findViewById(R.id.price_text)

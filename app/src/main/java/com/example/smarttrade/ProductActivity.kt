@@ -52,8 +52,7 @@ class ProductActivity : AppCompatActivity() {
         recycler.setLayoutManager(LinearLayoutManager(this))
 
         binding.addCarButt.setOnClickListener(){
-            val product = adapter.selectedProduct
-            service.addProductToCar(product)
+            adapter.addProdToCar()
         }
 
         binding.toWhislistButt.setOnClickListener(){

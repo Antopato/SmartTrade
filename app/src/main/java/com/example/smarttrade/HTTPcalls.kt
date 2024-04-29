@@ -2,6 +2,8 @@ package com.example.smarttrade
 
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
+import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.typeofusers.Costumer
@@ -998,6 +1000,92 @@ class HTTPcalls() {
             } else {
                 return@async emptyList()
             }
+        }
+    }
+    fun getCartById(id : String) : Deferred<List<ShoppingCart>>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/shoppingCart/$id")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<ShoppingCart> = gson.fromJson(jsonResponse, object : TypeToken<List<ShoppingCart>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+
+    fun deleteProdFromCart(id : Int, email : String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/shoppingCart/delete/product")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "DELETE"
+            connection.connect()
+
+            val requestBody = StringBuilder().apply {
+                append("id=$id&")
+                append("email=$email")
+            }.toString()
+
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
+            outPutStream.flush()
+            outPutStream.close()
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
+        }
+
+    }
+
+    fun addProdToCart(sell : Sell, mail : String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/shoppingCart/add")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.connect()
+            val quantity = 1
+            val requestBody = StringBuilder().apply {
+                append("price=${sell.price}&")
+                append("productId=${sell.prodId}&")
+                append("quantity=$quantity&")
+                append("shopping_cart_owner=$quantity")
+            }.toString()
+
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
+            outPutStream.flush()
+            outPutStream.close()
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
         }
     }
 }
