@@ -32,7 +32,7 @@ class CertificatesAdapter(var context: Context, var list: List<Product?>, var us
 
     override fun onBindViewHolder(holder: CertificatesAdapter.CertificateHolder, position: Int) {
         holder.productName.setText(list.get(position)!!.name)
-        holder.productCompany.setText(list.get(position)!!.seller)
+        holder.productCompany.setText(list.get(position)!!.description)
         holder.productBrand.setText(list.get(position)!!.brand)
         val type = list.get(position)!!.productType
         val image = service.getImageByType(type, list[position]!!.productId)

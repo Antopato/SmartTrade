@@ -350,6 +350,32 @@ class HTTPcalls() {
             connection.disconnect()
         }
     }
+
+    fun copyProduct(seller: Sell): Deferred<Sell?>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$idMario:8080/products/saveexistend/${seller.prodId}")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            val requestBody = StringBuilder().apply {
+                append("productId=${seller.prodId}&")
+                append("owner=${seller.selledId}&")
+                append("price=${seller.price}&")
+                append("stock=${seller.stock}")
+            }.toString()
+            val outPutStream = OutputStreamWriter(connection.outputStream)
+            outPutStream.write(requestBody)
+            outPutStream.flush()
+            outPutStream.close()
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                return@async seller
+            } else{
+                return@async null
+            }
+        }
+    }
     fun createComputer(computer: Computer, email: String): Deferred<Computer?> {
         println("Computer")
         return CoroutineScope(Dispatchers.IO).async {

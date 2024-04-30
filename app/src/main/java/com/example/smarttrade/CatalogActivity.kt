@@ -151,13 +151,13 @@ class CatalogActivity : AppCompatActivity() {
         binding.applyFilter.setOnClickListener(){
             val priceList = mutableListOf<Product>()
 
-            val minimumlist = setMinimumValue(priceList)
-            val maximumlist = setMaximumValue(minimumlist)
-            val finalList = setCategoryFilter(maximumlist)
+            //val minimumlist = setMinimumValue(priceList)
+            //val maximumlist = setMaximumValue(minimumlist)
+            //val finalList = setCategoryFilter(maximumlist)
 
-            recyclerList.clear()
-            recyclerList.addAll(finalList)
-            adapter!!.notifyDataSetChanged()
+            //recyclerList.clear()
+            //recyclerList.addAll(finalList)
+            //adapter!!.notifyDataSetChanged()
         }
 
 
@@ -165,7 +165,7 @@ class CatalogActivity : AppCompatActivity() {
 
 
     }
-    private fun setMinimumValue(pricelist : MutableList<Product>): MutableList<Product>{
+    /*private fun setMinimumValue(pricelist : MutableList<Product>): MutableList<Product>{
         val string = binding.minimumValue.text
         val number = string.dropLast(1).toString().toInt()
         minPrice=number
@@ -178,9 +178,9 @@ class CatalogActivity : AppCompatActivity() {
             }
         }
         return pricelist
-    }
+    }*/
 
-    private fun setMaximumValue(filterlist : MutableList<Product>) : MutableList<Product>{
+    /*private fun setMaximumValue(filterlist : MutableList<Product>) : MutableList<Product>{
         val string = binding.seekvalue.text
         val number = string.dropLast(1).toString().toInt()
         val maxList = mutableListOf<Product>()
@@ -196,7 +196,7 @@ class CatalogActivity : AppCompatActivity() {
             }
         }
         return maxList
-    }
+    }*/
     private fun changeVisibilityFilter(){
         if(binding.filterLayout.visibility == View.INVISIBLE){
             binding.filterLayout.visibility = View.VISIBLE

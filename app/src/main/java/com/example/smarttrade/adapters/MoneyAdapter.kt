@@ -18,10 +18,12 @@ import com.example.smarttrade.CatalogActivity
 import com.example.smarttrade.CertificateValidationActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.typeofusers.Merchant
 import java.io.ByteArrayOutputStream
 
-class MoneyAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<MoneyAdapter.MoneyHolder>() {
+class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Merchant) : RecyclerView.Adapter<MoneyAdapter.MoneyHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoneyHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
@@ -35,15 +37,16 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
 
     override fun onBindViewHolder(holder: MoneyAdapter.MoneyHolder, position: Int) {
         holder.productName.setText(list.get(position)!!.name)
-        holder.productCompany.setText(list.get(position)!!.seller)
-        holder.productBrand.setText(list.get(position)!!.price.toString())
+        holder.productCompany.setText(list.get(position)!!.description)
+        holder.productBrand.setText(list.get(position)!!.brand)
         val type = list.get(position)!!.productType
         val image = service.getImageByType(type, list[position]!!.productId)
         holder.productImage.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
         //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
-    class MoneyHolder(itemView: View, context: Context, list:List<Product?>, user : User) : RecyclerView.ViewHolder(itemView){
+    class MoneyHolder(itemView: View, context: Context, list:List<Product?>, user : Merchant) : RecyclerView.ViewHolder(itemView){
+        val service = BusinessLogic()
         var productImage : ImageView = itemView.findViewById(R.id.imageViewProductImage)
         var productName : TextView = itemView.findViewById(R.id.textViewProductName)
         var productCompany : TextView = itemView.findViewById(R.id.textViewProductCompany)
@@ -55,6 +58,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
                 val heightInPixels = 570
                 val popupView = LayoutInflater.from(itemView.context).inflate(R.layout.popup_price, null)
                 val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+                val price = popupView.findViewById<View>(R.id.editTextPrice)
 
                 val buttonCancel = popupView.findViewById<View>(R.id.buttonCancel)
                 buttonCancel.setOnClickListener(){
@@ -63,9 +67,9 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
                 val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
                 buttonAdd.setOnClickListener(){
                     val intent = Intent(context, CatalogActivity::class.java)
-                    intent.putExtra("product", list.get(adapterPosition))
                     intent.putExtra("user", user)
-                    //logica de addexistentproduct
+                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.enterprise_name, 1, price.toString().toDouble())
+                    service.copyProduct(sell)
                     context.startActivity(intent)
                 }
                 popupWindow.showAtLocation(itemView, Gravity.CENTER, 0, 0)

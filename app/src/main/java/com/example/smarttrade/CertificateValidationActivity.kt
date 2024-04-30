@@ -57,7 +57,7 @@ class CertificateValidationActivity : AppCompatActivity() {
         val imageViewProductImage = findViewById<ImageView>(R.id.imageViewProductImage)
 
         textViewProductName.text = product!!.name
-        textViewProductCompany.text = "Company " + product!!.seller
+        //textViewProductCompany.text = "Company " + product!!.seller
         textViewProductBrand.text = "Brand: " + product!!.brand
         textViewProductProduction.text = "Production: "+ product!!.production
         textViewProductMaterial.text = "Materials "+ product!!.materials

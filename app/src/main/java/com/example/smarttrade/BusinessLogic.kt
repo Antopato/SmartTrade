@@ -367,6 +367,10 @@ class BusinessLogic() {
         return product
 
     }
+
+    fun copyProduct(seller: Sell){
+        runBlocking { call.copyProduct(seller).await() }
+    }
 }
 
 
