@@ -16,5 +16,5 @@ class SmartPhone(
     var display: String,
     var size: Double,
     var processor: String,
-    var guarantee: Int
+    var guarrantee: Int
 ) : Product(productId, name, description, production, additionalInfo, image,certificationId, brand, materials, productType)

@@ -232,69 +232,62 @@ class BusinessLogic() {
         }
     }
 
-    fun createComputer(computer: Computer, email: String){
+    fun createComputer(product: Computer, seller: Sell, byteArray: ByteArray){
         runBlocking {
-            call.createComputer(computer, email).await()
+            call.createComputer(
+                byteArray,
+                product.brand,
+                product.description,
+                product.guarrantee,
+                product.materials,
+                product.name,
+                product.operatingSystem,
+                seller.selledId,
+                seller.price,
+                product.production,
+                product.ram,
+                seller.stock,
+                product.storageType
+                ).await()
         }
     }
 
-    fun createPhone(phone: SmartPhone, email: String){
+    fun createSmartphone(product: SmartPhone, seller: Sell, byteArray: ByteArray){
         runBlocking {
-            call.createPhone(phone, email).await()
+            call.createSmartphone(
+                byteArray,
+                product.brand,
+                product.description,
+                product.display,
+                product.guarrantee,
+                product.materials,
+                product.name,
+                seller.selledId,
+                seller.price,
+                product.production,
+                product.processor,
+                seller.stock,
+                product.size
+            ).await()
         }
     }
 
-    fun createHousehold(household: HouseHold, email: String){
+    fun createHousehold(product: HouseHold, seller: Sell, byteArray: ByteArray){
         runBlocking {
-            call.createHousehold(household, email).await()
-        }
-    }
-
-    fun createFootwear(footwear: FootWear, email: String){
-        runBlocking {
-            call.createFootwear(footwear, email).await()
-        }
-    }
-
-    fun createFashionTop(fashionTop: FashionTop, email: String){
-        runBlocking {
-            call.createFashiontop(fashionTop, email).await()
-        }
-    }
-
-    fun createFashioBot(fashionBot: FashionBot, email: String){
-        runBlocking {
-            call.createFashionbot(fashionBot, email).await()
-        }
-    }
-
-    fun createFruit(fruit: Fruit, email: String){
-        runBlocking {
-            call.createFruit(fruit, email).await()
-        }
-    }
-
-    fun createFish(fish: Fish, email: String){
-        runBlocking {
-            call.createFish(fish, email).await()
-        }
-    }
-
-    fun createDrink(drink: Drink, email: String){
-        runBlocking {
-            call.createDrink(drink, email).await()
-        }
-    }
-
-    fun createMeat(meat: Meat, email: String){
-        runBlocking {
-            call.createMeat(meat, email).await()
-        }
-    }
-
-    fun createVegetable(vegetable: Vegetable, email: String){
-        runBlocking {
-            call.createVegetables(vegetable, email).await()
+            call.createHousehold(
+                byteArray,
+                product.brand,
+                product.description,
+                product.guarrantee,
+                product.materials,
+                product.name,
+                product.noiseLevel,
+                seller.selledId,
+                seller.price,
+                product.production,
+                product.powerConsumption,
+                seller.stock
+            ).await()
         }
     }
 

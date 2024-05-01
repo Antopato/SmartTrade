@@ -15,4 +15,4 @@ class HouseHold(
     productType : String,
     var powerConsumption: Int,
     var noiseLevel: Double,
-    var guarantee: Int): Product(productId, name,description, production, additionalInfo, image, certificationId, brand, materials, productType)
+    var guarrantee: Int): Product(productId, name,description, production, additionalInfo, image, certificationId, brand, materials, productType)
