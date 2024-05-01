@@ -14,6 +14,6 @@ class FootWear(
     brand: String,
     productType :String,
     var footwearType: String,
-    var size: Int
+    var size: String
 ) : Product(productId, name,description, production, additionalInfo, image, certificationId, brand, materials,productType) {
 }

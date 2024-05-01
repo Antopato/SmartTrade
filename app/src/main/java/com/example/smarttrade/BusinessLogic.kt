@@ -242,7 +242,7 @@ class BusinessLogic() {
                 product.materials,
                 product.name,
                 product.operatingSystem,
-                seller.selledId,
+                seller.seller_email,
                 seller.price,
                 product.production,
                 product.ram,
@@ -262,7 +262,7 @@ class BusinessLogic() {
                 product.guarrantee,
                 product.materials,
                 product.name,
-                seller.selledId,
+                seller.seller_email,
                 seller.price,
                 product.production,
                 product.processor,
@@ -282,11 +282,162 @@ class BusinessLogic() {
                 product.materials,
                 product.name,
                 product.noiseLevel,
-                seller.selledId,
+                seller.seller_email,
                 seller.price,
                 product.production,
                 product.powerConsumption,
                 seller.stock
+            ).await()
+        }
+    }
+
+    fun createFashionTop(product: FashionTop, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createFashionTop(
+                byteArray,
+                product.brand,
+                product.description,
+                product.materials,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.size,
+                seller.stock,
+                product.topType
+            ).await()
+        }
+    }
+
+    fun createFashionBottom(product: FashionBot, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createFashionBottom(
+                byteArray,
+                product.brand,
+                product.description,
+                product.materials,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.size,
+                seller.stock,
+                product.botType
+            ).await()
+        }
+    }
+
+    fun createFootWear(product: FootWear, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createFootWear(
+                byteArray,
+                product.brand,
+                product.description,
+                product.materials,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.size,
+                seller.stock,
+                product.footwearType
+            ).await()
+        }
+    }
+
+    fun createDrink(product: Drink, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createDrink(
+                byteArray,
+                product.alcohol,
+                product.calories,
+                product.expiringDate,
+                product.drinkType,
+                product.description,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.quantity,
+                seller.stock,
+                product.unit
+            ).await()
+        }
+    }
+
+    fun createFish(product: Fish, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createFish(
+                byteArray,
+                product.calories,
+                product.expiringDate,
+                product.fishingMethod,
+                product.description,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.quantity,
+                seller.stock,
+                product.unit
+            ).await()
+        }
+    }
+
+    fun createFruit(product: Fruit, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createFruit(
+                byteArray,
+                product.calories,
+                product.expiringDate,
+                product.flavor,
+                product.description,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.quantity,
+                seller.stock,
+                product.unit
+            ).await()
+        }
+    }
+
+    fun createMeat(product: Meat, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createMeat(
+                byteArray,
+                product.calories,
+                product.expiringDate,
+                product.origin,
+                product.description,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.quantity,
+                seller.stock,
+                product.unit
+            ).await()
+        }
+    }
+
+    fun createVegetable(product: Vegetable, seller: Sell, byteArray: ByteArray){
+        runBlocking {
+            call.createVegetable(
+                byteArray,
+                product.calories,
+                product.expiringDate,
+                product.origin,
+                product.description,
+                product.name,
+                seller.seller_email,
+                seller.price,
+                product.production,
+                product.quantity,
+                product.season,
+                seller.stock,
+                product.unit
             ).await()
         }
     }

@@ -351,7 +351,7 @@ class HTTPcalls() {
 
     fun copyProduct(seller: Sell): Deferred<Sell?>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/saveexistend/${seller.prodId}")
+            val url = URL("http://$idMario:8080/products/saveexistend/${seller.id_product}")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true

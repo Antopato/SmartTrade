@@ -14,6 +14,6 @@ class FashionBot(
     brand: String,
     productType :String,
     var botType: String,
-    var size : Int
+    var size : String
 
 ): Product(productId, name, description, production, additionalInfo, image, certificationId, brand, materials, productType)
