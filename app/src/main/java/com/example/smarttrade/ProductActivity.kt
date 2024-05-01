@@ -32,7 +32,7 @@ class ProductActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
         val product = intent.getSerializableExtra("product") as Product
 
-        var list = service.getCategoryProducts(product.productType)
+        var list = service.getSeller(product.productId)
         val recycler = findViewById<RecyclerView>(R.id.recycled_price)
 
         binding.backButt.setOnClickListener(){
@@ -56,7 +56,7 @@ class ProductActivity : AppCompatActivity() {
         }
 
         binding.toWhislistButt.setOnClickListener(){
-            service.addToWhislist(user,product)
+            service.addToWhislist(product.productId,user.email)
         }
     }
     fun notifyButt(){

@@ -30,9 +30,9 @@ import com.example.smarttrade.classes.food.Meat
 import com.example.smarttrade.classes.food.Vegetable
 import java.io.File
 
-
-class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
-    AdapterView.OnItemClickListener {
+//, AdapterView.OnItemSelectedListener,
+//    AdapterView.OnItemClickListener
+class AddProductActivity : AppCompatActivity(){
 
 
     lateinit var updateImage : ImageView
@@ -98,14 +98,14 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
-        spinner.onItemSelectedListener = this
+       // spinner.onItemSelectedListener = this
 
 
         addProductbutt.setOnClickListener() {
             println(spinner.selectedItem)
 
 
-
+/*
             when (spinner.selectedItem) {
                 "PHONE" -> {
                     val phone = SmartPhone(
@@ -519,17 +519,11 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                 adicional3.visibility = View.GONE
                 adicional4.visibility = View.GONE
                 adicional5.visibility = View.GONE
-            }
+            }*/
 
 
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        TODO("Not yet implemented")
-    }
 }

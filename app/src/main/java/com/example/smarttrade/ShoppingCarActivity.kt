@@ -17,6 +17,7 @@ class ShoppingCarActivity : AppCompatActivity(), Observer {
     lateinit var adapter : CarAdapter
     val recyclerList = mutableListOf<ShoppingCart>()
 
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class ShoppingCarActivity : AppCompatActivity(), Observer {
         setContentView(binding.root)
 
         recyclerList.addAll(list)
-        adapter = CarAdapter(this,recyclerList,this)
+        adapter = CarAdapter(this,recyclerList,this, user)
 
         binding.recyclerPrices.adapter = adapter
         binding.recyclerPrices.setLayoutManager(LinearLayoutManager(this))
@@ -42,8 +43,11 @@ class ShoppingCarActivity : AppCompatActivity(), Observer {
         binding.totalText.text = total.toString() + "€"
     }
 
-    fun changeData(){
+    fun changeData(user : User){
         //recyclerList.removeAt(position)
+        var newList = service.getShoppingCar(user.email)
+        recyclerList.clear()
+        recyclerList.addAll(newList)
         println(recyclerList.count())
         adapter.notifyDataSetChanged()
         change()

@@ -19,17 +19,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/company_name"
-                android:layout_width="66dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:text="TextView"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/prodName" />
-
-            <TextView
                 android:id="@+id/price_text"
                 android:layout_width="114dp"
                 android:layout_height="28dp"

@@ -1,5 +1,6 @@
 package com.example.smarttrade.adapters
 
+import android.app.ListActivity
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
@@ -10,15 +11,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
+import com.example.smarttrade.ListsActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
-import com.example.smarttrade.databinding.ListsPageRowBinding
+import com.example.smarttrade.classes.User
 
-class ListAdapter(var context : Context, val list : List<Product>, val type : String) : RecyclerView.Adapter<ListAdapter.ListHolder>() {
+class ListAdapter(var context : Context, val list : List<Product>, val type : String, val user : User, val activity : ListsActivity) : RecyclerView.Adapter<ListAdapter.ListHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.price_recycler, parent, false)
+        val view = inflater.inflate(R.layout.lists_page_row, parent, false)
         val viewHold = ListHolder(view)
 
         return viewHold
@@ -26,15 +28,18 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
 
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
+        println(list.get(position).name)
         holder.name.text = list.get(position).name
         holder.description.text = list.get(position).description
         setImage(holder,list.get(position))
 
         holder.deleteButt.setOnClickListener(){
             if(type=="whislist"){
-                service.deleteProdFromWhislist()
+                service.deleteProdFromWhislist(list.get(position).productId, user.email)
+                activity.refreshList(position)
             }else{
-                service.deleteProdFromLater()
+                service.deleteProdFromLater(list.get(position).productId, user.email)
+                activity.refreshList(position)
             }
         }
     }
