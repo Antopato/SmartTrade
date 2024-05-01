@@ -1,6 +1,5 @@
 package com.example.smarttrade
 
-import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
@@ -20,20 +19,8 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
-import java.io.File
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import com.example.smarttrade.classes.electronic.HouseHold
-import com.example.smarttrade.classes.electronic.SmartPhone
-import com.example.smarttrade.classes.fashion.FashionBot
-import com.example.smarttrade.classes.fashion.FashionTop
-import com.example.smarttrade.classes.fashion.FootWear
-import com.example.smarttrade.classes.food.Drink
-import com.example.smarttrade.classes.food.Fish
-import com.example.smarttrade.classes.food.Fruit
-import com.example.smarttrade.classes.food.Meat
-import com.example.smarttrade.classes.food.Vegetable
+
+
 import java.io.DataOutputStream
 
 //import kotlinx.serialization.encodeToString
@@ -388,7 +375,7 @@ class HTTPcalls() {
         ram: Int,
         stock: Int,
         storageType: String
-    ): Deferred<Computer?> {
+    ) {
         val url = "http://10.0.2.2:8080/products/electronics/computer/add"
         val connection = URL(url).openConnection() as HttpURLConnection
         connection.requestMethod = "POST"
@@ -1782,10 +1769,8 @@ class HTTPcalls() {
     }
     fun addProductToForLater(userId : String, productId : Int) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/savedForLater/add")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "POST"
-            connection.connect()
+
+            val connection = connect("http://$myId:8080/savedForLater/add", "POST")
 
             val requestBody = StringBuilder().apply {
                 append("product_id=$productId&")
@@ -1825,10 +1810,8 @@ class HTTPcalls() {
 
     fun deleteProdFromForLater(id : Int, email : String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/savedForLater/delete/product")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "DELETE"
-            connection.connect()
+
+            val connection = connect("http://$myId:8080/savedForLater/delete/product","DELETE")
 
             val requestBody = StringBuilder().apply {
                 append("id=$id&")
@@ -1845,6 +1828,21 @@ class HTTPcalls() {
 
     }
 
+    fun getAvgPrice(id : Int) : Deferred<Double>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$myId:8080/products/averagePrice/$id","GET")
+
+            val inputStream = connection.inputStream
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            var response = ""
+            var line = reader.readLine()
+
+            val value = line.toDouble()
+
+            return@async value
+        }
+    }
+
 
 
 
@@ -1853,5 +1851,14 @@ class HTTPcalls() {
         outPutStream.write(requestBody)
         outPutStream.flush()
         outPutStream.close()
+    }
+
+    fun connect(url : String, type : String) : HttpURLConnection{
+        val url = URL(url)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = type
+        connection.connect()
+
+        return connection
     }
 }

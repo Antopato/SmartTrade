@@ -19,6 +19,7 @@ import com.example.smarttrade.adapters.ProductsAdapter
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.CatalogPageBinding
+import org.json.JSONObject
 
 class CatalogActivity : AppCompatActivity() {
 
@@ -151,14 +152,14 @@ class CatalogActivity : AppCompatActivity() {
 
         binding.applyFilter.setOnClickListener(){
             val priceList = mutableListOf<Product>()
+            val json = adapter!!.json
+            val minimumlist = setMinimumValue(priceList, json)
+            val maximumlist = setMaximumValue(minimumlist, json)
+            val finalList = setCategoryFilter(maximumlist)
 
-            //val minimumlist = setMinimumValue(priceList)
-            //val maximumlist = setMaximumValue(minimumlist)
-            //val finalList = setCategoryFilter(maximumlist)
-
-            //recyclerList.clear()
-            //recyclerList.addAll(finalList)
-            //adapter!!.notifyDataSetChanged()
+            recyclerList.clear()
+            recyclerList.addAll(finalList)
+            adapter!!.notifyDataSetChanged()
         }
 
 
@@ -166,22 +167,23 @@ class CatalogActivity : AppCompatActivity() {
 
 
     }
-    /*private fun setMinimumValue(pricelist : MutableList<Product>): MutableList<Product>{
+    private fun setMinimumValue(pricelist : MutableList<Product>, json : JSONObject): MutableList<Product>{
         val string = binding.minimumValue.text
         val number = string.dropLast(1).toString().toInt()
         minPrice=number
 
         for(product in list) {
-            println(product!!.name + " " + product.price)
-            if (product!!.price >= minPrice) {
+            val price = json.get(product!!.productId.toString()) as Double
+            println(product!!.name + " " + price)
+            if (price >= minPrice) {
                 println(product.name + " cuesta más de " + minPrice)
                 pricelist.add(product)
             }
         }
         return pricelist
-    }*/
+    }
 
-    /*private fun setMaximumValue(filterlist : MutableList<Product>) : MutableList<Product>{
+    private fun setMaximumValue(filterlist : MutableList<Product>, json : JSONObject) : MutableList<Product>{
         val string = binding.seekvalue.text
         val number = string.dropLast(1).toString().toInt()
         val maxList = mutableListOf<Product>()
@@ -189,15 +191,16 @@ class CatalogActivity : AppCompatActivity() {
         else{maxPrice=100000000}
 
         for(product in filterlist){
-            println(product.name + " " + product.price)
-            if(product!!.price<=maxPrice) {
+            val price = json.get(product!!.productId.toString()) as Double
+            println(product.name + " " + price)
+            if(price<=maxPrice) {
                 println(product.name + " cuesta menos de " + minPrice)
 
                 maxList.add(product)
             }
         }
         return maxList
-    }*/
+    }
     private fun changeVisibilityFilter(){
         if(binding.filterLayout.visibility == View.INVISIBLE){
             binding.filterLayout.visibility = View.VISIBLE

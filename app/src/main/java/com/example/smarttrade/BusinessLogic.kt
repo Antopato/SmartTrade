@@ -545,6 +545,14 @@ class BusinessLogic() {
     fun copyProduct(seller: Sell){
         runBlocking { call.copyProduct(seller).await() }
     }
+
+    fun getAvgPrice(id : Int) : Double{
+        val price : Double
+        runBlocking {
+            price = call.getAvgPrice(id).await()
+        }
+        return price
+    }
 }
 
 

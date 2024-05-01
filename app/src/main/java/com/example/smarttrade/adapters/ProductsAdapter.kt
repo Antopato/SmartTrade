@@ -16,11 +16,15 @@ import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 
 class ProductsAdapter(var context: Context, var list: List<Product?>, var user: User?) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     val service = BusinessLogic()
+    var json = JSONObject()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
         val view =  inflater.inflate(R.layout.recycler_row, parent, false)
@@ -36,6 +40,8 @@ class ProductsAdapter(var context: Context, var list: List<Product?>, var user: 
         //service.getImageByType(list.get(position)!!)
         //holder.image.setImageBitmap(list.get(position).img)
         println("Buscando imagen de $type")
+        val price = service.getAvgPrice(list.get(position)!!.productId)
+        json.put(list.get(position)!!.productId.toString(), price)
         val image = service.getImageByType(type, list[position]!!.productId)
         println("he acabdo de buscar el tipo $type")
         holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
