@@ -33,7 +33,8 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
     }
 
     override fun onBindViewHolder(holder: PriceHolder, position: Int) {
-        holder.company.setText(list.get(position).sellId)
+        println("Vendido por "+ list.get(position).seller_email)
+        holder.name.setText(list.get(position).seller_email)
         val string = list.get(position).price.toString() + "€"
         holder.price.setText(string)
 
@@ -50,12 +51,12 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         holderList.add(viewHold)
     }
     fun addProdToCar(){
+        println("Seleccionado "+ selectedProduct.price)
         service.addProductToCar(selectedProduct, user.email)
     }
 
     class PriceHolder(var itemView: View,var adapter : PriceAdapter,var list:List<Sell> ) : RecyclerView.ViewHolder(itemView),
         Observer {
-        val company : TextView = itemView.findViewById(R.id.company_name)
         val price : TextView = itemView.findViewById(R.id.price_text)
         val name : TextView = itemView.findViewById(R.id.prodName)
         var selected :Boolean = false

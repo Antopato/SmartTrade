@@ -44,7 +44,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.0.20"
 
-    val myId = "192.168.1.112"
+    val myId = "192.168.0.21"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
@@ -77,13 +77,8 @@ class HTTPcalls() {
                         val cliente: User = gson.fromJson(jsonResponse, User::class.java)
                         println(cliente.email + " " + cliente.password)
                         reader.close()
-
                         return@async cliente
                     }
-
-
-                //return cliente
-
                 } else {
                     println("Esto va mal")
                     return@async null
@@ -101,6 +96,7 @@ class HTTPcalls() {
             connection.connect()
 
             val responseCode = connection.responseCode
+             println("Response de products " + responseCode)
 
              if (responseCode == HttpURLConnection.HTTP_OK) {
                  val inputStream = connection.inputStream
@@ -360,8 +356,8 @@ class HTTPcalls() {
             connection.requestMethod = "POST"
             connection.doOutput = true
             val requestBody = StringBuilder().apply {
-                append("productId=${seller.prodId}&")
-                append("owner=${seller.selledId}&")
+                append("productId=${seller.id_product}&")
+                append("owner=${seller.id_selled_by}&")
                 append("price=${seller.price}&")
                 append("stock=${seller.stock}")
             }.toString()
@@ -1530,6 +1526,41 @@ class HTTPcalls() {
             }
         }
     }
+    fun getSeller(productId : Int) : Deferred<List<Sell>>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/products/sellers/$productId")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Sell> = gson.fromJson(jsonResponse, object : TypeToken<List<Sell>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
     fun getCartById(id : String) : Deferred<List<ShoppingCart>>{
         return CoroutineScope(Dispatchers.IO).async {
             val url = URL("http://$myId:8080/shoppingCart/$id")
@@ -1565,6 +1596,47 @@ class HTTPcalls() {
             }
         }
     }
+    fun getProductById(id : Int) : Deferred<Product?>{
+        return CoroutineScope(Dispatchers.IO).async {
+            println("Productos por id "+id)
+            val url = URL("http://$myId:8080/products/"+id)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            println("He enviado la petición")
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            println( connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                if(response.isEmpty()){
+                    println("Esto está vacío")
+                    return@async null
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val product : Product = gson.fromJson(jsonResponse, Product::class.java)
+                    reader.close()
+                    return@async product
+                }
+            } else {
+                println("Esto va mal")
+                return@async null
+
+            }
+        }
+
+    }
 
     fun deleteProdFromCart(id : Int, email : String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async {
@@ -1599,10 +1671,10 @@ class HTTPcalls() {
             connection.connect()
             val quantity = 1
             val requestBody = StringBuilder().apply {
-                append("price=${sell.price}&")
-                append("productId=${sell.prodId}&")
+                append("price=${sell.price.toInt()}&")
+                append("product_id=${sell.id_product}&")
                 append("quantity=$quantity&")
-                append("shopping_cart_owner=$quantity")
+                append("shopping_cart_owner=$mail")
             }.toString()
 
             val outPutStream = OutputStreamWriter(connection.outputStream)
@@ -1615,5 +1687,171 @@ class HTTPcalls() {
 
             return@async codigoRespuesta
         }
+    }
+    fun getWhisList(id: String) : Deferred<List<Product>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/wishList/$id")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            println( connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+    fun getForLaterList(id: String) : Deferred<List<Product>> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/savedForLater/$id")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+            val responseCode = connection.responseCode
+            println(responseCode)
+
+            println( connection.content.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+    fun addProducToWhislist(userId : String, productId : Int) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/wishList/add")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.connect()
+            val quantity = 1
+            val requestBody = StringBuilder().apply {
+                append("product_id=$productId&")
+                append("wishList_owner=$userId")
+            }.toString()
+
+            publish(connection,requestBody)
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
+        }
+    }
+    fun addProductToForLater(userId : String, productId : Int) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/savedForLater/add")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.connect()
+
+            val requestBody = StringBuilder().apply {
+                append("product_id=$productId&")
+                append("list_owner=$userId&")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
+        }
+    }
+
+    fun deleteProdFromWhislist(id : Int, email : String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/wishList/delete/product")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "DELETE"
+            connection.connect()
+
+            val requestBody = StringBuilder().apply {
+                append("id=$id&")
+                append("email=$email")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
+        }
+
+    }
+
+    fun deleteProdFromForLater(id : Int, email : String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = URL("http://$myId:8080/savedForLater/delete/product")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "DELETE"
+            connection.connect()
+
+            val requestBody = StringBuilder().apply {
+                append("id=$id&")
+                append("email=$email")
+            }.toString()
+
+            publish(connection,requestBody)
+
+            val codigoRespuesta = connection.responseCode
+            println(codigoRespuesta)
+
+            return@async codigoRespuesta
+        }
+
+    }
+
+
+
+
+    fun publish(connection : HttpURLConnection, requestBody : String){
+        val outPutStream = OutputStreamWriter(connection.outputStream)
+        outPutStream.write(requestBody)
+        outPutStream.flush()
+        outPutStream.close()
     }
 }

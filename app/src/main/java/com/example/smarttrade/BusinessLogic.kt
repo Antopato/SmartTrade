@@ -334,31 +334,61 @@ class BusinessLogic() {
         }
     }
 
-    fun getWhislist() : List<Product>{
-        return emptyList()
+    fun getWhislist(userId : String) : MutableList<Product>{
+        var list = mutableListOf<Product>()
+        runBlocking {
+            list.addAll(call.getWhisList(userId).await())
+        }
+        return list
     }
 
-    fun getForLaterList() : List<Product>{
-        return emptyList()
+    fun getForLaterList(userId : String) : MutableList<Product>{
+        var list = mutableListOf<Product>()
+        runBlocking {
+            list.addAll(call.getForLaterList(userId).await())
+        }
+        return list
     }
 
     fun addToLaterList(prodId : Int , userId : String) {
-
+        runBlocking{
+            call.addProductToForLater(userId,prodId).await()
+        }
     }
-    fun addToWhislist(user:User, product:Product){
-
+    fun addToWhislist(prodId : Int , userId : String){
+        runBlocking{
+            call.addProducToWhislist(userId,prodId).await()
+        }
     }
-    fun deleteProdFromWhislist(){
-
+    fun deleteProdFromWhislist(prodId : Int, userId : String){
+        runBlocking{
+            call.deleteProdFromWhislist(prodId, userId).await()
+        }
     }
-    fun deleteProdFromLater(){
+    fun deleteProdFromLater(prodId : Int, userId : String){
+        runBlocking{
+            call.deleteProdFromForLater(prodId,userId).await()
+        }
+    }
 
+    fun getSeller(productId : Int) : List<Sell>{
+        val list = mutableListOf<Sell>()
+        runBlocking{
+            list.addAll(call.getSeller(productId).await())
+        }
+        return list
     }
 
     fun getProductById(id : Int) : Product{
-        val product Product
-        return product
-
+        val product : Product?
+        runBlocking {
+            product = call.getProductById(id).await()
+        }
+        if(product!=null) {
+            return product
+        }else{
+            throw Exception("Product not Found")
+        }
     }
 
     fun copyProduct(seller: Sell){

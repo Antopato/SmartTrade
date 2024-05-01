@@ -7,19 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smarttrade.adapters.ListAdapter
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.ListsPageBinding
 
 class ListsActivity : AppCompatActivity() {
     lateinit var binding : ListsPageBinding
+    var list = mutableListOf<Product>()
+    lateinit var adapter : ListAdapter
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val service = BusinessLogic()
         val listType = intent.getStringExtra("type")
-        val user = intent.getSerializableExtra("user")
-        val list : List<Product>
-        var adapter : ListAdapter
+        val user = intent.getSerializableExtra("user") as User
 
 
         binding = ListsPageBinding.inflate(layoutInflater)
@@ -27,13 +29,13 @@ class ListsActivity : AppCompatActivity() {
 
         if(listType=="whislist"){
             binding.listTypeText.text="Your Whislist"
-            list = service.getWhislist()
-            adapter = ListAdapter(this, list, listType)
+            list = service.getWhislist(user.email)
+            adapter = ListAdapter(this, list, listType, user,this)
 
         }else{
             binding.listTypeText.text="Stored for later"
-            list =service.getForLaterList()
-            adapter = ListAdapter(this, list, listType.toString())
+            list =service.getForLaterList(user.email)
+            adapter = ListAdapter(this, list, listType.toString(), user, this)
 
         }
 
@@ -50,4 +52,10 @@ class ListsActivity : AppCompatActivity() {
         }
 
     }
+
+    fun refreshList(position : Int){
+        list.removeAt(position)
+        adapter.notifyDataSetChanged()
+    }
+
 }

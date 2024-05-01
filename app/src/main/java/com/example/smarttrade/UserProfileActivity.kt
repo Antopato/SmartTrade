@@ -42,7 +42,7 @@ class UserProfileActivity : AppCompatActivity() {
         binding.buttonForLaterList.setOnClickListener {
             val forLater = Intent(this, ListsActivity::class.java)
             forLater.putExtra("user",user)
-            forLater.putExtra("type", "whislist")
+            forLater.putExtra("type", "forLater")
             startActivity(forLater)
         }
     }

@@ -1,9 +1,9 @@
 package com.example.smarttrade.classes
 
 data class ShoppingCart(
-    var cartId : Int,
-    var userId : String,
-    var prodId : Int,
+    var shoppingCart_id : Int,
+    var shopping_cart_owner : String,
+    var product_id : Int,
     var quantity : Int,
     var price : Int
 )

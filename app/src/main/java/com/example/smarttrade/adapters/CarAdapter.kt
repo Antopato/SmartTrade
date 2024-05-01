@@ -16,8 +16,9 @@ import com.example.smarttrade.R
 import com.example.smarttrade.ShoppingCarActivity
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
+import com.example.smarttrade.classes.User
 
-class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val observer : ShoppingCarActivity) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
+class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val observer : ShoppingCarActivity, val user : User) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
     var sum = 0
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,10 +30,11 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val product = service.getProductById(list.get(position).prodId)
-        val userId = list.get(position).userId
+        val product = service.getProductById(list.get(position).product_id)
+        val userId = list.get(position).shopping_cart_owner
         holder.price.setText(list.get(position).price.toString() + "€")
-        holder.amount.setText(list.get(position).quantity)
+        println(list.get(position).quantity.toString())
+        holder.amount.setText(list.get(position).quantity.toString())
         holder.name.setText(product.name)
 
         val unitPrice = list.get(position).price
@@ -67,12 +69,12 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
             service.addToLaterList(product.productId,userId)
             service.deleteProdFromCart(product.productId,userId)
             sum=0
-            observer.changeData()
+            observer.changeData(user)
         }
         holder.deleteButton.setOnClickListener(){
             service.deleteProdFromCart(product.productId,userId)
             sum=0
-            observer.changeData()
+            observer.changeData(user)
         }
 
     }
