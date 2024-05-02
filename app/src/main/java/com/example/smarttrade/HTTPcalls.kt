@@ -35,7 +35,7 @@ class HTTPcalls() {
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
-                val url = URL("http://$idMario:8080/users/"+mail)
+                val url = URL("http://$myId:8080/users/"+mail)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connect()
@@ -77,7 +77,7 @@ class HTTPcalls() {
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/certified")
+            val url = URL("http://$myId:8080/products/certified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -127,7 +127,7 @@ class HTTPcalls() {
     fun createCostumer(costumer: Costumer): Deferred<User?> {
         println("Orchata")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/clients/add")
+            val url = URL("http://$myId:8080/clients/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -166,7 +166,7 @@ class HTTPcalls() {
     fun createMerchant(merchant: Merchant): Deferred<User?> {
         println("MFI")
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/merchants/add")
+            val url = URL("http://$myId:8080/merchants/add")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             println("He enviado la petición")
@@ -201,7 +201,7 @@ class HTTPcalls() {
     }
     fun getUncertifiedCertificates(): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/uncertified")
+            val url = URL("http://$myId:8080/products/uncertified")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -243,7 +243,7 @@ class HTTPcalls() {
     fun getComputerImage(urlString: String): Deferred<ByteArray> {
         lateinit var bytes:ByteArray
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$urlString")
+            val url = URL("http://$myId:8080/products/$urlString")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             println("estableciendo conexion")
@@ -264,7 +264,7 @@ class HTTPcalls() {
     }
     fun getCategoryProducts(stringUrl : String) : Deferred<List<Product>>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$stringUrl")
+            val url = URL("http://$myId:8080/products/$stringUrl")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -313,7 +313,7 @@ class HTTPcalls() {
 
     fun updateCertification(id:Int,bool:Boolean,admin_id:String): Deferred<Unit> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/certification/save/$id");
+            val url = URL("http://$myId:8080/certification/save/$id");
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "PUT"
             connection.doOutput = true
@@ -338,7 +338,7 @@ class HTTPcalls() {
 
     fun copyProduct(seller: Sell): Deferred<Sell?>{
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/saveexistend/${seller.id_product}")
+            val url = URL("http://$myId:8080/products/saveexistend/${seller.id_product}")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -1407,7 +1407,7 @@ class HTTPcalls() {
 
     fun getMerchantProductsById(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id")
+            val url = URL("http://$myId:8080/products/merchant/$id")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -1443,7 +1443,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsPending(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id/pending")
+            val url = URL("http://$myId:8080/products/$id/pending")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -1479,7 +1479,7 @@ class HTTPcalls() {
     }
     fun getMerchantProductsDenied(id: String) : Deferred<List<Product?>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$idMario:8080/products/$id/denied")
+            val url = URL("http://$myId:8080/products/$id/denied")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
@@ -1538,7 +1538,7 @@ class HTTPcalls() {
                     println("json" + jsonResponse)
                     val gson = Gson()
                     val list: List<Sell> = gson.fromJson(jsonResponse, object : TypeToken<List<Sell>>() {}.type)
-                    println(list)
+                    println(list.get(0).price)
                     reader.close()
 
                     return@async list
@@ -1658,7 +1658,7 @@ class HTTPcalls() {
             connection.connect()
             val quantity = 1
             val requestBody = StringBuilder().apply {
-                append("price=${sell.price.toInt()}&")
+                append("price=${sell.price}&")
                 append("product_id=${sell.id_product}&")
                 append("quantity=$quantity&")
                 append("shopping_cart_owner=$mail")
