@@ -31,7 +31,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.0.20"
 
-    val myId = "192.168.0.21"
+    val myId ="192.168.1.112"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
@@ -1877,7 +1877,7 @@ class HTTPcalls() {
     }
 
     fun connect(url : String, type : String) : HttpURLConnection{
-        val url = URL(url)
+        var url = URL(url)
         val connection = url.openConnection() as HttpURLConnection
         connection.requestMethod = type
         connection.connect()

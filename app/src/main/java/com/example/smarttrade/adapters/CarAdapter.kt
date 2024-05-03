@@ -67,14 +67,16 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
         }
         holder.laterButton.setOnClickListener(){
             service.addToLaterList(product.productId,userId)
+            println("Añadido a forLater")
             service.deleteProdFromCart(product.productId,userId)
+            println("Producto eliminado")
             sum=0
-            observer.changeData(user)
+            observer.changeData(true, position)
         }
         holder.deleteButton.setOnClickListener(){
             service.deleteProdFromCart(product.productId,userId)
             sum=0
-            observer.changeData(user)
+            observer.changeData(false, position)
         }
 
     }

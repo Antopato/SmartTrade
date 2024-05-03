@@ -1,34 +1,38 @@
 package com.example.smarttrade.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.Observer
+import com.example.smarttrade.PopUpAdvertActivity
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
+import com.example.smarttrade.Subject
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 
 
-class PriceAdapter (var context: Context, var list: List<Sell>, var user : User, var activity: ProductActivity) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
+class PriceAdapter (var context: Context, var list: List<Sell>, var user : User, var activity: ProductActivity, val view : View) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
 
-    val holderList = mutableListOf<PriceHolder>()
     var selectedGlobal = false
     lateinit var selectedProduct : Sell
     val service = BusinessLogic()
+    val listHolders = mutableListOf<PriceHolder>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.price_recycler, parent, false)
         val viewHold = PriceHolder(view,this,list)
-        addObserver(viewHold)
-
+        listHolders.add(viewHold)
         return viewHold
     }
 
@@ -47,16 +51,38 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         return list.count()
     }
 
-    fun addObserver(viewHold : PriceHolder){
-        holderList.add(viewHold)
-    }
+
     fun addProdToCar(){
         println("Seleccionado "+ selectedProduct.price)
         service.addProductToCar(selectedProduct, user.email)
+        val widthInPixels = 920
+        val heightInPixels = 570
+        val popupView = LayoutInflater.from(context).inflate(R.layout.popup_advert, null)
+        val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+        val advert = popupView.findViewById<TextView>(R.id.advertText)
+        val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+        val string = advert.text.toString() + "Shopping Cart"
+        advert.text= string
+
+        buttonAdd.setOnClickListener(){
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+    }
+
+    fun addAll(){
+        for(holder in listHolders){
+            for(observer in listHolders)
+                if(holder!=observer){
+                    holder.addObserver(observer)
+                }
+        }
     }
 
     class PriceHolder(var itemView: View,var adapter : PriceAdapter,var list:List<Sell> ) : RecyclerView.ViewHolder(itemView),
-        Observer {
+        Observer, Subject{
+        override var listObservers = mutableListOf<Observer>()
         val price : TextView = itemView.findViewById(R.id.price_text)
         val name : TextView = itemView.findViewById(R.id.prodName)
         var selected :Boolean = false
@@ -65,7 +91,7 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
 
         fun selectSeller(){
             if (!selected) {
-                change()
+                notifyObservers()
                 carView.setBackgroundColor(Color.parseColor("#8BD1EF"))
                 adapter.selectedGlobal= true
                 selected = true
@@ -79,12 +105,26 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
             }
         }
 
-        override fun change(){
-            for(holder in adapter.holderList){
-                holder.carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                holder.selected=false
+        override fun notifyObservers(){
+            for(holder in listObservers){
+                holder.update()
             }
         }
+
+        override fun addObserver(observer: Observer) {
+            listObservers.add(observer)
+        }
+
+        override fun removeObserver(observer : Observer) {
+            listObservers.remove(observer)
+        }
+        override fun update() {
+            this.carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            this.selected=false
+        }
+
+
+
     }
 }
 
