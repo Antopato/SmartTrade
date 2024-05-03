@@ -43,6 +43,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     val service = BusinessLogic()
     val callsService = HTTPcalls()
+    val user = intent.getSerializableExtra("user") as User?
 
     fun saveImage(): ByteArray {
         val bitmap = (updateImage.drawable as BitmapDrawable).bitmap

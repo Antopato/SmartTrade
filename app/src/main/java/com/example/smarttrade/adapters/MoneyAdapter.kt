@@ -68,7 +68,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Mer
                 buttonAdd.setOnClickListener(){
                     val intent = Intent(context, CatalogActivity::class.java)
                     intent.putExtra("user", user)
-                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.enterprise_name, 1, price.toString().toDouble())
+                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, 1, price.toString().toDouble())
                     service.copyProduct(sell)
                     context.startActivity(intent)
                 }
