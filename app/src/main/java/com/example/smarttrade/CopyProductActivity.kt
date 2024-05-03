@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smarttrade.adapters.MoneyAdapter
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.typeofusers.Merchant
 import com.example.smarttrade.databinding.CopyProductBinding
 
 class CopyProductActivity : AppCompatActivity() {
@@ -22,7 +23,7 @@ class CopyProductActivity : AppCompatActivity() {
         binding = CopyProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getSerializableExtra("user") as User
+        val user = intent.getSerializableExtra("user") as Merchant
 
         binding.buttonAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductActivity::class.java)
@@ -34,8 +35,8 @@ class CopyProductActivity : AppCompatActivity() {
         }
 
         val list = service.getProducts()
-        //val adapter = MoneyAdapter(this, list, user)
-        //binding.recyclerView.adapter = adapter
+        val adapter = MoneyAdapter(this, list, user)
+        binding.recyclerView.adapter = adapter
         binding.recyclerView.setLayoutManager(LinearLayoutManager(this))
 
         binding.buttonAddProduct.setOnClickListener {
