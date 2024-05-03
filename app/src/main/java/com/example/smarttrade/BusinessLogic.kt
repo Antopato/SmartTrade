@@ -1,7 +1,9 @@
 package com.example.smarttrade
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
@@ -22,6 +24,7 @@ import kotlinx.coroutines.Deferred
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.example.smarttrade.classes.typeofusers.Merchant
 import kotlinx.coroutines.runBlocking
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -248,7 +251,7 @@ class BusinessLogic() {
                 product.ram,
                 seller.stock,
                 product.storageType
-                )//.await()
+                ).await()
         }
     }
 
@@ -268,7 +271,7 @@ class BusinessLogic() {
                 product.processor,
                 seller.stock,
                 product.size
-            )//.await()
+            ).await()
         }
     }
 
@@ -287,7 +290,7 @@ class BusinessLogic() {
                 product.production,
                 product.powerConsumption,
                 seller.stock
-            )//.await()
+            ).await()
         }
     }
 
@@ -305,7 +308,7 @@ class BusinessLogic() {
                 product.size,
                 seller.stock,
                 product.topType
-            )//.await()
+            ).await()
         }
     }
 
@@ -323,7 +326,7 @@ class BusinessLogic() {
                 product.size,
                 seller.stock,
                 product.botType
-            )//.await()
+            ).await()
         }
     }
 
@@ -341,7 +344,7 @@ class BusinessLogic() {
                 product.size,
                 seller.stock,
                 product.footwearType
-            )//.await()
+            ).await()
         }
     }
 
@@ -361,7 +364,7 @@ class BusinessLogic() {
                 product.quantity,
                 seller.stock,
                 product.unit
-            )//.await()
+            ).await()
         }
     }
 
@@ -380,7 +383,7 @@ class BusinessLogic() {
                 product.quantity,
                 seller.stock,
                 product.unit
-            )//.await()
+            ).await()
         }
     }
 
@@ -399,7 +402,7 @@ class BusinessLogic() {
                 product.quantity,
                 seller.stock,
                 product.unit
-            )//.await()
+            ).await()
         }
     }
 
@@ -418,7 +421,7 @@ class BusinessLogic() {
                 product.quantity,
                 seller.stock,
                 product.unit
-            )//.await()
+            ).await()
         }
     }
 
@@ -438,7 +441,7 @@ class BusinessLogic() {
                 product.season,
                 seller.stock,
                 product.unit
-            )//.await()
+            ).await()
         }
     }
 
@@ -553,6 +556,8 @@ class BusinessLogic() {
         }
         return price
     }
+
+
 }
 
 

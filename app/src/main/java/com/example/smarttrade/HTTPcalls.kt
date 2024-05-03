@@ -375,89 +375,92 @@ class HTTPcalls() {
         ram: Int,
         stock: Int,
         storageType: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ) : Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
-        outputStream.writeBytes("$guarrantee\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
+            outputStream.writeBytes("$guarrantee\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"operatingSystem\"\r\n\r\n")
-        outputStream.writeBytes("$operatingSystem\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"operatingSystem\"\r\n\r\n")
+            outputStream.writeBytes("$operatingSystem\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ram\"\r\n\r\n")
-        outputStream.writeBytes("$ram\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ram\"\r\n\r\n")
+            outputStream.writeBytes("$ram\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"storageType\"\r\n\r\n")
-        outputStream.writeBytes("$storageType\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"storageType\"\r\n\r\n")
+            outputStream.writeBytes("$storageType\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
+
     }
 
     fun createSmartphone(
@@ -474,89 +477,91 @@ class HTTPcalls() {
         processor: String,
         stock: Int,
         size: Double
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"display\"\r\n\r\n")
-        outputStream.writeBytes("$display\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"display\"\r\n\r\n")
+            outputStream.writeBytes("$display\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
-        outputStream.writeBytes("$guarrantee\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
+            outputStream.writeBytes("$guarrantee\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"processor\"\r\n\r\n")
-        outputStream.writeBytes("$processor\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"processor\"\r\n\r\n")
+            outputStream.writeBytes("$processor\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
-        outputStream.writeBytes("$size\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
+            outputStream.writeBytes("$size\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -573,86 +578,88 @@ class HTTPcalls() {
         production: String,
         powerConsumption: Int,
         stock: Int,
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
-        outputStream.writeBytes("$guarrantee\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"guarrantee\"\r\n\r\n")
+            outputStream.writeBytes("$guarrantee\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"noiseLevel\"\r\n\r\n")
-        outputStream.writeBytes("$noiseLevel\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"noiseLevel\"\r\n\r\n")
+            outputStream.writeBytes("$noiseLevel\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"powerConsumption\"\r\n\r\n")
-        outputStream.writeBytes("$powerConsumption\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"powerConsumption\"\r\n\r\n")
+            outputStream.writeBytes("$powerConsumption\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
-
-
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.flush()
-        outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            outputStream.writeBytes("--$boundary--\r\n")
+
+            outputStream.flush()
+            outputStream.close()
+
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -668,82 +675,84 @@ class HTTPcalls() {
         size: String,
         stock: Int,
         topType: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
-        outputStream.writeBytes("$size\r\n")
-
-
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
-
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"topType\"\r\n\r\n")
-        outputStream.writeBytes("$topType\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
+            outputStream.writeBytes("$size\r\n")
 
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"topType\"\r\n\r\n")
+            outputStream.writeBytes("$topType\r\n")
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+
+            outputStream.writeBytes("--$boundary--\r\n")
+
+            outputStream.flush()
+            outputStream.close()
+
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -759,80 +768,82 @@ class HTTPcalls() {
         size: String,
         stock: Int,
         botType: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"botType\"\r\n\r\n")
-        outputStream.writeBytes("$botType\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"botType\"\r\n\r\n")
+            outputStream.writeBytes("$botType\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
-        outputStream.writeBytes("$size\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
+            outputStream.writeBytes("$size\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -848,80 +859,82 @@ class HTTPcalls() {
         size: String,
         stock: Int,
         footwearType: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
-        outputStream.writeBytes("$brand\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"brand\"\r\n\r\n")
+            outputStream.writeBytes("$brand\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"footwearType\"\r\n\r\n")
-        outputStream.writeBytes("$footwearType\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"footwearType\"\r\n\r\n")
+            outputStream.writeBytes("$footwearType\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
-        outputStream.writeBytes("$materials\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"materials\"\r\n\r\n")
+            outputStream.writeBytes("$materials\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
-        outputStream.writeBytes("$size\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"size\"\r\n\r\n")
+            outputStream.writeBytes("$size\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -939,88 +952,90 @@ class HTTPcalls() {
         quantity: Int,
         stock: Int,
         unit: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"alcohol\"\r\n\r\n")
-        outputStream.writeBytes("$alcohol\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"alcohol\"\r\n\r\n")
+            outputStream.writeBytes("$alcohol\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
-        outputStream.writeBytes("$calories\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
+            outputStream.writeBytes("$calories\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
-        outputStream.writeBytes("$date\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
+            outputStream.writeBytes("$date\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"drinktype\"\r\n\r\n")
-        outputStream.writeBytes("$drinktype\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"drinktype\"\r\n\r\n")
+            outputStream.writeBytes("$drinktype\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
-        outputStream.writeBytes("$quantity\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
+            outputStream.writeBytes("$quantity\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
-        outputStream.writeBytes("$unit\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
+            outputStream.writeBytes("$unit\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -1037,84 +1052,86 @@ class HTTPcalls() {
         quantity: Int,
         stock: Int,
         unit: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
-        outputStream.writeBytes("$calories\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
+            outputStream.writeBytes("$calories\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
-        outputStream.writeBytes("$date\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
+            outputStream.writeBytes("$date\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"fishingMethod\"\r\n\r\n")
-        outputStream.writeBytes("$fishingMethod\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"fishingMethod\"\r\n\r\n")
+            outputStream.writeBytes("$fishingMethod\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
-        outputStream.writeBytes("$quantity\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
+            outputStream.writeBytes("$quantity\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
-        outputStream.writeBytes("$unit\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
+            outputStream.writeBytes("$unit\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -1131,84 +1148,86 @@ class HTTPcalls() {
         quantity: Int,
         stock: Int,
         unit: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
-        outputStream.writeBytes("$calories\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
+            outputStream.writeBytes("$calories\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
-        outputStream.writeBytes("$date\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
+            outputStream.writeBytes("$date\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"flavor\"\r\n\r\n")
-        outputStream.writeBytes("$flavor\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"flavor\"\r\n\r\n")
+            outputStream.writeBytes("$flavor\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
-        outputStream.writeBytes("$quantity\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
+            outputStream.writeBytes("$quantity\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
-        outputStream.writeBytes("$unit\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
+            outputStream.writeBytes("$unit\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -1225,84 +1244,86 @@ class HTTPcalls() {
         quantity: Int,
         stock: Int,
         unit: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
-        outputStream.writeBytes("$calories\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
+            outputStream.writeBytes("$calories\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
-        outputStream.writeBytes("$date\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
+            outputStream.writeBytes("$date\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"origin\"\r\n\r\n")
-        outputStream.writeBytes("$origin\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"origin\"\r\n\r\n")
+            outputStream.writeBytes("$origin\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
-        outputStream.writeBytes("$quantity\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
+            outputStream.writeBytes("$quantity\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
-        outputStream.writeBytes("$unit\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
+            outputStream.writeBytes("$unit\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 
@@ -1320,88 +1341,90 @@ class HTTPcalls() {
         season: String,
         stock: Int,
         unit: String
-    ) {
-        val url = "http://10.0.2.2:8080/products/electronics/computer/add"
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.doOutput = true
-        connection.doInput = true
-        connection.useCaches = false
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
+    ): Deferred<Unit?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+            connection.doOutput = true
+            connection.doInput = true
+            connection.useCaches = false
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------boundary")
 
-        val outputStream = DataOutputStream(connection.outputStream)
-        val boundary = "---------------------------boundary"
+            val outputStream = DataOutputStream(connection.outputStream)
+            val boundary = "---------------------------boundary"
 
-        // Agregar parámetros de la solicitud
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
-        outputStream.writeBytes("$calories\r\n")
+            // Agregar parámetros de la solicitud
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"calories\"\r\n\r\n")
+            outputStream.writeBytes("$calories\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
-        outputStream.writeBytes("$date\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"date\"\r\n\r\n")
+            outputStream.writeBytes("$date\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
-        outputStream.writeBytes("$description\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"description\"\r\n\r\n")
+            outputStream.writeBytes("$description\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
-        outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
-        outputStream.write(byteArray)
-        outputStream.writeBytes("\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"imagen.jpg\"\r\n")
+            outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n") // Cambiar a image/jpeg
+            outputStream.write(byteArray)
+            outputStream.writeBytes("\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
-        outputStream.writeBytes("$name\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"name\"\r\n\r\n")
+            outputStream.writeBytes("$name\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"origin\"\r\n\r\n")
-        outputStream.writeBytes("$origin\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"origin\"\r\n\r\n")
+            outputStream.writeBytes("$origin\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
-        outputStream.writeBytes("$ownerId\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"ownerId\"\r\n\r\n")
+            outputStream.writeBytes("$ownerId\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
-        outputStream.writeBytes("$price\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"price\"\r\n\r\n")
+            outputStream.writeBytes("$price\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
-        outputStream.writeBytes("$production\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"production\"\r\n\r\n")
+            outputStream.writeBytes("$production\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
-        outputStream.writeBytes("$quantity\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"quantity\"\r\n\r\n")
+            outputStream.writeBytes("$quantity\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"season\"\r\n\r\n")
-        outputStream.writeBytes("$season\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"season\"\r\n\r\n")
+            outputStream.writeBytes("$season\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
-        outputStream.writeBytes("$stock\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"stock\"\r\n\r\n")
+            outputStream.writeBytes("$stock\r\n")
 
-        outputStream.writeBytes("--$boundary\r\n")
-        outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
-        outputStream.writeBytes("$unit\r\n")
+            outputStream.writeBytes("--$boundary\r\n")
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"unit\"\r\n\r\n")
+            outputStream.writeBytes("$unit\r\n")
 
-        outputStream.writeBytes("--$boundary--\r\n")
+            outputStream.writeBytes("--$boundary--\r\n")
 
-        outputStream.flush()
-        outputStream.close()
+            outputStream.flush()
+            outputStream.close()
 
-        // Leer y mostrar la respuesta del servidor
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            val inputStream = BufferedInputStream(connection.inputStream)
-            val response = inputStream.bufferedReader().use { it.readText() }
-            println("Respuesta del servidor: $response")
-        } else {
-            val errorStream = BufferedInputStream(connection.errorStream)
-            val error = errorStream.bufferedReader().use { it.readText() }
-            println("Error en la petición: $error")
+            // Leer y mostrar la respuesta del servidor
+            val responseCode = connection.responseCode
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = BufferedInputStream(connection.inputStream)
+                val response = inputStream.bufferedReader().use { it.readText() }
+                println("Respuesta del servidor: $response")
+            } else {
+                val errorStream = BufferedInputStream(connection.errorStream)
+                val error = errorStream.bufferedReader().use { it.readText() }
+                println("Error en la petición: $error")
+            }
         }
     }
 

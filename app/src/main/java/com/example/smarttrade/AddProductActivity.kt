@@ -1,6 +1,8 @@
 package com.example.smarttrade
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.drawToBitmap
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.electronic.HouseHold
@@ -28,17 +31,25 @@ import com.example.smarttrade.classes.food.Fish
 import com.example.smarttrade.classes.food.Fruit
 import com.example.smarttrade.classes.food.Meat
 import com.example.smarttrade.classes.food.Vegetable
+import com.example.smarttrade.classes.typeofusers.Merchant
+import java.io.ByteArrayOutputStream
 import java.io.File
 
-//, AdapterView.OnItemSelectedListener,
-//    AdapterView.OnItemClickListener
-class AddProductActivity : AppCompatActivity(){
+
+class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
 
 
     lateinit var updateImage : ImageView
 
     val service = BusinessLogic()
     val callsService = HTTPcalls()
+
+    fun saveImage(): ByteArray {
+        val bitmap = (updateImage.drawable as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        return stream.toByteArray()
+    }
 
 
 
@@ -53,7 +64,7 @@ class AddProductActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.add_product)
-        val user = intent.getSerializableExtra("user") as User
+        val user = intent.getSerializableExtra("user") as Merchant
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -93,19 +104,22 @@ class AddProductActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
+        var image : ByteArray = byteArrayOf()
 
         updateImage.setOnClickListener() {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            image = saveImage()
         }
 
-       // spinner.onItemSelectedListener = this
+
+       spinner.onItemSelectedListener = this
 
 
         addProductbutt.setOnClickListener() {
             println(spinner.selectedItem)
+            val seller = Sell(0, 0, user.email ,1, price.text.toString().toDouble())
 
 
-/*
             when (spinner.selectedItem) {
                 "PHONE" -> {
                     val phone = SmartPhone(
@@ -125,8 +139,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional4.text.toString().toInt()
 
                     )
-                    val email = user.email
-                    service.createPhone(phone, email)
+                    service.createSmartphone(phone, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -150,7 +163,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional4.text.toString().toInt()
                     )
                     val email = user.email
-                    service.createComputer(computer, email)
+                    service.createComputer(computer, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -174,7 +187,7 @@ class AddProductActivity : AppCompatActivity(){
                     )
 
                     val email = user.email
-                    service.createHousehold(household, email)
+                    service.createHousehold(household, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -196,7 +209,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional2.text.toString(),
                     )
                     val email = user.email
-                    service.createFashionTop(fashionTop, email)
+                    service.createFashionTop(fashionTop, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -215,10 +228,10 @@ class AddProductActivity : AppCompatActivity(){
                         brand.text.toString(),
                         "FASHIONBOT",
                         adicional1.text.toString(),
-                        adicional2.text.toString().toInt(),
+                        adicional2.text.toString()
                     )
                     val email = user.email
-                    service.createFashioBot(fashionBot, email)
+                    service.createFashionBottom(fashionBot, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -237,10 +250,10 @@ class AddProductActivity : AppCompatActivity(){
                         brand.text.toString(),
                         "FOOTWEAR",
                         adicional1.text.toString(),
-                        adicional2.text.toString().toInt(),
+                        adicional2.text.toString(),
                     )
                     val email = user.email
-                    service.createFootwear(footwear, email)
+                    service.createFootWear(footwear, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -266,7 +279,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional4.text.toString()
                         )
                     val email = user.email
-                    service.createDrink(drink, email)
+                    service.createDrink(drink, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -291,7 +304,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional4.text.toString()
                     )
                     val email = user.email
-                    service.createFish(fish, email)
+                    service.createFish(fish, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -316,7 +329,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional2.text.toString()
                     )
                     val email = user.email
-                    service.createMeat(meat, email)
+                    service.createMeat(meat, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -342,7 +355,7 @@ class AddProductActivity : AppCompatActivity(){
                         adicional3.text.toString()
                     )
                     val email = user.email
-                    service.createVegetable(vegetable, email)
+                    service.createVegetable(vegetable,seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -368,7 +381,7 @@ class AddProductActivity : AppCompatActivity(){
                     )
 
                     val email = user.email
-                    service.createFruit(fruit, email)
+                    service.createFruit(fruit, seller, image)
                     val intent = Intent(this, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -519,10 +532,18 @@ class AddProductActivity : AppCompatActivity(){
                 adicional3.visibility = View.GONE
                 adicional4.visibility = View.GONE
                 adicional5.visibility = View.GONE
-            }*/
+            }
 
 
         }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        TODO("Not yet implemented")
     }
 
 
