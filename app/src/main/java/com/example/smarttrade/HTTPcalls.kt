@@ -479,7 +479,7 @@ class HTTPcalls() {
         size: Double
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/electronics/smartphone/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -580,7 +580,7 @@ class HTTPcalls() {
         stock: Int,
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/electronics/household/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -677,7 +677,7 @@ class HTTPcalls() {
         topType: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/fashion/fashiontop/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -770,7 +770,7 @@ class HTTPcalls() {
         botType: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/fashion/fashionbot/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -861,7 +861,7 @@ class HTTPcalls() {
         footwearType: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/fashion/footwear/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -954,7 +954,7 @@ class HTTPcalls() {
         unit: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/food/drink/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -1054,7 +1054,7 @@ class HTTPcalls() {
         unit: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/food/fish/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -1150,7 +1150,7 @@ class HTTPcalls() {
         unit: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/food/fruit/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -1246,7 +1246,7 @@ class HTTPcalls() {
         unit: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/food/meat/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
@@ -1343,7 +1343,7 @@ class HTTPcalls() {
         unit: String
     ): Deferred<Unit?> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = "http://10.0.2.2:8080/products/electronics/computer/add"
+            val url = "http://10.0.2.2:8080/products/food/vegetable/add"
             val connection = URL(url).openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
             connection.doOutput = true
