@@ -40,6 +40,8 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
 
     lateinit var updateImage : ImageView
+    lateinit var buttomImage : Button
+    lateinit var image : ByteArray
 
     val service = BusinessLogic()
     val callsService = HTTPcalls()
@@ -72,6 +74,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             insets
         }
         updateImage = findViewById<ImageView>(R.id.uploadImage)
+        buttomImage = findViewById<Button>(R.id.buttonUploadImage)
         val addProductbutt = findViewById<Button>(R.id.buttonAddProduct)
 
         val spinner: Spinner = findViewById(R.id.spinnerCategories)
@@ -104,19 +107,21 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             startActivity(intent)
         }
 
-        var image : ByteArray = byteArrayOf()
 
-        updateImage.setOnClickListener() {
+        buttomImage.setOnClickListener() {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            buttomImage.visibility = View.GONE
         }
 
-        image = saveImage()
+
+
 
        spinner.onItemSelectedListener = this
 
 
         addProductbutt.setOnClickListener() {
             println(spinner.selectedItem)
+            image = saveImage()
             val seller = Sell(0, 0, user.email ,1, price.text.toString().toDouble())
 
 
@@ -228,7 +233,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         brand.text.toString(),
                         "FASHIONBOT",
                         adicional1.text.toString(),
-                        adicional2.text.toString()
+                        adicional2.text.toString().toInt()
                     )
                     val email = user.email
                     service.createFashionBottom(fashionBot, seller, image)
@@ -250,7 +255,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         brand.text.toString(),
                         "FOOTWEAR",
                         adicional1.text.toString(),
-                        adicional2.text.toString(),
+                        adicional2.text.toString().toInt()
                     )
                     val email = user.email
                     service.createFootWear(footwear, seller, image)
