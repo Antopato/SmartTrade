@@ -4,14 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.PriceAdapter
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.ProductPageBinding
 
@@ -46,7 +51,8 @@ class ProductActivity : AppCompatActivity() {
         binding.descriptionTex.text=product.description
         binding.image.setImageBitmap(bitmap)
 
-        adapter = PriceAdapter(this,list,user,this)
+        adapter = PriceAdapter(this,list,user,this, binding.backgroundLayout)
+        adapter.addAll()
 
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
@@ -57,6 +63,21 @@ class ProductActivity : AppCompatActivity() {
 
         binding.toWhislistButt.setOnClickListener(){
             service.addToWhislist(product.productId,user.email)
+
+            val widthInPixels = 920
+            val heightInPixels = 570
+            val popupView = LayoutInflater.from(this).inflate(R.layout.popup_advert, null)
+            val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+            val advert = popupView.findViewById<TextView>(R.id.advertText)
+            val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+            val string = advert.text.toString() + "Whislist"
+            advert.text= string
+
+            buttonAdd.setOnClickListener(){
+                    popupWindow.dismiss()
+                }
+
+            popupWindow.showAtLocation(binding.backgroundLayout, Gravity.CENTER, 0, 0)
         }
     }
     fun notifyButt(){

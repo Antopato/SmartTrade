@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="140dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/rounded_popup"
+    >
+
+    <TextView
+        android:id="@+id/advertText"
+        android:layout_width="275dp"
+        android:layout_height="78dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Product added to "
+        android:textColor="@color/black"
+        android:textSize="20sp">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/roboto_medium"
+        android:text="OK"
+        android:textColor="@color/black"></Button>
+
+
+</LinearLayout>
