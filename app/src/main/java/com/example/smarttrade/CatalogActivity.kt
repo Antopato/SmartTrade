@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.ProductsAdapter
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
+import com.example.smarttrade.classes.typeofusers.Merchant
 import com.example.smarttrade.databinding.CatalogPageBinding
 import org.json.JSONObject
 
@@ -115,7 +116,7 @@ class CatalogActivity : AppCompatActivity() {
         }
         buttonAddProduct.setOnClickListener {
             val intent = Intent(this, CopyProductActivity::class.java)
-            intent.putExtra("user", user)
+            intent.putExtra("user",  user)
             startActivity(intent)
         }
 

@@ -43,7 +43,6 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     val service = BusinessLogic()
     val callsService = HTTPcalls()
-    val user = intent.getSerializableExtra("user") as User?
 
     fun saveImage(): ByteArray {
         val bitmap = (updateImage.drawable as BitmapDrawable).bitmap
@@ -65,7 +64,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.add_product)
-        val user = intent.getSerializableExtra("user") as Merchant
+        val user = intent.getSerializableExtra("user") as User
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -109,9 +108,9 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         updateImage.setOnClickListener() {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-            image = saveImage()
         }
 
+        image = saveImage()
 
        spinner.onItemSelectedListener = this
 

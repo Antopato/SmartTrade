@@ -21,7 +21,7 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:hint="Price (€)"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"
         android:background="@drawable/edit_text_border"

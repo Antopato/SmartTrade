@@ -23,12 +23,8 @@ class CopyProductActivity : AppCompatActivity() {
         binding = CopyProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getSerializableExtra("user") as Merchant
+        val user = intent.getSerializableExtra("user") as User
 
-        binding.buttonAddProduct.setOnClickListener {
-            val intent = Intent(this, AddProductActivity::class.java)
-            startActivity(intent)
-        }
         binding.buttonBack.setOnClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
             startActivity(intent)

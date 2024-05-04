@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -23,7 +24,7 @@ import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Merchant
 import java.io.ByteArrayOutputStream
 
-class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Merchant) : RecyclerView.Adapter<MoneyAdapter.MoneyHolder>() {
+class MoneyAdapter(var context: Context, var list: List<Product?>, var user: User) : RecyclerView.Adapter<MoneyAdapter.MoneyHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoneyHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
@@ -45,7 +46,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Mer
         //holder.productImage.setImageBitmap(list.get(position).Img)
     }
 
-    class MoneyHolder(itemView: View, context: Context, list:List<Product?>, user : Merchant) : RecyclerView.ViewHolder(itemView){
+    class MoneyHolder(itemView: View, context: Context, list:List<Product?>, user : User) : RecyclerView.ViewHolder(itemView){
         val service = BusinessLogic()
         var productImage : ImageView = itemView.findViewById(R.id.imageViewProductImage)
         var productName : TextView = itemView.findViewById(R.id.textViewProductName)
@@ -58,7 +59,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Mer
                 val heightInPixels = 570
                 val popupView = LayoutInflater.from(itemView.context).inflate(R.layout.popup_price, null)
                 val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
-                val price = popupView.findViewById<View>(R.id.editTextPrice)
+                val price = popupView.findViewById<EditText>(R.id.editTextPrice)
 
                 val buttonCancel = popupView.findViewById<View>(R.id.buttonCancel)
                 buttonCancel.setOnClickListener(){
@@ -68,7 +69,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Mer
                 buttonAdd.setOnClickListener(){
                     val intent = Intent(context, CatalogActivity::class.java)
                     intent.putExtra("user", user)
-                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, 1, price.toString().toDouble())
+                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, 1, price.text.toString().toDouble())
                     service.copyProduct(sell)
                     context.startActivity(intent)
                 }

@@ -31,7 +31,7 @@ class HTTPcalls() {
 
     val idMario = "192.168.0.20"
 
-    val myId = "192.168.0.21"
+    val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?> {
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
