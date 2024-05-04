@@ -201,7 +201,7 @@ class HTTPcalls() {
     }
     fun getUncertifiedCertificates(): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
-            val url = URL("http://$myId:8080/products/uncertified")
+            val url = URL("http://$myId:8080/products/pending")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
