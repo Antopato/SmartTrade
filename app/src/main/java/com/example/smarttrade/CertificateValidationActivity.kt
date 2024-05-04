@@ -38,10 +38,16 @@ class CertificateValidationActivity : AppCompatActivity() {
         val buttonAccept = findViewById<Button>(R.id.buttonAccept)
         buttonAccept.setOnClickListener {
             service.validateCertificate(product,user)
+            intent = Intent(this, CertificateRequestsActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
         val buttonDecline = findViewById<Button>(R.id.buttonDecline)
         buttonDecline.setOnClickListener {
             service.declineCertificate(product,user)
+            intent = Intent(this, CertificateRequestsActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
         //val productName = intent.getStringExtra("name")
         //val productCompany = intent.getStringExtra("company")
