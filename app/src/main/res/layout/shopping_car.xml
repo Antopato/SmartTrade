@@ -28,7 +28,7 @@
             app:srcCompat="@drawable/carrito" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/imageViewUser"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -58,8 +58,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPrices"
-        android:layout_width="411dp"
-        android:layout_height="491dp"
+        android:layout_width="413dp"
+        android:layout_height="506dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,12 +72,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="30dp"
         android:text="Total Price:"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/totalText"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPrices" />
+        app:layout_constraintEnd_toStartOf="@+id/totalText" />
 
     <TextView
         android:id="@+id/totalText"
@@ -122,5 +124,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteAllButtShopp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/red_button"
+        android:text="Delete All"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerPrices"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

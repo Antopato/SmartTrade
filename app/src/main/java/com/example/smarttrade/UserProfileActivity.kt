@@ -32,6 +32,12 @@ class UserProfileActivity : AppCompatActivity() {
             startActivity(back)
         }
 
+        binding.imageViewCart.setOnClickListener(){
+            val cart = Intent(this, ShoppingCarActivity::class.java)
+            cart.putExtra("user",user)
+            startActivity(cart)
+        }
+
         binding.buttonWishList.setOnClickListener {
             val whislist = Intent(this, ListsActivity::class.java)
             whislist.putExtra("user",user)

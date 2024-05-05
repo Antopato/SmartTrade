@@ -22,7 +22,8 @@ import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 
 
-class PriceAdapter (var context: Context, var list: List<Sell>, var user : User, var activity: ProductActivity, val view : View) : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
+class PriceAdapter (var context: Context, var list: List<Sell>, var user : User, var activity: ProductActivity, val view : View) :
+    RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
 
     var selectedGlobal = false
     lateinit var selectedProduct : Sell
@@ -44,6 +45,15 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
 
         holder.itemViewP.setOnClickListener {
             holder.selectSeller()
+        }
+    }
+
+    fun addAll(){
+        for(holder in listHolders){
+            for(observer in listHolders)
+                if(holder!=observer){
+                    holder.addObserver(observer)
+                }
         }
     }
 
@@ -71,14 +81,7 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
     }
 
-    fun addAll(){
-        for(holder in listHolders){
-            for(observer in listHolders)
-                if(holder!=observer){
-                    holder.addObserver(observer)
-                }
-        }
-    }
+
 
     class PriceHolder(var itemView: View,var adapter : PriceAdapter,var list:List<Sell> ) : RecyclerView.ViewHolder(itemView),
         Observer, Subject{
@@ -88,6 +91,22 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         var selected :Boolean = false
         val carView: CardView = itemView.findViewById(R.id.cardView)
         val itemViewP = itemView
+
+        override fun notifyObservers(){
+            for(holder in listObservers){
+                holder.update()
+            }
+        }
+        override fun addObserver(observer: Observer) {
+            listObservers.add(observer)
+        }
+        override fun removeObserver(observer : Observer) {
+            listObservers.remove(observer)
+        }
+        override fun update() {
+            this.carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            this.selected = false
+        }
 
         fun selectSeller(){
             if (!selected) {
@@ -104,27 +123,6 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
                 adapter.activity.notifyButt()
             }
         }
-
-        override fun notifyObservers(){
-            for(holder in listObservers){
-                holder.update()
-            }
-        }
-
-        override fun addObserver(observer: Observer) {
-            listObservers.add(observer)
-        }
-
-        override fun removeObserver(observer : Observer) {
-            listObservers.remove(observer)
-        }
-        override fun update() {
-            this.carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            this.selected=false
-        }
-
-
-
     }
 }
 

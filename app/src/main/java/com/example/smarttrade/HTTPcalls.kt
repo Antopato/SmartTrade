@@ -1866,6 +1866,29 @@ class HTTPcalls() {
         }
     }
 
+    fun deleteAllShopping(email:String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$myId:8080/shoppingCart/delete/$email","DELETE")
+            val value = connection.responseCode
+            return@async value
+        }
+    }
+
+    fun deleteAllWhislist(email:String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$myId:8080/wishList/delete/$email","DELETE")
+            val value = connection.responseCode
+            return@async value
+        }
+    }
+
+    fun deleteAllForLater(email:String) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$myId:8080/savedForLater/delete/$email","DELETE")
+            val value = connection.responseCode
+            return@async value
+        }
+    }
 
 
 
@@ -1884,4 +1907,6 @@ class HTTPcalls() {
 
         return connection
     }
+
+
 }

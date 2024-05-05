@@ -557,6 +557,15 @@ class BusinessLogic() {
         return price
     }
 
+    fun deleteAllShoppingCart(email : String){
+        runBlocking{ call.deleteAllShopping(email).await() }
+    }
+    fun deleteAllForLater(email : String){
+        runBlocking{ call.deleteAllForLater(email).await() }
+    }
+    fun deleteAllWhislist(email : String){
+        runBlocking { call.deleteAllWhislist(email).await() }
+    }
 
 }
 
