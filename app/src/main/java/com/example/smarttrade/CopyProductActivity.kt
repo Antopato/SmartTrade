@@ -31,7 +31,7 @@ class CopyProductActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val list = service.getProducts()
+        val list = service.getCertificates(user)
         val adapter = MoneyAdapter(this, list, user)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setLayoutManager(LinearLayoutManager(this))

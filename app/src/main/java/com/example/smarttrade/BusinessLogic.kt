@@ -164,6 +164,14 @@ class BusinessLogic() {
         return products
     }
 
+    fun getCertificates(user: User): List<Product?> {
+        var products : List<Product?>
+        runBlocking {
+            products = call.getCertificates(user).await()
+        }
+        return products
+    }
+
     fun getImageByType(type:String, id:Int):ByteArray
     {
          var image:ByteArray
