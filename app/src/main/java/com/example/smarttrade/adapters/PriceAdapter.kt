@@ -33,11 +33,12 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.price_recycler, parent, false)
         val viewHold = PriceHolder(view,this,list)
-        listHolders.add(viewHold)
         return viewHold
     }
 
     override fun onBindViewHolder(holder: PriceHolder, position: Int) {
+        this.listHolders.add(holder)
+        println("Debería haberse añadido a lista")
         println("Vendido por "+ list.get(position).seller_email)
         holder.name.setText(list.get(position).seller_email)
         val string = list.get(position).price.toString() + "€"
@@ -45,15 +46,19 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
 
         holder.itemViewP.setOnClickListener {
             holder.selectSeller()
+            addAll()
         }
     }
 
     fun addAll(){
+        println("Has llamado a AddAll "+ listHolders.count())
         for(holder in listHolders){
-            for(observer in listHolders)
+            for(observer in listHolders){
                 if(holder!=observer){
                     holder.addObserver(observer)
                 }
+            println("Obserber y holder")
+            }
         }
     }
 
@@ -94,16 +99,22 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
 
         override fun notifyObservers(){
             for(holder in listObservers){
+                println("observers updated")
                 holder.update()
             }
         }
+
         override fun addObserver(observer: Observer) {
             listObservers.add(observer)
+            println("ObserverAñadido")
         }
+
         override fun removeObserver(observer : Observer) {
             listObservers.remove(observer)
         }
+
         override fun update() {
+            println("Cambio de color")
             this.carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
             this.selected = false
         }
@@ -111,12 +122,13 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         fun selectSeller(){
             if (!selected) {
                 notifyObservers()
+                println("observers notificados")
                 carView.setBackgroundColor(Color.parseColor("#8BD1EF"))
                 adapter.selectedGlobal= true
                 selected = true
                 adapter.selectedProduct = list.get(adapterPosition)
                 adapter.activity.notifyButt()
-            }else {
+            }else{
                 carView.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 selected = false
                 adapter.selectedGlobal = false

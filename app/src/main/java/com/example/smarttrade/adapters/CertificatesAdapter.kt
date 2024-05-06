@@ -48,6 +48,7 @@ class CertificatesAdapter(var context: Context, var list: List<Product?>, var us
 
         init{
             itemView.setOnClickListener {
+
                 val intent = Intent(context, CertificateValidationActivity::class.java)
                 intent.putExtra("product", list.get(adapterPosition))
                 intent.putExtra("user", user)
@@ -57,6 +58,7 @@ class CertificatesAdapter(var context: Context, var list: List<Product?>, var us
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val byteArray = stream.toByteArray()
                 intent.putExtra("image", byteArray)
+
                 //intent.putExtra("name", list.get(adapterPosition).Name)
                 //intent.putExtra("company", list.get(adapterPosition).Company)
                 //intent.putExtra("brand", list.get(adapterPosition).Brand)
