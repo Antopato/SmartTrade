@@ -24,6 +24,7 @@ class CopyProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val user = intent.getSerializableExtra("user") as User
+        println(user.email)
 
         binding.buttonBack.setOnClickListener {
             val intent = Intent(this, CatalogActivity::class.java)

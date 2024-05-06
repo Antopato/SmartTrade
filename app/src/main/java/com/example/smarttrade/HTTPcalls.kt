@@ -29,7 +29,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.1.97"
+    val idMario = "192.168.0.21"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?> {
@@ -344,16 +344,18 @@ class HTTPcalls() {
             connection.doOutput = true
             val requestBody = StringBuilder().apply {
                 append("productId=${seller.id_product}&")
-                append("owner=${seller.id_selled_by}&")
+                append("owner=${seller.seller_email}&")
                 append("price=${seller.price}&")
                 append("stock=${seller.stock}")
             }.toString()
+            println(requestBody)
             val outPutStream = OutputStreamWriter(connection.outputStream)
             outPutStream.write(requestBody)
             outPutStream.flush()
             outPutStream.close()
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
+            println("Este es el bueno, sisi")
             if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 return@async seller
             } else{
@@ -1868,7 +1870,7 @@ class HTTPcalls() {
 
     fun deleteAllShopping(email:String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
-            val connection = connect("http://$myId:8080/shoppingCart/delete/$email","DELETE")
+            val connection = connect("http://$idMario:8080/shoppingCart/delete/$email","DELETE")
             val value = connection.responseCode
             return@async value
         }
@@ -1876,7 +1878,7 @@ class HTTPcalls() {
 
     fun deleteAllWhislist(email:String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
-            val connection = connect("http://$myId:8080/wishList/delete/$email","DELETE")
+            val connection = connect("http://$idMario:8080/wishList/delete/$email","DELETE")
             val value = connection.responseCode
             return@async value
         }
@@ -1884,7 +1886,7 @@ class HTTPcalls() {
 
     fun deleteAllForLater(email:String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
-            val connection = connect("http://$myId:8080/savedForLater/delete/$email","DELETE")
+            val connection = connect("http://$idMario:8080/savedForLater/delete/$email","DELETE")
             val value = connection.responseCode
             return@async value
         }

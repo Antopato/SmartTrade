@@ -29,8 +29,10 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoneyHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
         val view : View = inflater.inflate(R.layout.recycler_row_certificate, parent, false)
+        println(user.email)
         return MoneyHolder(view, context, list, user)
     }
+
 
     override fun getItemCount(): Int {
         return list.count()
@@ -67,6 +69,7 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
                 }
                 val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
                 buttonAdd.setOnClickListener(){
+                    popupWindow.dismiss()
                     val intent = Intent(context, CatalogActivity::class.java)
                     intent.putExtra("user", user)
                     val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, 1, price.text.toString().toDouble())

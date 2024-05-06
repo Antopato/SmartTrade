@@ -55,11 +55,11 @@ class CertificateValidationActivity : AppCompatActivity() {
         //val productImage = intent.getStringExtra("image")
 
         val textViewProductName = findViewById<TextView>(R.id.textViewProductName)
-        val textViewProductCompany = findViewById<TextView>(R.id.textViewCompany)
+        //val textViewProductCompany = findViewById<TextView>(R.id.textViewCompany)
         val textViewProductBrand = findViewById<TextView>(R.id.textViewBrand)
         val textViewProductProduction = findViewById<TextView>(R.id.textViewProduction)
         val textViewProductMaterial = findViewById<TextView>(R.id.textViewMaterials)
-        val textViewProductAdition = findViewById<TextView>(R.id.textViewAditionalInformation)
+        //val textViewProductAdition = findViewById<TextView>(R.id.textViewAditionalInformation)
         val imageViewProductImage = findViewById<ImageView>(R.id.imageViewProductImage)
 
         textViewProductName.text = product!!.name
@@ -67,7 +67,7 @@ class CertificateValidationActivity : AppCompatActivity() {
         textViewProductBrand.text = "Brand: " + product!!.brand
         textViewProductProduction.text = "Production: "+ product!!.production
         textViewProductMaterial.text = "Materials "+ product!!.materials
-        textViewProductAdition.text= "Aditional information "+product!!.additionalInfo
+        //textViewProductAdition.text= "Aditional information "+product!!.additionalInfo
         imageViewProductImage.setImageBitmap(bitmap)
     }
 }
