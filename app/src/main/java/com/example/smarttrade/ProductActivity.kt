@@ -52,10 +52,10 @@ class ProductActivity : AppCompatActivity() {
         binding.image.setImageBitmap(bitmap)
 
         adapter = PriceAdapter(this,list,user,this, binding.backgroundLayout)
-        adapter.addAll()
 
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))
+
 
         binding.addCarButt.setOnClickListener(){
             adapter.addProdToCar()
