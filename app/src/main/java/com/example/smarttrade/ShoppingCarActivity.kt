@@ -42,6 +42,25 @@ class ShoppingCarActivity : AppCompatActivity() {
         val total = adapter.getTotal()
         binding.totalText.text = total.toString() + "€"
 
+        binding.deleteAllButtShopp.setOnClickListener{
+            service.deleteAllShoppingCart(user.email)
+            recyclerList.clear()
+            adapter.notifyDataSetChanged()
+        }
+
+        binding.imageViewUser.setOnClickListener{
+            val intent = Intent(this, UserProfileActivity::class.java)
+            intent.putExtra("user",user)
+            startActivity(intent)
+
+        }
+
+        binding.catalogImage.setOnClickListener{
+            val intent = Intent(this, CatalogActivity::class.java)
+            intent.putExtra("user",user)
+            startActivity(intent)
+        }
+
     }
 
     fun change(){
@@ -57,20 +76,21 @@ class ShoppingCarActivity : AppCompatActivity() {
         println(recyclerList.count())
         adapter.notifyDataSetChanged()
         change()
+        if(bool) {
+            val widthInPixels = 920
+            val heightInPixels = 570
+            val popupView = LayoutInflater.from(this).inflate(R.layout.popup_advert, null)
+            val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+            val advert = popupView.findViewById<TextView>(R.id.advertText)
+            val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+            val string = advert.text.toString() + "For Later List"
+            advert.text = string
 
-        val widthInPixels = 920
-        val heightInPixels = 570
-        val popupView = LayoutInflater.from(this).inflate(R.layout.popup_advert, null)
-        val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
-        val advert = popupView.findViewById<TextView>(R.id.advertText)
-        val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
-        val string = advert.text.toString() + "For Later List"
-        advert.text= string
+            buttonAdd.setOnClickListener() {
+                popupWindow.dismiss()
+            }
 
-        buttonAdd.setOnClickListener(){
-            popupWindow.dismiss()
+            popupWindow.showAtLocation(binding.backgroundLayout, Gravity.CENTER, 0, 0)
         }
-
-        popupWindow.showAtLocation(binding.backgroundLayout, Gravity.CENTER, 0, 0)
     }
 }

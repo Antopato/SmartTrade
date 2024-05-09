@@ -24,13 +24,14 @@ class CopyProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val user = intent.getSerializableExtra("user") as User
+        println(user.email)
 
         binding.buttonBack.setOnClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
             startActivity(intent)
         }
 
-        val list = service.getProducts()
+        val list = service.getCertificates(user)
         val adapter = MoneyAdapter(this, list, user)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setLayoutManager(LinearLayoutManager(this))

@@ -164,6 +164,14 @@ class BusinessLogic() {
         return products
     }
 
+    fun getCertificates(user: User): List<Product?> {
+        var products : List<Product?>
+        runBlocking {
+            products = call.getCertificates(user).await()
+        }
+        return products
+    }
+
     fun getImageByType(type:String, id:Int):ByteArray
     {
          var image:ByteArray
@@ -557,6 +565,15 @@ class BusinessLogic() {
         return price
     }
 
+    fun deleteAllShoppingCart(email : String){
+        runBlocking{ call.deleteAllShopping(email).await() }
+    }
+    fun deleteAllForLater(email : String){
+        runBlocking{ call.deleteAllForLater(email).await() }
+    }
+    fun deleteAllWhislist(email : String){
+        runBlocking { call.deleteAllWhislist(email).await() }
+    }
 
 }
 

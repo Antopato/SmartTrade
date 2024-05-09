@@ -29,8 +29,10 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoneyHolder {
         val inflater : LayoutInflater  = LayoutInflater.from(context)
         val view : View = inflater.inflate(R.layout.recycler_row_certificate, parent, false)
+        println(user.email)
         return MoneyHolder(view, context, list, user)
     }
+
 
     override fun getItemCount(): Int {
         return list.count()
@@ -56,10 +58,11 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
         init{
             itemView.setOnClickListener {
                 val widthInPixels = 920
-                val heightInPixels = 570
+                val heightInPixels = 620
                 val popupView = LayoutInflater.from(itemView.context).inflate(R.layout.popup_price, null)
                 val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
                 val price = popupView.findViewById<EditText>(R.id.editTextPrice)
+                val stock = popupView.findViewById<EditText>(R.id.editTextStock)
 
                 val buttonCancel = popupView.findViewById<View>(R.id.buttonCancel)
                 buttonCancel.setOnClickListener(){
@@ -67,9 +70,10 @@ class MoneyAdapter(var context: Context, var list: List<Product?>, var user: Use
                 }
                 val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
                 buttonAdd.setOnClickListener(){
+                    popupWindow.dismiss()
                     val intent = Intent(context, CatalogActivity::class.java)
                     intent.putExtra("user", user)
-                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, 1, price.text.toString().toDouble())
+                    val sell = Sell(0, list.get(adapterPosition)!!.productId, user.email, stock.text.toString().toInt() , price.text.toString().toDouble())
                     service.copyProduct(sell)
                     context.startActivity(intent)
                 }

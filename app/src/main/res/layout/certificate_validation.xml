@@ -54,17 +54,7 @@
             android:layout_gravity="center"
             >
         </ImageView>
-        <TextView
-            android:id="@+id/textViewCompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Company:"
-            android:textSize="23sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto_medium"
-            >
-        </TextView>
+
         <TextView
             android:id="@+id/textViewBrand"
             android:layout_width="wrap_content"
@@ -91,16 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Production:"
-            android:textSize="23sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto_medium">
-        </TextView>
-        <TextView
-            android:id="@+id/textViewAditionalInformation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Aditional Information:"
             android:textSize="23sp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_medium">

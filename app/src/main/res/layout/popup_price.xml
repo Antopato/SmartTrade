@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="190dp"
+    android:layout_height="230dp"
     android:layout_gravity="center"
     android:gravity="center"
     android:background="@drawable/rounded_popup"
@@ -21,6 +21,18 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:hint="Price (€)"
+        android:inputType="text"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="10dp"
+        android:layout_marginTop="20dp">
+    </EditText>
+    <EditText
+        android:id="@+id/editTextStock"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:hint="Stock"
         android:inputType="text"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"

@@ -43,7 +43,15 @@ class ListsActivity : AppCompatActivity() {
         binding.recyclerList.setLayoutManager(LinearLayoutManager(this))
 
 
-
+        binding.deleteAllButt.setOnClickListener{
+            if(listType=="whislist"){
+                service.deleteAllWhislist(user.email)
+            }else{
+                service.deleteAllForLater(user.email)
+            }
+            list.clear()
+            adapter.notifyDataSetChanged()
+        }
 
         binding.backButt.setOnClickListener{
             val userProfile = Intent(this, UserProfileActivity::class.java)
