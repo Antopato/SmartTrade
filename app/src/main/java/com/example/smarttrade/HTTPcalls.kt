@@ -29,7 +29,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.185.231"
+    val idMario = "192.168.0.21"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?> {
@@ -1925,11 +1925,26 @@ class HTTPcalls() {
         }
     }
 
-    fun deleteAllForLater(email:String) : Deferred<Int>{
-        return CoroutineScope(Dispatchers.IO).async{
-            val connection = connect("http://$idMario:8080/savedForLater/delete/$email","DELETE")
+    fun deleteAllForLater(email:String) : Deferred<Int> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val connection = connect("http://$idMario:8080/savedForLater/delete/$email", "DELETE")
             val value = connection.responseCode
             return@async value
+        }
+    }
+
+    fun saveCart(cart : ShoppingCart) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/shoppingCart/updateQuantity","PUT")
+            val requestBody = StringBuilder().apply {
+                append("email=${cart.shopping_cart_owner}&")
+                append("id=${cart.product_id}&")
+                append("quantity=${cart.quantity}")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
         }
     }
 

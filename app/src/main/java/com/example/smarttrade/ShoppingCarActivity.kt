@@ -15,6 +15,7 @@ import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.ShoppingCarBinding
+import kotlinx.serialization.Serializable
 
 class ShoppingCarActivity : AppCompatActivity() {
 
@@ -58,6 +59,14 @@ class ShoppingCarActivity : AppCompatActivity() {
         binding.catalogImage.setOnClickListener{
             val intent = Intent(this, CatalogActivity::class.java)
             intent.putExtra("user",user)
+            startActivity(intent)
+        }
+
+        binding.payButton.setOnClickListener{
+            service.saveCarts(list)
+            val intent = Intent(this,CartInfoActivity::class.java)
+            intent.putExtra("user", user)
+            intent.putExtra("price", adapter.getTotal())
             startActivity(intent)
         }
 

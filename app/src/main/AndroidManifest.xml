@@ -68,6 +68,12 @@
         <activity
             android:name=".PopUpAdvertActivity"
             android:exported="true" />
+        <activity
+            android:name=".CartInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SelectAddressActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

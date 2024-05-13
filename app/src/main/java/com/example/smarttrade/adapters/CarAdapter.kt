@@ -92,6 +92,7 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
     }
 
 
+
     class MyViewHolder(itemView: View, context: Context, list:List<ShoppingCart>) : RecyclerView.ViewHolder(itemView){
         val price : TextView = itemView.findViewById(R.id.priceText)
         val name : TextView = itemView.findViewById(R.id.listProductName)
