@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toBitmap
@@ -49,6 +51,10 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
             }
         }
 
+        holder.toCartButt.setOnClickListener(){
+           // addProdToCar()
+        }
+
         holder.layoutProd.setOnClickListener {
             val intent = Intent(context, ProductActivity::class.java)
             intent.putExtra("product", list.get(position))
@@ -64,7 +70,30 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
         }
     }
 
+/*    fun addProdToCar(){
+        var string : String
+        try {
+            service.addProductToCar(selectedProduct, user.email)
+            string =  "Product added to Shopping Cart"
 
+        }catch(e:Exception){
+            string = "This produt has alreade been added"
+        }
+        val widthInPixels = 920
+        val heightInPixels = 570
+        val popupView = LayoutInflater.from(context).inflate(R.layout.popup_advert, null)
+        val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+        val advert = popupView.findViewById<TextView>(R.id.advertText)
+        val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+        advert.text= string
+
+        buttonAdd.setOnClickListener(){
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+    }
+*/
     override fun getItemCount(): Int {
         return list.count()
     }
@@ -82,6 +111,7 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
         val image = itemView.findViewById<ImageView>(R.id.listProductImage)
         val deleteButt = itemView.findViewById<Button>(R.id.listDeleteButton)
         val layoutProd = itemView.findViewById<ConstraintLayout>(R.id.listProductLayout)
+        val toCartButt = itemView.findViewById<Button>(R.id.backToCartButt)
 
     }
 }

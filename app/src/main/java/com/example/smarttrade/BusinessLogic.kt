@@ -492,8 +492,12 @@ class BusinessLogic() {
 
     }
     fun addProductToCar(sell : Sell, email : String){
+        var response = 0
         runBlocking {
-            call.addProdToCart(sell, email).await()
+            response = call.addProdToCart(sell, email).await()
+        }
+        if(response==-1){
+            throw Exception("This product has already been added")
         }
     }
 
@@ -585,7 +589,14 @@ class BusinessLogic() {
 
     fun getAdresses(id : String) : List<Address>{
         val list = mutableListOf<Address>()
+        runBlocking{ list.addAll(call.getAddresses(id).await()) }
         return list
+    }
+
+    fun addAddress(address : Address){
+        runBlocking {
+            call.addAddress(address).await()
+        }
     }
 }
 

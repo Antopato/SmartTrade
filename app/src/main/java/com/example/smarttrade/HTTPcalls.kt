@@ -1,5 +1,6 @@
 package com.example.smarttrade
 
+import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
@@ -1737,8 +1738,10 @@ class HTTPcalls() {
 
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
-
-            return@async codigoRespuesta
+            if(codigoRespuesta==409){
+                println("Código de respuesta "+ codigoRespuesta)
+                return@async -1
+            }else{return@async codigoRespuesta}
         }
     }
     fun getWhisList(id: String) : Deferred<List<Product>> {
@@ -1941,6 +1944,56 @@ class HTTPcalls() {
                 append("id=${cart.product_id}&")
                 append("quantity=${cart.quantity}")
             }.toString()
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
+        }
+    }
+
+    fun getAddresses(email : String) : Deferred<List<Address>>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/addres/${email}","GET")
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Address> = gson.fromJson(jsonResponse, object : TypeToken<List<Address>>() {}.type)
+                    println(list)
+                    reader.close()
+
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+
+    fun addAddress(address : Address):Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/addres/add","POST")
+
+            val requestBody = StringBuilder().apply {
+                append("city=${address.city}&")
+                append("postalCode=${address.postalCode}&")
+                append("province=${address.province}&")
+                append("street=${address.street}&")
+                append("addresOf=${address.addresOf}&")
+            }.toString()
+            println("añadiendo address "+ connection.responseCode)
 
             publish(connection, requestBody)
 

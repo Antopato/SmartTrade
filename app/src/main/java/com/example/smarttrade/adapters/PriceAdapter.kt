@@ -69,14 +69,20 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
 
     fun addProdToCar(){
         println("Seleccionado "+ selectedProduct.price)
-        service.addProductToCar(selectedProduct, user.email)
+        var string : String
+        try {
+            service.addProductToCar(selectedProduct, user.email)
+            string =  "Product added to Shopping Cart"
+
+        }catch(e:Exception){
+            string = "This product has already been added"
+        }
         val widthInPixels = 920
         val heightInPixels = 570
         val popupView = LayoutInflater.from(context).inflate(R.layout.popup_advert, null)
         val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
         val advert = popupView.findViewById<TextView>(R.id.advertText)
         val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
-        val string = advert.text.toString() + "Shopping Cart"
         advert.text= string
 
         buttonAdd.setOnClickListener(){
