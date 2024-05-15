@@ -61,6 +61,15 @@ class BusinessLogic() {
         }
     }
 
+    fun getUserById(email : String) : User?{
+        val user : User?
+        runBlocking{
+            user = call.getUserById(email).await()
+        }
+        return user
+
+    }
+
     fun registerCompany(name:String, surname:String, email:String, pass:String,
                         holder:String, iban:String, date:String) {
 
@@ -492,8 +501,12 @@ class BusinessLogic() {
 
     }
     fun addProductToCar(sell : Sell, email : String){
+        var response = 0
         runBlocking {
-            call.addProdToCart(sell, email).await()
+            response = call.addProdToCart(sell, email).await()
+        }
+        if(response==-1){
+            throw Exception("This product has already been added")
         }
     }
 
@@ -585,7 +598,22 @@ class BusinessLogic() {
 
     fun getAdresses(id : String) : List<Address>{
         val list = mutableListOf<Address>()
+        runBlocking{ list.addAll(call.getAddresses(id).await()) }
         return list
+    }
+
+    fun addAddress(address : Address){
+        runBlocking {
+            call.addAddress(address).await()
+        }
+    }
+
+    fun getSellById(id : Int) : Sell?{
+        var sell : Sell?
+        runBlocking{
+            sell = call.getSellById(id).await()
+        }
+        return sell
     }
 }
 

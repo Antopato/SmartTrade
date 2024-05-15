@@ -26,14 +26,18 @@ class CartInfoAdapter(var context : Context, var list : List<ShoppingCart>) : Re
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val product = service.getProductById(list.get(position).product_id)
+        val sell = service.getSellById(list.get(position).product_id)
+        val owner = service.getUserById(sell!!.seller_email)
+        val product = service.getProductById(sell!!.id_product)
         holder.name.setText(product.name)
         holder.price.setText("${list.get(position).price}€")
+        holder.owner.setText("${owner!!.name}")
         holder.quantity.setText("x${list.get(position).quantity}")
     }
     class MyViewHolder(itemView : View, var list : List<ShoppingCart>) : RecyclerView.ViewHolder(itemView){
         var name = itemView.findViewById<TextView>(R.id.rowProdName)
         var price = itemView.findViewById<TextView>(R.id.rowPrice)
         var quantity = itemView.findViewById<TextView>(R.id.rowQuant)
+        var owner = itemView.findViewById<TextView>(R.id.ownerTextView)
     }
 }

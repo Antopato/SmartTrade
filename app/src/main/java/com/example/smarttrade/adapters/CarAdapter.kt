@@ -30,7 +30,8 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val product = service.getProductById(list.get(position).product_id)
+        val sell = service.getSellById(list.get(position).product_id)
+        val product = service.getProductById(sell!!.id_product)
         val userId = list.get(position).shopping_cart_owner
         holder.price.setText(list.get(position).price.toString() + "€")
         println(list.get(position).quantity.toString())

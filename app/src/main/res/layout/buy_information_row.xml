@@ -23,14 +23,13 @@
                 android:layout_width="218dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="28dp"
+                android:layout_marginTop="17dp"
                 android:text="Nombre del producto"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.41" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/rowQuant"
@@ -55,6 +54,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/rowQuant"
                 app:layout_constraintStart_toEndOf="@+id/rowQuant"
                 app:layout_constraintTop_toTopOf="@+id/rowQuant" />
+
+            <TextView
+                android:id="@+id/ownerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vicente Pelechano"
+                app:layout_constraintEnd_toEndOf="@+id/rowProdName"
+                app:layout_constraintStart_toStartOf="@+id/rowProdName"
+                app:layout_constraintTop_toBottomOf="@+id/rowProdName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
