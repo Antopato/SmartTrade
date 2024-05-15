@@ -30,10 +30,10 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.0.21"
+    val idMario = "10.237.14.150"
 
     val myId = "10.0.2.2"
-    fun getUserById(mail : String) : Deferred<User?> {
+    fun getUserById(mail : String) : Deferred<User?>{
        return CoroutineScope(Dispatchers.IO).async {
                 println("Aquí al menos si "+ mail)
                 val url = URL("http://$idMario:8080/users/"+mail)
@@ -1726,7 +1726,7 @@ class HTTPcalls() {
             val quantity = 1
             val requestBody = StringBuilder().apply {
                 append("price=${sell.price}&")
-                append("product_id=${sell.id_product}&")
+                append("product_id=${sell.id_selled_by}&")
                 append("quantity=$quantity&")
                 append("shopping_cart_owner=$mail")
             }.toString()
@@ -2001,6 +2001,34 @@ class HTTPcalls() {
         }
     }
 
+    fun getSellById(id : Int) : Deferred<Sell?>{
+        return CoroutineScope(Dispatchers.IO).async {
+
+            val connection = connect("http://$idMario:8080/products/selledBy/${id}","GET")
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+
+                val response = getOutput(connection)
+
+                if(response.isEmpty()){
+                    println("Esto está vacío")
+                    return@async null
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val product : Sell = gson.fromJson(jsonResponse, Sell::class.java)
+                    return@async product
+                }
+            } else {
+                println("Esto va mal "+ connection.responseCode)
+                return@async null
+
+            }
+        }
+
+    }
+
 
 
     fun publish(connection : HttpURLConnection, requestBody : String){
@@ -2017,6 +2045,22 @@ class HTTPcalls() {
         connection.connect()
 
         return connection
+    }
+
+    fun getOutput(connection : HttpURLConnection) : StringBuilder{
+        val inputStream = connection.inputStream
+        val reader = BufferedReader(InputStreamReader(inputStream))
+        val response = StringBuilder()
+        var line: String? = reader.readLine()
+
+        while (line != null) {
+            response.append(line)
+            line = reader.readLine()
+        }
+
+        reader.close()
+
+        return response
     }
 
 

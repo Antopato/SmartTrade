@@ -61,6 +61,15 @@ class BusinessLogic() {
         }
     }
 
+    fun getUserById(email : String) : User?{
+        val user : User?
+        runBlocking{
+            user = call.getUserById(email).await()
+        }
+        return user
+
+    }
+
     fun registerCompany(name:String, surname:String, email:String, pass:String,
                         holder:String, iban:String, date:String) {
 
@@ -597,6 +606,14 @@ class BusinessLogic() {
         runBlocking {
             call.addAddress(address).await()
         }
+    }
+
+    fun getSellById(id : Int) : Sell?{
+        var sell : Sell?
+        runBlocking{
+            sell = call.getSellById(id).await()
+        }
+        return sell
     }
 }
 
