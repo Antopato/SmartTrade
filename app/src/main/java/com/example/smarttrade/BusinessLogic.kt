@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
@@ -565,6 +566,13 @@ class BusinessLogic() {
         return price
     }
 
+    fun saveCarts(list : List<ShoppingCart>){
+        runBlocking {
+            for (cart in list) {
+                call.saveCart(cart)
+            }
+        }
+    }
     fun deleteAllShoppingCart(email : String){
         runBlocking{ call.deleteAllShopping(email).await() }
     }
@@ -575,6 +583,10 @@ class BusinessLogic() {
         runBlocking { call.deleteAllWhislist(email).await() }
     }
 
+    fun getAdresses(id : String) : List<Address>{
+        val list = mutableListOf<Address>()
+        return list
+    }
 }
 
 
