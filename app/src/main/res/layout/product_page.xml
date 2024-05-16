@@ -99,9 +99,10 @@
                 android:id="@+id/recycled_price"
                 android:layout_width="365dp"
                 android:layout_height="111dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="147dp" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingBarProduct" />
 
             <TextView
                 android:id="@+id/descriptionTex"
@@ -120,13 +121,13 @@
                 android:id="@+id/ratingBarProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="40sp"
+                android:layout_marginTop="10dp"
                 android:numStars="5"
                 android:progressTint="#FFEB3B"
                 android:rating="5"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
                 android:stepSize="0.1"
-                app:layout_constraintBottom_toTopOf="@+id/recycled_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTex" />
