@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.Observer
@@ -44,7 +45,7 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         val string = list.get(position).price.toString() + "€"
         holder.price.setText(string)
 
-        holder.itemViewP.setOnClickListener {
+        holder.clickLayout.setOnClickListener {
             holder.selectSeller()
             addAll()
         }
@@ -101,6 +102,7 @@ class PriceAdapter (var context: Context, var list: List<Sell>, var user : User,
         val name : TextView = itemView.findViewById(R.id.prodName)
         var selected :Boolean = false
         val carView: CardView = itemView.findViewById(R.id.cardView)
+        val clickLayout : ConstraintLayout = itemView.findViewById(R.id.layoutClick)
         val itemViewP = itemView
 
         override fun notifyObservers(){
