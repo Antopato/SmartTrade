@@ -1780,7 +1780,7 @@ class HTTPcalls() {
             }
         }
     }
-    fun getForLaterList(id: String) : Deferred<List<Product>> {
+    fun getForLaterList(id: String) : Deferred<List<Sell>> {
         return CoroutineScope(Dispatchers.IO).async {
             val url = URL("http://$idMario:8080/savedForLater/$id")
             val connection = url.openConnection() as HttpURLConnection
@@ -1805,7 +1805,7 @@ class HTTPcalls() {
                     val jsonResponse = response.toString()
                     println("json" + jsonResponse)
                     val gson = Gson()
-                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    val list: List<Sell> = gson.fromJson(jsonResponse, object : TypeToken<List<Sell>>() {}.type)
                     println(list)
                     reader.close()
 
@@ -1985,13 +1985,13 @@ class HTTPcalls() {
     fun addAddress(address : Address):Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
             val connection = connect("http://$idMario:8080/addres/add","POST")
-
+            println(address.city)
             val requestBody = StringBuilder().apply {
                 append("city=${address.city}&")
                 append("postalCode=${address.postalCode}&")
                 append("province=${address.province}&")
                 append("street=${address.street}&")
-                append("addresOf=${address.addresOf}&")
+                append("addresOf=${address.addresOf}")
             }.toString()
             println("añadiendo address "+ connection.responseCode)
 
@@ -2032,6 +2032,7 @@ class HTTPcalls() {
 
 
     fun publish(connection : HttpURLConnection, requestBody : String){
+        println(requestBody)
         val outPutStream = OutputStreamWriter(connection.outputStream)
         outPutStream.write(requestBody)
         outPutStream.flush()
