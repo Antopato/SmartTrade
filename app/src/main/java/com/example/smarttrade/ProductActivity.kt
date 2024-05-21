@@ -38,6 +38,7 @@ class ProductActivity : AppCompatActivity() {
         val product = intent.getSerializableExtra("product") as Product
 
         var list = service.getSeller(product.productId)
+        var  valoration = service.getValoration(product.productId)
         val recycler = findViewById<RecyclerView>(R.id.recycled_price)
 
         binding.backButt.setOnClickListener(){
@@ -46,6 +47,9 @@ class ProductActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //var bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.lavadora)
+
+        binding.ratingBarProduct.rating=valoration.toFloat()
+
 
         binding.nameText.text=product.name
         binding.descriptionTex.text=product.description

@@ -615,6 +615,14 @@ class BusinessLogic() {
         }
         return sell
     }
+
+    fun getValoration(id : Int): Double {
+        var valoration = 0.0
+        runBlocking{
+            valoration = call.getValoration(id).await()
+        }
+        return valoration
+    }
 }
 
 

@@ -1903,12 +1903,32 @@ class HTTPcalls() {
 
             val inputStream = connection.inputStream
             val reader = BufferedReader(InputStreamReader(inputStream))
-            var response = ""
             var line = reader.readLine()
 
             val value = line.toDouble()
 
             return@async value
+        }
+    }
+    fun getValoration(id : Int): Deferred<Double>{
+        return CoroutineScope(Dispatchers.IO).async{
+            println(id)
+            val connection = connect("http://$idMario:8080/valoration/$id","GET")
+
+            println("${connection.responseCode}:${connection.responseMessage}")
+
+            val inputStream = connection.inputStream
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            var line = reader.readLine()
+            println(line)
+            try {
+                val value = line.toDouble()
+                return@async value
+
+            }catch(e : Exception){
+                return@async 0.0
+            }
+
         }
     }
 
@@ -2028,6 +2048,7 @@ class HTTPcalls() {
         }
 
     }
+
 
 
 
