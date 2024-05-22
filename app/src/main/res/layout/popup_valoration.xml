@@ -26,7 +26,8 @@
         android:max="5"
         android:numStars="5"
         android:progressTint="#FFEB3B"
-        android:rating="0"
+        android:rating="3.25"
+        android:secondaryProgressTint="#00FFFFFF"
         android:stepSize="0.1" />
 
     <LinearLayout
