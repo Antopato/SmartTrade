@@ -520,8 +520,8 @@ class BusinessLogic() {
         return list
     }
 
-    fun getForLaterList(userId : String) : MutableList<Product>{
-        var list = mutableListOf<Product>()
+    fun getForLaterList(userId : String) : MutableList<Sell>{
+        var list = mutableListOf<Sell>()
         runBlocking {
             list.addAll(call.getForLaterList(userId).await())
         }
@@ -660,6 +660,14 @@ class BusinessLogic() {
             list.addAll(call.getProductsByOrderId(id).await())
         }
         return list
+    }
+
+    fun getValoration(id : Int): Double {
+        var valoration = 0.0
+        runBlocking{
+            valoration = call.getValoration(id).await()
+        }
+        return valoration
     }
 }
 

@@ -16,33 +16,49 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.ListsActivity
 import com.example.smarttrade.ProductActivity
 import com.example.smarttrade.R
 import com.example.smarttrade.classes.Product
+import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.User
 import java.io.ByteArrayOutputStream
 
-class ListAdapter(var context : Context, val list : List<Product>, val type : String, val user : User, val activity : ListsActivity) : RecyclerView.Adapter<ListAdapter.ListHolder>() {
+class ListAdapter(var context : Context, val listProd : List<Product>?,val listSell : List<Sell>?, val type : String, val user : User, val activity : ListsActivity) : RecyclerView.Adapter<ListAdapter.ListHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.lists_page_row, parent, false)
-        val viewHold = ListHolder(view, context, list, user)
+        var viewHold = if(isWhisList(type)) {
+            ListHolder(view, context, listProd,null, user)
+        }else{
+            ListHolder(view,context, null, listSell,user)
+        }
 
         return viewHold
     }
 
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
-        println(list.get(position).name)
-        holder.name.text = list.get(position).name
-        holder.description.text = list.get(position).description
-        setImage(holder,list.get(position))
+        var list = if(isWhisList(type)){
+            listProd
+        }else{
+            var sellProduct = mutableListOf<Product>()
+            for(sell in listSell!!){
+                sellProduct.add(service.getProductById(sell.id_product))
+            }
+            sellProduct
+        }
+
+        println(list!!.get(position).name)
+        holder.name.text = list!!.get(position).name
+        holder.description.text = list!!.get(position).description
+        setImage(holder,list!!.get(position))
 
         holder.deleteButt.setOnClickListener(){
-            if(type=="whislist"){
+            if(isWhisList(type)){
                 service.deleteProdFromWhislist(list.get(position).productId, user.email)
                 activity.refreshList(position)
             }else{
@@ -52,7 +68,11 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
         }
 
         holder.toCartButt.setOnClickListener(){
-           // addProdToCar()
+           service.addProductToCar(listSell!!.get(position), user.email)
+            service.deleteProdFromLater(list!!.get(position).productId, user.email)
+            activity.refreshList(position)
+
+
         }
 
         holder.layoutProd.setOnClickListener {
@@ -68,6 +88,9 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
 
             context.startActivity(intent)
         }
+    }
+    fun isWhisList(type : String):Boolean{
+        return type == "whislist"
     }
 
 /*    fun addProdToCar(){
@@ -95,7 +118,11 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
     }
 */
     override fun getItemCount(): Int {
-        return list.count()
+        if(isWhisList(type)){
+            return listProd!!.size
+        }else{
+            return listSell!!.size
+        }
     }
 
     fun setImage(holder : ListHolder, product : Product){
@@ -105,7 +132,7 @@ class ListAdapter(var context : Context, val list : List<Product>, val type : St
     }
 
 
-    class ListHolder(var itemView: View, var context : Context, var list : List<Product>, val user : User) :  RecyclerView.ViewHolder(itemView){
+    class ListHolder(var itemView: View, var context : Context, var listProd : List<Product>?,var listSell: List<Sell>?, val user : User) :  RecyclerView.ViewHolder(itemView){
         val name = itemView.findViewById<TextView>(R.id.listProductName)
         val description = itemView.findViewById<TextView>(R.id.listProductDescription)
         val image = itemView.findViewById<ImageView>(R.id.listProductImage)

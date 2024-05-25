@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "10.237.14.150"
+    val idMario = "10.237.9.33"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -1808,7 +1808,7 @@ class HTTPcalls() {
             }
         }
     }
-    fun getForLaterList(id: String) : Deferred<List<Product>> {
+    fun getForLaterList(id: String) : Deferred<List<Sell>> {
         return CoroutineScope(Dispatchers.IO).async {
             val url = URL("http://$idMario:8080/savedForLater/$id")
             val connection = url.openConnection() as HttpURLConnection
@@ -1833,7 +1833,7 @@ class HTTPcalls() {
                     val jsonResponse = response.toString()
                     println("json" + jsonResponse)
                     val gson = Gson()
-                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    val list: List<Sell> = gson.fromJson(jsonResponse, object : TypeToken<List<Sell>>() {}.type)
                     println(list)
                     reader.close()
 
@@ -1931,12 +1931,32 @@ class HTTPcalls() {
 
             val inputStream = connection.inputStream
             val reader = BufferedReader(InputStreamReader(inputStream))
-            var response = ""
             var line = reader.readLine()
 
             val value = line.toDouble()
 
             return@async value
+        }
+    }
+    fun getValoration(id : Int): Deferred<Double>{
+        return CoroutineScope(Dispatchers.IO).async{
+            println(id)
+            val connection = connect("http://$idMario:8080/valoration/$id","GET")
+
+            println("${connection.responseCode}:${connection.responseMessage}")
+
+            val inputStream = connection.inputStream
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            var line = reader.readLine()
+            println(line)
+            try {
+                val value = line.toDouble()
+                return@async value
+
+            }catch(e : Exception){
+                return@async 0.0
+            }
+
         }
     }
 
@@ -2013,13 +2033,13 @@ class HTTPcalls() {
     fun addAddress(address : Address):Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
             val connection = connect("http://$idMario:8080/addres/add","POST")
-
+            println(address.city)
             val requestBody = StringBuilder().apply {
                 append("city=${address.city}&")
                 append("postalCode=${address.postalCode}&")
                 append("province=${address.province}&")
                 append("street=${address.street}&")
-                append("addresOf=${address.addresOf}&")
+                append("addresOf=${address.addresOf}")
             }.toString()
             println("añadiendo address "+ connection.responseCode)
 
@@ -2161,7 +2181,9 @@ class HTTPcalls() {
 
 
 
+
     fun publish(connection : HttpURLConnection, requestBody : String){
+        println(requestBody)
         val outPutStream = OutputStreamWriter(connection.outputStream)
         outPutStream.write(requestBody)
         outPutStream.flush()

@@ -53,6 +53,7 @@ class CatalogActivity : AppCompatActivity() {
         }else{
             buttonCertificate.visibility = View.INVISIBLE
             list = service.getMerchantProductsById(user!!.email)
+            println("Seteada la lista de merchant")
             binding.textViewCatalog.text = "My Products"
         }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_ratingbar.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo vacío (sin color) -->
+    <item android:id="@android:id/background"
+        android:drawable="@android:color/transparent" />
+
+    <!-- Progreso secundario (las estrellas no seleccionadas) -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <solid android:color="#E0E0E0" /> <!-- Color de las estrellas no seleccionadas -->
+            </shape>
+        </clip>
+    </item>
+
+    <!-- Progreso principal (las estrellas seleccionadas) -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <solid android:color="#FFFF00" /> <!-- Color de las estrellas seleccionadas -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>
