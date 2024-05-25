@@ -2179,6 +2179,43 @@ class HTTPcalls() {
         }
     }
 
+    fun getMerchantOrders(email: String): Deferred<List<Order>>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/filterFirstProduct","GET")
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val response = getOutput(connection)
+
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Order> = gson.fromJson(jsonResponse, object : TypeToken<List<Order>>() {}.type)
+                    println(list)
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+
+    fun notifyState(orderId: Int, state: String): Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/udateState","PUT")
+            val requestBody = StringBuilder().apply {
+                append("order_id=$orderId&")
+                append("state=$state")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
+        }
+    }
+
 
 
 

@@ -669,6 +669,20 @@ class BusinessLogic() {
         }
         return valoration
     }
+
+    fun getMerchantOrders(id : String) : List<Order>{
+        var list = mutableListOf<Order>()
+        runBlocking {
+            list.addAll(call.getMerchantOrders(id).await())
+        }
+        return list
+    }
+
+    fun notifyState(orderId: Int, state: String){
+        runBlocking {
+            call.notifyState(orderId, state).await()
+        }
+    }
 }
 
 
