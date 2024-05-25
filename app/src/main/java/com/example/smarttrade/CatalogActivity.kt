@@ -126,6 +126,11 @@ class CatalogActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.imageViewLogOut.setOnClickListener {
+            val intent = Intent(this, LogInActivity::class.java)
+            startActivity(intent)
+        }
+
         seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 seekValue.text = "$progress€"

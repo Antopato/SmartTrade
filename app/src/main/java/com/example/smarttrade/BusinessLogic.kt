@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.Certification
+import com.example.smarttrade.classes.CreditCard
+import com.example.smarttrade.classes.Order
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
@@ -614,6 +616,50 @@ class BusinessLogic() {
             sell = call.getSellById(id).await()
         }
         return sell
+    }
+
+    fun getCreditCardsByUser(email : String) : List<CreditCard>{
+        var list = mutableListOf<CreditCard>()
+        runBlocking {
+            list.addAll(call.getCreditCardsByUser(email).await())
+        }
+        return list
+    }
+
+    fun addCreditCard(creditCard: CreditCard){
+        runBlocking {
+            call.addCreditCard(creditCard).await()
+        }
+    }
+
+    fun createOrder(client: String): Order?{
+        var order : Order?
+        runBlocking {
+            order = call.createOrder(client).await()
+        }
+        return order
+    }
+
+    fun addProductToOrder(orderId: Int, productId: Int){
+        runBlocking {
+            call.addProductToOrder(orderId, productId).await()
+        }
+    }
+
+    fun getOrdersById(id : String) : List<Order>{
+        var list = mutableListOf<Order>()
+        runBlocking {
+            list.addAll(call.getOrdersById(id).await())
+        }
+        return list
+    }
+
+    fun getProductsByOrder(id : Int) : List<Product>{
+        var list = mutableListOf<Product>()
+        runBlocking {
+            list.addAll(call.getProductsByOrderId(id).await())
+        }
+        return list
     }
 }
 

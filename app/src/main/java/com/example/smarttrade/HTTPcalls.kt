@@ -1,6 +1,8 @@
 package com.example.smarttrade
 
 import com.example.smarttrade.classes.Address
+import com.example.smarttrade.classes.CreditCard
+import com.example.smarttrade.classes.Order
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
@@ -402,6 +404,32 @@ class HTTPcalls() {
                 return@async seller
             } else{
                 return@async null
+            }
+        }
+    }
+
+    fun getCreditCardsByUser(email: String): Deferred<List<CreditCard>>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val connection = connect("http://$idMario:8080/creditCards/creditCard/$email", "GET")
+
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val output = getOutput(connection)
+
+                if(output.isEmpty()){
+                    println("Esto está vacío")
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = output.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<CreditCard> = gson.fromJson(jsonResponse, object : TypeToken<List<CreditCard>>() {}.type)
+                    return@async list
+                }
+
+            } else {
+                println("Esto va mal")
+                return@async emptyList()
             }
         }
     }
@@ -2027,6 +2055,108 @@ class HTTPcalls() {
             }
         }
 
+    }
+
+    fun addCreditCard(card : CreditCard) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/creditCards/add","POST")
+
+            val requestBody = StringBuilder().apply {
+                append("card_number=${card.cardNumber}&")
+                append("CVV=${card.CVV}&")
+                append("credit_card_owner=${card.owner}&")
+                append("expiringDateString=${card.expirationDate}&")
+            }.toString()
+
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
+        }
+    }
+
+    fun createOrder(client: String): Deferred<Order?>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/createOrder","POST")
+
+            val requestBody = StringBuilder().apply {
+                append("client=$client")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            val response = getOutput(connection)
+            if(response.isEmpty()){
+                return@async null
+            }else {
+                val jsonResponse = response.toString()
+                println("json" + jsonResponse)
+                val gson = Gson()
+                val order : Order = gson.fromJson(jsonResponse, Order::class.java)
+                return@async order
+            }
+        }
+    }
+
+    fun addProductToOrder(orderId: Int, productId : Int) : Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/${orderId}/add","POST")
+
+            val requestBody = StringBuilder().apply {
+                append("orderId=$orderId&")
+                append("productId=$productId")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
+        }
+    }
+
+    fun getOrdersById(id: String): Deferred<List<Order>>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/findByEmail","GET")
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val response = getOutput(connection)
+
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Order> = gson.fromJson(jsonResponse, object : TypeToken<List<Order>>() {}.type)
+                    println(list)
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
+    }
+
+    fun getProductsByOrderId(orderId: Int): Deferred<List<Product>>{
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/order/$orderId/products","GET")
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val response = getOutput(connection)
+
+                if(response.isEmpty()){
+                    return@async emptyList()
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val list: List<Product> = gson.fromJson(jsonResponse, object : TypeToken<List<Product>>() {}.type)
+                    println(list)
+                    return@async list
+                }
+            } else {
+                return@async emptyList()
+            }
+        }
     }
 
 

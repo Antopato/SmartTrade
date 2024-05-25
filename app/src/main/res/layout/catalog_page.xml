@@ -70,7 +70,7 @@
             app:srcCompat="@drawable/hogar" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/imageViewLogOut"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

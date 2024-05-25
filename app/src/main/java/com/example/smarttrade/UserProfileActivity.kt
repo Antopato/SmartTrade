@@ -51,5 +51,11 @@ class UserProfileActivity : AppCompatActivity() {
             forLater.putExtra("type", "forLater")
             startActivity(forLater)
         }
+
+        binding.buttonOrders.setOnClickListener {
+            val orders = Intent(this, MyOrdersActivity::class.java)
+            orders.putExtra("user",user)
+            startActivity(orders)
+        }
     }
 }
