@@ -1,7 +1,6 @@
 package com.example.smarttrade
 
 import android.content.Intent
-import android.location.Address
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smarttrade.adapters.CreditCardAdapter
+import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.CreditCard
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.SelectCreditCardBinding

@@ -46,9 +46,11 @@ class CatalogActivity : AppCompatActivity() {
         if(user?.type == "CLIENT"){
             buttonCertificate.visibility = View.INVISIBLE
             buttonAddProduct.visibility = View.INVISIBLE
+            binding.buttonMyOrders.visibility = View.VISIBLE
             list = service.getProducts()
         }else if(user?.type == "ADMIN"){
             buttonAddProduct.visibility = View.INVISIBLE
+            binding.buttonMyOrders.visibility = View.INVISIBLE
             list = service.getProducts()
         }else{
             buttonCertificate.visibility = View.INVISIBLE
@@ -168,6 +170,21 @@ class CatalogActivity : AppCompatActivity() {
             recyclerList.addAll(finalList)
             adapter!!.notifyDataSetChanged()
         }
+
+        if(user?.type == "CLIENT"){
+            binding.buttonMyOrders.setOnClickListener {
+                val intent = Intent(this, MyOrdersActivity::class.java)
+                intent.putExtra("user", user)
+                startActivity(intent)
+            }
+        } else {
+            binding.buttonMyOrders.setOnClickListener {
+                val intent = Intent(this, MerchantOrdersActivity::class.java)
+                intent.putExtra("user", user)
+                startActivity(intent)
+            }
+        }
+
 
 
 

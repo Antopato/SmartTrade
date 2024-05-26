@@ -49,12 +49,19 @@ class SelectAddressActivity : AppCompatActivity() {
                 }else{
                     val address = Address(0,city,code.toInt(),province,street,user.email)
                     service.addAddress(address)
-                    //val intent = Intent(this, )
+                    val intent = Intent(this, SelectCreditCardActivity::class.java)
+                    intent.putExtra("user",user)
+                    intent.putExtra("address", address)
+                    startActivity(intent)
                 }
             }else{
                 val address = adapter.selectedAddress
                 println("paso a la siguiente pagina")
-                //val intent = Intent(this, )
+                val intent = Intent(this, SelectCreditCardActivity::class.java)
+                intent.putExtra("user",user)
+                intent.putExtra("address", address)
+                startActivity(intent)
+
             }
         }
     }

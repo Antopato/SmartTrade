@@ -40,8 +40,9 @@ class MyOrdersAdapter(var context: Context, var list: List<Order?>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: MyOrdersAdapter.OrdersHolder, position: Int) {
+        val order = list[position]!!
         holder.orderID.setText("#" + list.get(position)!!.order_id)
-        holder.orderState.setText(list.get(position)!!.state)
+        holder.orderState.text = order.getState()
     }
 
     class OrdersHolder(itemView: View, context: Context, list:List<Order?>) : RecyclerView.ViewHolder(itemView){

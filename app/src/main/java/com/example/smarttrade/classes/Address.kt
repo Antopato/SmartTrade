@@ -1,5 +1,7 @@
 package com.example.smarttrade.classes
 
+import java.io.Serializable
+
 class Address(
     var addresId: Int,
     var city: String,
@@ -7,4 +9,4 @@ class Address(
     var province: String,
     var street: String,
     var addresOf: String
-)
+): Serializable

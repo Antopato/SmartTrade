@@ -95,6 +95,21 @@
         tools:ignore="SpeakableTextPresentCheck">
 
     </Button>
+    <Button
+        android:id="@+id/buttonMyOrders"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="35dp"
+        android:text="O"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@drawable/circle_button"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@id/buttonAddProduct"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </Button>
 
     <Button
         android:id="@+id/buttonCertificate"
