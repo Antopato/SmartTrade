@@ -19,87 +19,122 @@ import kotlinx.serialization.Serializable
 
 class ShoppingCarActivity : AppCompatActivity() {
 
-    val service = BusinessLogic()
-    lateinit var binding : ShoppingCarBinding
-    lateinit var adapter : CarAdapter
-    val recyclerList = mutableListOf<ShoppingCart>()
+    private lateinit var binding: ShoppingCarBinding
+    private lateinit var adapter: CarAdapter
+    private val recyclerList = mutableListOf<ShoppingCart>()
 
+    private val originator = Originator()
+    private val caretaker = CareTaker(originator)
+    private var initialState: List<ShoppingCart> = listOf()
 
     @SuppressLint("SetTextI18n")
-    override fun onCreate(savedInstanceState : Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val user = intent.getSerializableExtra("user") as User
-        var list = service.getShoppingCar(user.email)
+        val service = BusinessLogic()
+        val list = service.getShoppingCar(user.email)
 
         binding = ShoppingCarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         recyclerList.addAll(list)
-        adapter = CarAdapter(this,recyclerList,this, user)
+        originator.setState(recyclerList)
+        initialState = recyclerList.toList()
+        adapter = CarAdapter(this, recyclerList, this, user)
 
         binding.recyclerPrices.adapter = adapter
-        binding.recyclerPrices.setLayoutManager(LinearLayoutManager(this))
+        binding.recyclerPrices.layoutManager = LinearLayoutManager(this)
 
         val total = adapter.getTotal()
-        binding.totalText.text = total.toString() + "€"
+        binding.totalText.text = "$total€"
 
-        binding.deleteAllButtShopp.setOnClickListener{
+        binding.deleteAllButtShopp.setOnClickListener {
+            saveState()
             service.deleteAllShoppingCart(user.email)
             recyclerList.clear()
             adapter.notifyDataSetChanged()
+            change()
         }
 
-        binding.imageViewUser.setOnClickListener{
+        binding.imageViewUser.setOnClickListener {
             val intent = Intent(this, UserProfileActivity::class.java)
-            intent.putExtra("user",user)
+            intent.putExtra("user", user)
             startActivity(intent)
-
         }
 
-        binding.catalogImage.setOnClickListener{
+        binding.catalogImage.setOnClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
-            intent.putExtra("user",user)
+            intent.putExtra("user", user)
             startActivity(intent)
         }
 
-        binding.payButton.setOnClickListener{
+        binding.payButton.setOnClickListener {
             service.saveCarts(list)
-            val intent = Intent(this,CartInfoActivity::class.java)
+            val intent = Intent(this, CartInfoActivity::class.java)
             intent.putExtra("user", user)
             intent.putExtra("price", adapter.getTotal())
             startActivity(intent)
         }
 
+        // Botón deshacer
+        binding.undoButton.setOnClickListener {
+            undoChange()
+        }
+
+        // Botón deshacer todo
+        binding.undoAllButton.setOnClickListener {
+            undoAllChanges()
+        }
     }
 
-    fun change(){
-        val total = adapter.getTotal()
-        binding.totalText.text = total.toString() + "€"
+    private fun saveState() {
+        caretaker.addMemento(originator.guardar())
     }
 
-    fun changeData(bool : Boolean, position : Int){
-        recyclerList.removeAt(position)
-        //var newList = service.getShoppingCar(user.email)
-        //recyclerList.clear()
-        //recyclerList.addAll(recyclerList)
-        println(recyclerList.count())
+    private fun undoChange() {
+        caretaker.undo()
+        recyclerList.clear()
+        recyclerList.addAll(originator.getState())
         adapter.notifyDataSetChanged()
         change()
-        if(bool) {
-            val widthInPixels = 920
-            val heightInPixels = 570
-            val popupView = LayoutInflater.from(this).inflate(R.layout.popup_advert, null)
-            val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
-            val advert = popupView.findViewById<TextView>(R.id.advertText)
-            val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
-            val string = advert.text.toString() + "For Later List"
-            advert.text = string
+    }
 
-            buttonAdd.setOnClickListener() {
-                popupWindow.dismiss()
-            }
+    private fun undoAllChanges() {
+        originator.setState(initialState)
+        recyclerList.clear()
+        recyclerList.addAll(initialState)
+        adapter.notifyDataSetChanged()
+        change()
+    }
 
-            popupWindow.showAtLocation(binding.backgroundLayout, Gravity.CENTER, 0, 0)
+    fun change() {
+        val total = adapter.getTotal()
+        binding.totalText.text = "$total€"
+    }
+
+    fun changeData(bool: Boolean, position: Int) {
+        saveState()
+        recyclerList.removeAt(position)
+        adapter.notifyDataSetChanged()
+        change()
+        if (bool) {
+            showPopup()
         }
+    }
+
+    private fun showPopup() {
+        val widthInPixels = 920
+        val heightInPixels = 570
+        val popupView = LayoutInflater.from(this).inflate(R.layout.popup_advert, null)
+        val popupWindow = PopupWindow(popupView, widthInPixels, heightInPixels, true)
+        val advert = popupView.findViewById<TextView>(R.id.advertText)
+        val buttonAdd = popupView.findViewById<View>(R.id.buttonAdd)
+        advert.text = advert.text.toString() + "For Later List"
+
+        buttonAdd.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAtLocation(binding.backgroundLayout, Gravity.CENTER, 0, 0)
     }
 }
