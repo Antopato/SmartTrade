@@ -55,17 +55,22 @@ class ListAdapter(var context : Context, val listProd : List<Product>?,val listS
         println(list!!.get(position).name)
         holder.name.text = list!!.get(position).name
         holder.description.text = list!!.get(position).description
-        setImage(holder,list!!.get(position))
+        service.setImage(holder.image,list!!.get(position))
 
         holder.deleteButt.setOnClickListener(){
             if(isWhisList(type)){
                 service.deleteProdFromWhislist(list.get(position).productId, user.email)
                 activity.refreshList(position)
+
             }else{
                 service.deleteProdFromLater(list.get(position).productId, user.email)
                 activity.refreshList(position)
             }
         }
+        if(isWhisList(type)){
+             holder.toCartButt.visibility = View.INVISIBLE
+        }
+
 
         holder.toCartButt.setOnClickListener(){
            service.addProductToCar(listSell!!.get(position), user.email)
@@ -125,11 +130,7 @@ class ListAdapter(var context : Context, val listProd : List<Product>?,val listS
         }
     }
 
-    fun setImage(holder : ListHolder, product : Product){
-        val type = product.productType
-        val image = service.getImageByType(type, product.productId)
-        holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
-    }
+
 
 
     class ListHolder(var itemView: View, var context : Context, var listProd : List<Product>?,var listSell: List<Sell>?, val user : User) :  RecyclerView.ViewHolder(itemView){

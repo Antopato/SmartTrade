@@ -46,7 +46,6 @@ class HTTPcalls() {
                 val responseCode = connection.responseCode
                 println(responseCode)
 
-                println( connection.content.toString())
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val inputStream = connection.inputStream
                     val reader = BufferedReader(InputStreamReader(inputStream))
@@ -77,6 +76,8 @@ class HTTPcalls() {
         }
 
     }
+
+
 
     fun getAllProducts() : Deferred<List<Product>>{
          return CoroutineScope(Dispatchers.IO).async {
@@ -158,11 +159,7 @@ class HTTPcalls() {
 
             val codigoRespuesta = connection.responseCode
             println(codigoRespuesta)
-            if(codigoRespuesta == HttpURLConnection.HTTP_OK) {
-                return@async costumer
-            }else{
-                return@async null
-            }
+            return@async costumer
         }
     }
 
@@ -1945,10 +1942,15 @@ class HTTPcalls() {
 
             println("${connection.responseCode}:${connection.responseMessage}")
 
+            if(connection.responseCode==409){
+                return@async 0.0
+            }
+
             val inputStream = connection.inputStream
             val reader = BufferedReader(InputStreamReader(inputStream))
             var line = reader.readLine()
             println(line)
+
             try {
                 val value = line.toDouble()
                 return@async value
@@ -2039,7 +2041,7 @@ class HTTPcalls() {
                 append("postalCode=${address.postalCode}&")
                 append("province=${address.province}&")
                 append("street=${address.street}&")
-                append("addresOf=${address.addresOf}")
+                append("addresOf=${address.addresOf}&")
             }.toString()
             println("añadiendo address "+ connection.responseCode)
 

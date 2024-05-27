@@ -37,7 +37,6 @@ class ProductActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
         val product = intent.getSerializableExtra("product") as Product
 
-        var list = service.getSeller(product.productId)
         var  valoration = service.getValoration(product.productId)
         val recycler = findViewById<RecyclerView>(R.id.recycled_price)
 
@@ -55,7 +54,7 @@ class ProductActivity : AppCompatActivity() {
         binding.descriptionTex.text=product.description
         binding.image.setImageBitmap(bitmap)
 
-        adapter = PriceAdapter(this,list,user,this, binding.backgroundLayout)
+        adapter = PriceAdapter(this,service.getSeller(product.productId),user,this, binding.backgroundLayout)
 
         recycler.adapter= adapter
         recycler.setLayoutManager(LinearLayoutManager(this))

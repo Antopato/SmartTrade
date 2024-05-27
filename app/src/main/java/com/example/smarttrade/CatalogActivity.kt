@@ -6,19 +6,13 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.adapters.ProductsAdapter
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.User
-import com.example.smarttrade.classes.typeofusers.Merchant
 import com.example.smarttrade.databinding.CatalogPageBinding
 import org.json.JSONObject
 
@@ -191,7 +185,7 @@ class CatalogActivity : AppCompatActivity() {
 
 
     }
-    private fun setMinimumValue(pricelist : MutableList<Product>, json : JSONObject): MutableList<Product>{
+    public fun setMinimumValue(pricelist : MutableList<Product>, json : JSONObject): MutableList<Product>{
         val string = binding.minimumValue.text
         val number = string.dropLast(1).toString().toInt()
         minPrice=number
@@ -207,7 +201,7 @@ class CatalogActivity : AppCompatActivity() {
         return pricelist
     }
 
-    private fun setMaximumValue(filterlist : MutableList<Product>, json : JSONObject) : MutableList<Product>{
+    public fun setMaximumValue(filterlist : MutableList<Product>, json : JSONObject) : MutableList<Product>{
         val string = binding.seekvalue.text
         val number = string.dropLast(1).toString().toInt()
         val maxList = mutableListOf<Product>()
@@ -241,15 +235,19 @@ class CatalogActivity : AppCompatActivity() {
         val categoryList = mutableListOf<Product>()
 
         for(product in filterlist){
-            val cond1 = cat1=="None" || cat1==product.productType
-            val cond2 = cat2=="None" || cat2==product.productType
-            val cond3 = cat3=="None" || cat3==product.productType
+            val none1 = cat1=="None"
+            val none2 = cat2=="None"
+            val none3 = cat3=="None"
+            val cat1 = cat1 == product.productType
+            val cat2 = cat2 == product.productType
+            val cat3 = cat3 == product.productType
 
-            if(cond1 && cond2 && cond3){
+            val allSelectedNone = (none1 && none2 && none3)
+            val categoryIsSelected = (cat1 || cat2 || cat3)
+
+            if(allSelectedNone){
                 categoryList.add(product)
-            }else if(cat1==product.productType ||
-                cat2==product.productType ||
-                cat3==product.productType ){
+            }else if(categoryIsSelected){
                 categoryList.add(product)
             }
         }

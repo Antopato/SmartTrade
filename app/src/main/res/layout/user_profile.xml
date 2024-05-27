@@ -66,87 +66,99 @@
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black">
     </TextView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutProfile"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="68dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProfile"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfile">
+
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name: "
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
+            android:text="Name: "
             android:textColor="@color/black"
-            >
-        </TextView>
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
         <TextView
             android:id="@+id/textViewNameInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mario Nuñez Blazquez"
-            app:layout_constraintStart_toEndOf="@id/textViewName"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="20dp"
+            android:text="Mario Nuñez Blazquez"
             android:textSize="20sp"
-            >
-        </TextView>
+            app:layout_constraintStart_toEndOf="@id/textViewName"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
         <TextView
             android:id="@+id/textViewEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email: "
-            app:layout_constraintTop_toBottomOf="@id/textViewName"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/black">
-        </TextView>
+            android:text="Email: "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewName"></TextView>
+
         <TextView
             android:id="@+id/textViewEmailInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lo que sea"
-            app:layout_constraintStart_toEndOf="@id/textViewEmail"
-            app:layout_constraintTop_toBottomOf="@id/textViewNameInput"
             android:layout_marginTop="20dp"
-            android:textSize="20sp">
-        </TextView>
+            android:text="Lo que sea"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/textViewEmail"
+            app:layout_constraintTop_toBottomOf="@id/textViewNameInput"></TextView>
+
         <TextView
             android:id="@+id/textViewPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password: "
-            app:layout_constraintTop_toBottomOf="@id/textViewEmail"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="@color/black">
-        </TextView>
+            android:text="Password: "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewEmail"></TextView>
+
         <TextView
             android:id="@+id/textViewPasswordInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lo que sea"
-            app:layout_constraintStart_toEndOf="@id/textViewPassword"
-            app:layout_constraintTop_toBottomOf="@id/textViewEmailInput"
             android:layout_marginTop="20dp"
-            android:textSize="20sp">
-        </TextView>
+            android:text="Lo que sea"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/textViewPassword"
+            app:layout_constraintTop_toBottomOf="@id/textViewEmailInput"></TextView>
+
+        <Button
+            android:id="@+id/logOutButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_button"
+            android:text="Log Out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewPasswordInput"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEmailInput" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/textViewLists"
         android:layout_width="wrap_content"

@@ -4,12 +4,15 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.widget.ImageView
+import com.example.smarttrade.adapters.ListAdapter
 import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.Certification
 import com.example.smarttrade.classes.CreditCard
 import com.example.smarttrade.classes.Order
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
+import androidx.core.graphics.drawable.toBitmap
 import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.electronic.Computer
@@ -62,6 +65,13 @@ class BusinessLogic() {
             throw(Exception("The user section is void"))
         }
     }
+
+    fun setImage(imageView : ImageView, product : Product){
+        val type = product.productType
+        val image = getImageByType(type, product.productId)
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
+    }
+
 
     fun getUserById(email : String) : User?{
         val user : User?
@@ -159,6 +169,7 @@ class BusinessLogic() {
         runBlocking {
             user = call.createCostumer(costumer).await()
         }
+        println()
         return user
     }
     fun createMerchant(merchant: Merchant): User? {
@@ -166,6 +177,7 @@ class BusinessLogic() {
         runBlocking {
             user = call.createMerchant(merchant).await()
         }
+        println(user!!.email)
         return user
     }
     fun getUncertifiedCertificates(): List<Product?> {
@@ -604,10 +616,11 @@ class BusinessLogic() {
         return list
     }
 
-    fun addAddress(address : Address){
+    fun addAddress(address : Address) : Int{
         runBlocking {
             call.addAddress(address).await()
         }
+        return 1
     }
 
     fun getSellById(id : Int) : Sell?{

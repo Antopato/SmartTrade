@@ -42,8 +42,10 @@ class CostumerRegisterActivity : AppCompatActivity(){
             val allFilled = list.all { it.text.isNotEmpty() }
             val costumer = Costumer(name.text.toString() + " " + surname.text.toString(), password.text.toString(), email.text.toString(), type, birthdate.text.toString(), balance)
             if(allFilled){
-                service.createCostumer(costumer)
+                val user = service.createCostumer(costumer)
+
                 val intent = Intent(this, CatalogActivity::class.java)
+                intent.putExtra("user",user)
                 startActivity(intent)
                 error.visibility = TextView.INVISIBLE
             }else{

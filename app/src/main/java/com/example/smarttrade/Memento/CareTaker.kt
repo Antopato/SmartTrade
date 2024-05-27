@@ -1,6 +1,6 @@
 package com.example.smarttrade
 import com.example.smarttrade.classes.ShoppingCart
-import com.example.smarttrade.Memento.MementoClass
+//import com.example.smarttrade.Memento.MementoClass
 
 class CareTaker(private val originator: Originator) {
     private val mementos = mutableListOf<Originator.Memento>()

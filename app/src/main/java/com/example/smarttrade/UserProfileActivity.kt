@@ -26,6 +26,11 @@ class UserProfileActivity : AppCompatActivity() {
             textViewPasswordInput.text = user.password
         }
 
+        binding.logOutButt.setOnClickListener{
+            val initial = Intent(this, InitialActivity::class.java)
+            startActivity(initial)
+        }
+
         binding.catalogImage.setOnClickListener {
             val back = Intent(this, CatalogActivity::class.java)
             back.putExtra("user",user)

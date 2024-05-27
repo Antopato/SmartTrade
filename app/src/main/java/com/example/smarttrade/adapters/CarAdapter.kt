@@ -43,7 +43,7 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
         sum += unitPrice*amount
         observer.change()
         println(sum)
-
+        service.setImage(holder.image, product)
         val image = service.getImageByType(product.productType, product.productId)
         holder.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
 
