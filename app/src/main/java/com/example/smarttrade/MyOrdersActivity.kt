@@ -1,5 +1,6 @@
 package com.example.smarttrade
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,11 @@ class MyOrdersActivity : AppCompatActivity() {
             val list = service.getOrdersById(user.email)
             adapter.list = list
             adapter.notifyDataSetChanged()
+        }
+        binding.buttonBack.setOnClickListener {
+            val intent = Intent(this, CatalogActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
 
     }

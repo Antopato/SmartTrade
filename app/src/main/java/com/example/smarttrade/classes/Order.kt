@@ -25,7 +25,12 @@ class Order(
         return state.getState()
     }
     fun setState(){
-        if(stateString == "OrderInPreparation"){state = OrderInPreparation()}
+        when(stateString){
+            "Order in preparation" -> state = OrderInPreparation()
+            "Waiting for pickup at warehouse" -> state = OrderWaiting()
+            "Order out for delivery" -> state = OrderOut()
+            "Order delivered" -> state = OrderDelivered()
+        }
 
     }
 }
