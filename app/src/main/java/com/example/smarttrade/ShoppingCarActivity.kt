@@ -77,14 +77,14 @@ class ShoppingCarActivity : AppCompatActivity() {
         }
 
         // Botón deshacer
-        binding.undoButton.setOnClickListener {
+        /**binding.undoButton.setOnClickListener {
             undoChange()
         }
 
         // Botón deshacer todo
         binding.undoAllButton.setOnClickListener {
             undoAllChanges()
-        }
+        }*/
     }
 
     private fun saveState() {

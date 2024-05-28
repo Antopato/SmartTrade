@@ -14,12 +14,18 @@ class Order(
     var client: String,
     val order_date: String,
     var deadline: String,
-    var state: OrderState = OrderInPreparation()
+    var stateString: String
 ) : Serializable{
+
+    lateinit var state: OrderState
     fun nextState() {
         state.nextState(this)
     }
     fun getState(): String {
         return state.getState()
+    }
+    fun setState(){
+        if(stateString == "OrderInPreparation"){state = OrderInPreparation()}
+
     }
 }

@@ -34,8 +34,10 @@ class SelectCreditCardActivity : AppCompatActivity() {
         binding.creditCardRecyclerView.adapter = adapter
         binding.creditCardRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val order = service.createOrder(user.email)
+
         val shoppingCar = service.getShoppingCar(user.email)
+        val order = service.createOrder(user.email)
+
         for(car in shoppingCar){
             if (order != null) {
                 service.addProductToOrder(order.order_id, car.product_id)
