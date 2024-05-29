@@ -696,6 +696,16 @@ class BusinessLogic() {
             call.notifyState(orderId, state).await()
         }
     }
+
+    fun plusOne(shoppingCartId : Int){
+        runBlocking {
+            call.plusOne(shoppingCartId)
+        }
+    }
+
+    fun minusOne(shoppingCartId: Int) {
+        runBlocking { call.minusOne(shoppingCartId) }
+    }
 }
 
 

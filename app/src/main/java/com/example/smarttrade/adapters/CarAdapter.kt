@@ -52,19 +52,25 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
             if(number-1 >0 ){
                 holder.amount.text = (number-1).toString()
                 list.get(position).quantity = (number-1)
+                val shoppingCartId:Int = list.get(position).shoppingCart_id
                 var value = list.get(position).price
                 sum -= value
                 observer.change()
+                service.minusOne(shoppingCartId)
+                println(list.get(position).quantity)
             }
         }
 
         holder.plusButton.setOnClickListener(){
             val number = holder.amount.text.toString().toInt() +1
             list.get(position).quantity = number
+            val shoppingCartId:Int = list.get(position).shoppingCart_id
             holder.amount.text = number.toString()
             var value = list.get(position).price
             sum+= value
             observer.change()
+            service.plusOne(shoppingCartId)
+            println(list.get(position).quantity)
         }
         holder.laterButton.setOnClickListener(){
             service.addToLaterList(product.productId,userId)

@@ -76,15 +76,11 @@ class ShoppingCarActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Botón deshacer
-        /**binding.undoButton.setOnClickListener {
+
+        binding.undoBtn.setOnClickListener {
             undoChange()
         }
 
-        // Botón deshacer todo
-        binding.undoAllButton.setOnClickListener {
-            undoAllChanges()
-        }*/
     }
 
     private fun saveState() {
@@ -110,6 +106,7 @@ class ShoppingCarActivity : AppCompatActivity() {
     fun change() {
         val total = adapter.getTotal()
         binding.totalText.text = "$total€"
+
     }
 
     fun changeData(bool: Boolean, position: Int) {

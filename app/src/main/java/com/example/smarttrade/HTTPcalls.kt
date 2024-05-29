@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.1.132"
+    val idMario = "10.237.31.141"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -2255,6 +2255,30 @@ class HTTPcalls() {
         reader.close()
 
         return response
+    }
+
+    fun plusOne(shoppingCartId: Int): Any {
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/shoppingCart/$shoppingCartId/plusOne","PUT")
+
+            if(connection.responseCode == HttpURLConnection.HTTP_OK){
+                return@async connection.responseCode
+            }else{
+                return@async connection.responseCode
+            }
+        }
+    }
+
+    fun minusOne(shoppingCartId: Int): Any {
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/shoppingCart/$shoppingCartId/minusOne","PUT")
+
+            if(connection.responseCode == HttpURLConnection.HTTP_OK){
+                return@async connection.responseCode
+            }else{
+                return@async connection.responseCode
+            }
+        }
     }
 
 
