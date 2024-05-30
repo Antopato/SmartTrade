@@ -25,11 +25,12 @@ class Order(
         return state.getState()
     }
     fun setState(){
-        when(stateString){
-            "Order in preparation" -> state = OrderInPreparation()
-            "Waiting for pickup at warehouse" -> state = OrderWaiting()
-            "Order out for delivery" -> state = OrderOut()
-            "Order delivered" -> state = OrderDelivered()
+        println(this.stateString)
+        when(this.stateString){
+            "Order in preparation" -> this.state = OrderInPreparation()
+            "Waiting for pickup at warehouse" -> this.state = OrderWaiting()
+            "Order out for delivery" -> this.state = OrderOut()
+            "Order delivered" -> this.state = OrderDelivered()
         }
 
     }
