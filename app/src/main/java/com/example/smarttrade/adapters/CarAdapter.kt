@@ -1,23 +1,9 @@
-package com.example.smarttrade.adapters
-
-import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.smarttrade.BusinessLogic
-import com.example.smarttrade.ProductActivity
-import com.example.smarttrade.R
-import com.example.smarttrade.ShoppingCarActivity
-import com.example.smarttrade.classes.ShoppingCart
-import com.example.smarttrade.classes.User
-
-class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val observer: ShoppingCarActivity, val user: User) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
+class CarAdapter(
+    val context: Context,
+    val list: MutableList<ShoppingCart>,
+    val observer: ShoppingCarActivity,
+    val user: User
+) : RecyclerView.Adapter<CarAdapter.MyViewHolder>() {
     var sum = 0
     val service = BusinessLogic()
 
@@ -62,7 +48,7 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
             observer.saveState()
             val number = holder.amount.text.toString().toInt() + 1
             list[position].quantity = number
-            val shoppingCartId: Int = list[position].shoppingCart_id
+            val shoppingCartId: Int = list[position].shopping_cart_id
             holder.amount.text = number.toString()
             val value = list[position].price
             sum += value
@@ -73,19 +59,18 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
 
         holder.laterButton.setOnClickListener {
             observer.saveState()
-            service.addToLaterList(product.productId, userId)
-            service.deleteProdFromCart(product.productId, userId)
-            sum = 0
-            observer.changeData(true, position)
-            notifyDataSetChanged()
+            val product = list[position]
+            service.addToLaterList(product.product_id, userId)
+            service.deleteProdFromCart(product.product_id, userId)
+            observer.changeData(product, position)
         }
 
         holder.deleteButton.setOnClickListener {
             observer.saveState()
             service.deleteProdFromCart(product.productId, userId)
             sum = 0
-            observer.changeData(false, position)
-            notifyDataSetChanged()
+            observer.changeData(list[position], position)
+            notifyDataSetChanged()  /
         }
     }
 
@@ -110,12 +95,6 @@ class CarAdapter(val context: Context, val list: MutableList<ShoppingCart>, val 
         init {
             name.setOnClickListener {
                 val intent = Intent(context, ProductActivity::class.java)
-                //intent.putExtra("product", list.get(adapterPosition))
-                //val bitmap = (image.drawable).toBitmap()
-                //val stream = ByteArrayOutputStream()
-                //bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                //val byteArray = stream.toByteArray()
-                //intent.putExtra("image", byteArray)
                 context.startActivity(intent)
             }
         }

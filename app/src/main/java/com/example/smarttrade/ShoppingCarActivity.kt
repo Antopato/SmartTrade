@@ -1,33 +1,30 @@
 package com.example.smarttrade
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smarttrade.adapters.CarAdapter
-import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.ShoppingCarBinding
-import kotlinx.serialization.Serializable
 
 class ShoppingCarActivity : AppCompatActivity() {
 
     private lateinit var binding: ShoppingCarBinding
     private lateinit var adapter: CarAdapter
     private val recyclerList = mutableListOf<ShoppingCart>()
+    private val movedToLaterList = mutableListOf<ShoppingCart>()
 
     private val originator = Originator()
     private val caretaker = CareTaker(originator)
     private var initialState: List<ShoppingCart> = listOf()
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val user = intent.getSerializableExtra("user") as User
@@ -76,14 +73,12 @@ class ShoppingCarActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         binding.undoBtn.setOnClickListener {
             undoChange()
         }
-
     }
 
-    private fun saveState() {
+    fun saveState() {
         caretaker.addMemento(originator.guardar())
     }
 
@@ -93,6 +88,14 @@ class ShoppingCarActivity : AppCompatActivity() {
         recyclerList.addAll(originator.getState())
         adapter.notifyDataSetChanged()
         change()
+
+
+        val service = BusinessLogic()
+        for (product in movedToLaterList) {
+            service.deleteFromLaterList(product.product_id)
+            service.addToShoppingCart(product.product_id, product.shopping_cart_owner)
+        }
+        movedToLaterList.clear()
     }
 
     private fun undoAllChanges() {
@@ -106,17 +109,15 @@ class ShoppingCarActivity : AppCompatActivity() {
     fun change() {
         val total = adapter.getTotal()
         binding.totalText.text = "$total€"
-
     }
 
-    fun changeData(bool: Boolean, position: Int) {
+    fun changeData(product: ShoppingCart, position: Int) {
         saveState()
         recyclerList.removeAt(position)
+        movedToLaterList.add(product)
         adapter.notifyDataSetChanged()
         change()
-        if (bool) {
-            showPopup()
-        }
+        showPopup()
     }
 
     private fun showPopup() {
