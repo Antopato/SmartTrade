@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "10.237.9.33"
+    val idMario = "192.168.0.21"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{

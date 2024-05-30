@@ -13,11 +13,15 @@ import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.CreditCard
 import com.example.smarttrade.classes.User
 import com.example.smarttrade.databinding.SelectCreditCardBinding
+import com.example.smarttrade.strategy.CheckoutStrategy
+import com.example.smarttrade.strategy.PaypalStrategy
+import com.example.smarttrade.strategy.Strategy
 
 class SelectCreditCardActivity : AppCompatActivity() {
 
     lateinit var binding : SelectCreditCardBinding
     val service = BusinessLogic()
+    lateinit var strategy: Strategy
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,10 +60,8 @@ class SelectCreditCardActivity : AppCompatActivity() {
         }
 
         binding.buttonPayPal.setOnClickListener{
-            val intent = Intent(this, MyOrdersActivity::class.java)
-            intent.putExtra("user", user)
-            intent.putExtra("address", address)
-            startActivity(intent)
+            strategy = PaypalStrategy()
+            strategy.showPopup(this, user, address)
         }
 
         binding.buttonCheckout.setOnClickListener{
@@ -73,19 +75,13 @@ class SelectCreditCardActivity : AppCompatActivity() {
                 }else{
                     val creditCard = CreditCard(number, cvv.toInt(), user.name, expirationDate)
                     service.addCreditCard(creditCard)
-                    val intent = Intent(this, MyOrdersActivity::class.java)
-                    intent.putExtra("user", user)
-                    intent.putExtra("address", address)
-                    intent.putExtra("creditCard", creditCard)
-                    startActivity(intent)
+                    strategy = CheckoutStrategy()
+                    strategy.showPopup(this, user, address)
                 }
             } else {
                 val creditCard = adapter.selectedCreditCard
-                val intent = Intent(this, MyOrdersActivity::class.java)
-                intent.putExtra("user", user)
-                intent.putExtra("address", address)
-                intent.putExtra("creditCard", creditCard)
-                startActivity(intent)
+                strategy = CheckoutStrategy()
+                strategy.showPopup(this, user, address)
             }
 
         }
