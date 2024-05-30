@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "10.237.31.141"
+    val idMario = "192.168.1.132"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -2043,9 +2043,9 @@ class HTTPcalls() {
                 append("street=${address.street}&")
                 append("addresOf=${address.addresOf}&")
             }.toString()
-            println("añadiendo address "+ connection.responseCode)
 
             publish(connection, requestBody)
+
 
             return@async connection.responseCode
         }
@@ -2150,6 +2150,11 @@ class HTTPcalls() {
                     val gson = Gson()
                     val list: List<Order> = gson.fromJson(jsonResponse, object : TypeToken<List<Order>>() {}.type)
                     for (order in list){
+                        println("order id: " + order.order_id)
+                        println("order client" + order.client)
+                        println("order order_date" + order.order_date)
+                        println("order deadline" + order.deadline)
+                        println(order.stateString)
                         order.setState()
                     }
                     println(list)
@@ -2167,7 +2172,7 @@ class HTTPcalls() {
 
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = getOutput(connection)
-
+                println(response)
                 if(response.isEmpty()){
                     return@async emptyList()
                 }else {
