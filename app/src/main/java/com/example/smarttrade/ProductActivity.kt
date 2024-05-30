@@ -40,6 +40,8 @@ class ProductActivity : AppCompatActivity() {
         var  valoration = service.getValoration(product.productId)
         val recycler = findViewById<RecyclerView>(R.id.recycled_price)
 
+        binding.pathString.text = setPath(product.productType)
+
         binding.backButt.setOnClickListener(){
             val intent = Intent(this, CatalogActivity::class.java)
             intent.putExtra("user", user)
@@ -89,5 +91,21 @@ class ProductActivity : AppCompatActivity() {
         }else{
             binding.addCarButt.isEnabled=false
         }
+    }
+
+    fun setPath(type : String):String {
+        var isElectronic = type == "PHONE" || type=="HOUSEHOLD" || type == "COMPUTER"
+        var isFashion = type=="FASHIONTOP" || type=="FASHIONBOTTOM" || type=="FOOTWEAR"
+
+
+
+        if (isElectronic) {
+            return "/ELECTRONICS/"+type
+        } else if (isFashion) {
+            return "/FASHION/"+type
+        } else{
+            return "FOOD/"+type
+        }
+
     }
 }

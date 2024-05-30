@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.1.132"
+    val idMario = "10.237.9.33"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -2043,6 +2043,7 @@ class HTTPcalls() {
                 append("street=${address.street}&")
                 append("addresOf=${address.addresOf}&")
             }.toString()
+            println("añadiendo address "+ connection.responseCode)
 
             publish(connection, requestBody)
 
@@ -2172,7 +2173,7 @@ class HTTPcalls() {
 
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = getOutput(connection)
-                println(response)
+
                 if(response.isEmpty()){
                     return@async emptyList()
                 }else {

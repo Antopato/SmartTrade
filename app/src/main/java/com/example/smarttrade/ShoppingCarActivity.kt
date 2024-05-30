@@ -74,7 +74,7 @@ class ShoppingCarActivity : AppCompatActivity() {
         }
 
         binding.undoBtn.setOnClickListener {
-            undoChange()
+            undoChange(user)
         }
     }
 
@@ -82,7 +82,7 @@ class ShoppingCarActivity : AppCompatActivity() {
         caretaker.addMemento(originator.guardar())
     }
 
-    private fun undoChange() {
+    private fun undoChange(user : User) {
         caretaker.undo()
         recyclerList.clear()
         recyclerList.addAll(originator.getState())
@@ -92,8 +92,9 @@ class ShoppingCarActivity : AppCompatActivity() {
 
         val service = BusinessLogic()
         for (product in movedToLaterList) {
-            service.deleteFromLaterList(product.product_id)
-            service.addToShoppingCart(product.product_id, product.shopping_cart_owner)
+            var sell = service.getSellById(product.product_id)
+            service.deleteProdFromLater(product.product_id, user.email)
+            service.addProductToCar(sell!!, product.shopping_cart_owner)
         }
         movedToLaterList.clear()
     }

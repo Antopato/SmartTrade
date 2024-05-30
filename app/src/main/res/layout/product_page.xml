@@ -21,14 +21,14 @@
         android:id="@+id/nameText"
         android:layout_width="332dp"
         android:layout_height="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="TextViewp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/pathString" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -135,5 +135,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/pathString"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="/Category/SubCategory"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backButt"
+        app:layout_constraintStart_toEndOf="@+id/backButt"
+        app:layout_constraintTop_toTopOf="@+id/backButt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,23 @@
+package com.example.smarttrade.adapters
+
+
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.smarttrade.classes.ShoppingCart
+import com.example.smarttrade.classes.User
+import com.example.smarttrade.BusinessLogic
+import com.example.smarttrade.ProductActivity
+import com.example.smarttrade.R
+import com.example.smarttrade.ShoppingCarActivity
+
 class CarAdapter(
     val context: Context,
     val list: MutableList<ShoppingCart>,
@@ -48,7 +68,7 @@ class CarAdapter(
             observer.saveState()
             val number = holder.amount.text.toString().toInt() + 1
             list[position].quantity = number
-            val shoppingCartId: Int = list[position].shopping_cart_id
+            val shoppingCartId: Int = list[position].shoppingCart_id
             holder.amount.text = number.toString()
             val value = list[position].price
             sum += value
@@ -70,7 +90,7 @@ class CarAdapter(
             service.deleteProdFromCart(product.productId, userId)
             sum = 0
             observer.changeData(list[position], position)
-            notifyDataSetChanged()  /
+            notifyDataSetChanged()
         }
     }
 
