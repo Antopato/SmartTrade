@@ -82,14 +82,14 @@ class CarAdapter(
             val product = list[position]
             service.addToLaterList(product.product_id, userId)
             service.deleteProdFromCart(product.product_id, userId)
-            observer.changeData(product, position)
+            observer.changeData(product, position,true)
         }
 
         holder.deleteButton.setOnClickListener {
             observer.saveState()
             service.deleteProdFromCart(product.productId, userId)
             sum = 0
-            observer.changeData(list[position], position)
+            observer.changeData(list[position], position,false)
             notifyDataSetChanged()
         }
     }

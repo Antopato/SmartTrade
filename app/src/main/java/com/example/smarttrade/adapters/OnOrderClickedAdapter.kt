@@ -26,7 +26,7 @@ import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Merchant
 import java.io.ByteArrayOutputStream
 
-class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, orderState: String) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
+class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, var orderState: String) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderProductsHolder{
         val inflater : LayoutInflater  = LayoutInflater.from(context)

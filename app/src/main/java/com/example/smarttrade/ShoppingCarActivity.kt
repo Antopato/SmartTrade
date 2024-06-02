@@ -112,13 +112,15 @@ class ShoppingCarActivity : AppCompatActivity() {
         binding.totalText.text = "$total€"
     }
 
-    fun changeData(product: ShoppingCart, position: Int) {
+    fun changeData(product: ShoppingCart, position: Int, forLater:Boolean) {
         saveState()
         recyclerList.removeAt(position)
         movedToLaterList.add(product)
         adapter.notifyDataSetChanged()
         change()
-        showPopup()
+        if(forLater){
+            showPopup()
+        }
     }
 
     private fun showPopup() {
