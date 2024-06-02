@@ -18,8 +18,20 @@ class Order(
 ) : Serializable{
 
     lateinit var state: OrderState
-    fun nextState() {
-        state.nextState(this)
+    fun inPreparationState() {
+        state.inPreparationState(this)
+    }
+
+    fun waitingState() {
+        state.waitingState(this)
+    }
+
+    fun outForDeliveryState() {
+        state.outfordeliveryState(this)
+    }
+
+    fun deliveredState() {
+        state.deliveredState(this)
     }
     fun getState(): String {
         return state.getState()
@@ -32,6 +44,5 @@ class Order(
             "Order out for delivery" -> this.state = OrderOut()
             "Order delivered" -> this.state = OrderDelivered()
         }
-
     }
 }

@@ -45,8 +45,18 @@ class MerchantOrdersAdapter(var context: Context, var list: List<Order?>) : Recy
         holder.orderState.text = order.getState()
 
         holder.button.setOnClickListener {
-            order.nextState()
+            when (order.getState()) {
+                "Order in preparation" -> order.waitingState()
+                "Waiting for pickup at warehouse" -> order.outForDeliveryState()
+                "Order out for delivery" -> order.deliveredState()
+            }
+
             holder.orderState.text = order.getState()
+
+            if (order.getState() == "Order delivered") {
+                holder.button.visibility = View.GONE
+            }
+
             notifyItemChanged(position)
             service.notifyState(order.order_id, order.getState())
         }

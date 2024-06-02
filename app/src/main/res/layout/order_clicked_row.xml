@@ -23,7 +23,7 @@
 
             <TextView
                 android:id="@+id/textViewProductName"
-                android:layout_width="259dp"
+                android:layout_width="190dp"
                 android:layout_height="36dp"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
@@ -43,6 +43,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/buttonRate"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toEndOf="@id/textViewProductName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="35dp"
+                android:text="Rate"
+                android:background="@drawable/rounded_button_back"
+                android:visibility="gone"
+                >
+            </Button>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

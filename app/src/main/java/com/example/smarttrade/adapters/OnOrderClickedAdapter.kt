@@ -26,12 +26,12 @@ import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Merchant
 import java.io.ByteArrayOutputStream
 
-class OnOrderClickedAdapter(var context: Context, var list: List<Product?>) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
+class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, orderState: String) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderProductsHolder{
         val inflater : LayoutInflater  = LayoutInflater.from(context)
         val view : View = inflater.inflate(R.layout.order_clicked_row, parent, false)
-        return OrderProductsHolder(view, context, list)
+        return OrderProductsHolder(view, context, list, orderState)
     }
 
 
@@ -45,11 +45,17 @@ class OnOrderClickedAdapter(var context: Context, var list: List<Product?>) : Re
 
         val image = service.getImageByType(product.productType, product.productId)
         holder.productImage.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
+
+        if(holder.orderState == "Delivered"){
+            holder.buttonRate.visibility = View.VISIBLE
+        }
     }
 
-    class OrderProductsHolder(itemView: View, context: Context, list:List<Product?>) : RecyclerView.ViewHolder(itemView){
+    class OrderProductsHolder(itemView: View, context: Context, list:List<Product?>, orderState: String) : RecyclerView.ViewHolder(itemView){
         val service = BusinessLogic()
         val productName = itemView.findViewById<TextView>(R.id.textViewProductName)
         val productImage = itemView.findViewById<ImageView>(R.id.imageViewProductImage)
+        val buttonRate = itemView.findViewById<TextView>(R.id.buttonRate)
+        val orderState = orderState
     }
 }

@@ -25,7 +25,7 @@ class OrderClickedActivity : AppCompatActivity() {
         val order = intent.getSerializableExtra("order") as Order
         val list = service.getProductsByOrder(order.order_id)
 
-        val adapter = OnOrderClickedAdapter(this, list)
+        val adapter = OnOrderClickedAdapter(this, list, order.getState())
         binding.recyclerViewProducts.adapter = adapter
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(this)
 
