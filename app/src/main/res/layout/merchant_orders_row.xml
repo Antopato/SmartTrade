@@ -56,14 +56,13 @@
             <Button
                 android:id="@+id/buttonNextState"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="55dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/rounded_button_back"
                 android:text="next state"
-                android:background="@drawable/rounded_button_back">
-            </Button>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></Button>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

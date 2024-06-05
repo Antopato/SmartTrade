@@ -664,7 +664,16 @@ class BusinessLogic() {
         runBlocking {
             list.addAll(call.getOrdersById(id).await())
         }
+        println("Respuesta de la API: " + list)
         return list
+    }
+
+    fun getOrderById(id : Int): Order{
+        val order: Order
+        runBlocking {
+            order = call.getOrderbyId(id).await()!!
+        }
+        return order
     }
 
     fun getProductsByOrder(id : Int) : List<Product>{
@@ -705,6 +714,10 @@ class BusinessLogic() {
 
     fun minusOne(shoppingCartId: Int) {
         runBlocking { call.minusOne(shoppingCartId) }
+    }
+
+    fun updateQuantity(shoppingCartId: Int, Quantity: Int){
+        runBlocking { call.updateQuantity(shoppingCartId, Quantity) }
     }
 }
 

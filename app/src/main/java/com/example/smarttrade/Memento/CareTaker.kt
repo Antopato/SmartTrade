@@ -10,14 +10,21 @@ class CareTaker(private val originator: Originator) {
     }
 
     fun addMemento(m: Originator.Memento) {
+        println("ha habido un cambio")
         mementos.add(m)
     }
 
     fun undo() {
         if (mementos.isNotEmpty()) {
+            println("longitud de mementos: ${mementos.size}")
             val lastMemento = mementos.removeAt(mementos.size - 1)
             originator.restaurar(lastMemento)
         }
+    }
+
+    fun getLasMemento(): List<ShoppingCart>{
+        println("longitud de mementos: ${mementos.size}")
+        return mementos.get(mementos.size - 1).getState()
     }
 
     fun clear() {

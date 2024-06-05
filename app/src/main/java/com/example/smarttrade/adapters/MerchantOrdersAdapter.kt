@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
@@ -44,7 +45,7 @@ class MerchantOrdersAdapter(var context: Context, var list: List<Order?>) : Recy
         holder.orderID.setText("#" + list.get(position)!!.order_id)
         holder.orderState.text = order.getState()
 
-        holder.button.setOnClickListener {
+        holder.button?.setOnClickListener {
             when (order.getState()) {
                 "Order in preparation" -> order.waitingState()
                 "Waiting for pickup at warehouse" -> order.outForDeliveryState()
@@ -54,7 +55,7 @@ class MerchantOrdersAdapter(var context: Context, var list: List<Order?>) : Recy
             holder.orderState.text = order.getState()
 
             if (order.getState() == "Order delivered") {
-                holder.button.visibility = View.GONE
+                holder.button?.visibility = View.GONE
             }
 
             notifyItemChanged(position)
@@ -65,10 +66,6 @@ class MerchantOrdersAdapter(var context: Context, var list: List<Order?>) : Recy
     class MerchantOrdersHolder(itemView: View, context: Context, list:List<Order?>) : RecyclerView.ViewHolder(itemView){
         val orderID = itemView.findViewById<TextView>(R.id.textViewOrder)
         val orderState = itemView.findViewById<TextView>(R.id.textViewState)
-        val button = itemView.findViewById<TextView>(R.id.buttonNextState)
-
-        init{
-
-        }
+        val button : Button? = itemView.findViewById<Button>(R.id.buttonNextState)
     }
 }

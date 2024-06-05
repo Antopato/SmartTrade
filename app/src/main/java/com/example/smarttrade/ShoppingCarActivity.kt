@@ -20,7 +20,7 @@ class ShoppingCarActivity : AppCompatActivity() {
     private lateinit var adapter: CarAdapter
     private val recyclerList = mutableListOf<ShoppingCart>()
     private val movedToLaterList = mutableListOf<ShoppingCart>()
-
+    private val service = BusinessLogic()
     private val originator = Originator()
     private val caretaker = CareTaker(originator)
     private var initialState: List<ShoppingCart> = listOf()
@@ -28,7 +28,6 @@ class ShoppingCarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val user = intent.getSerializableExtra("user") as User
-        val service = BusinessLogic()
         val list = service.getShoppingCar(user.email)
 
         binding = ShoppingCarBinding.inflate(layoutInflater)
@@ -84,13 +83,16 @@ class ShoppingCarActivity : AppCompatActivity() {
 
     private fun undoChange(user : User) {
         caretaker.undo()
+        for(shoppingCart in caretaker.getLasMemento()){
+            println("cantidades del producto: ${shoppingCart.quantity}")
+            service.updateQuantity(shoppingCart.shoppingCart_id, shoppingCart.quantity)
+        }
         recyclerList.clear()
         recyclerList.addAll(originator.getState())
         adapter.notifyDataSetChanged()
         change()
 
 
-        val service = BusinessLogic()
         for (product in movedToLaterList) {
             var sell = service.getSellById(product.product_id)
             service.deleteProdFromLater(product.product_id, user.email)
@@ -99,12 +101,18 @@ class ShoppingCarActivity : AppCompatActivity() {
         movedToLaterList.clear()
     }
 
-    private fun undoAllChanges() {
+    private fun undoAllChanges(user: User) {
         originator.setState(initialState)
         recyclerList.clear()
         recyclerList.addAll(initialState)
         adapter.notifyDataSetChanged()
         change()
+        for (product in movedToLaterList) {
+            var sell = service.getSellById(product.product_id)
+            service.deleteProdFromLater(product.product_id, user.email)
+            service.addProductToCar(sell!!, product.shopping_cart_owner)
+        }
+        movedToLaterList.clear()
     }
 
     fun change() {

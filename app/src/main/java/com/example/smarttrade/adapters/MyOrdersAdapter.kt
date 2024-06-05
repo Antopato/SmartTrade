@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
@@ -41,21 +42,23 @@ class MyOrdersAdapter(var context: Context, var list: List<Order?>) : RecyclerVi
 
     override fun onBindViewHolder(holder: MyOrdersAdapter.OrdersHolder, position: Int) {
         val order = list[position]!!
+        println("list en el viewHolder: "+list)
         holder.orderID.setText("#" + list.get(position)!!.order_id)
         holder.orderState.text = order.getState()
+        holder.row.setOnClickListener {
+            println("piche")
+            val intent = Intent(context, OrderClickedActivity::class.java)
+            intent.putExtra("order_id", order.order_id)
+            intent.putExtra("client", order.client)
+            intent.putExtra("state", order.getState())
+            context.startActivity(intent)
+        }
     }
 
     class OrdersHolder(itemView: View, context: Context, list:List<Order?>) : RecyclerView.ViewHolder(itemView){
         val service = BusinessLogic()
         val orderID = itemView.findViewById<TextView>(R.id.textViewOrder)
         val orderState = itemView.findViewById<TextView>(R.id.textViewState)
-
-        init{
-            itemView.setOnClickListener {
-                val intent = Intent(context, OrderClickedActivity::class.java)
-                intent.putExtra("order", list.get(adapterPosition))
-                context.startActivity(intent)
-            }
-        }
+        val row = itemView.findViewById<ConstraintLayout>(R.id.layoutOrder)
     }
 }

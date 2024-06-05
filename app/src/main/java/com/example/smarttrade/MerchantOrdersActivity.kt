@@ -26,6 +26,7 @@ class MerchantOrdersActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val list = service.getMerchantOrders(user.email)
+        println(list)
 
         val adapter = MerchantOrdersAdapter(this, list)
         binding.recyclerViewOrders.adapter = adapter

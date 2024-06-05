@@ -13,7 +13,7 @@ class Originator {
     }
 
     fun guardar(): Memento {
-        return Memento(shoppingCart.toList())
+        return Memento(shoppingCart.toMutableList())
     }
 
     fun restaurar(m: Memento) {

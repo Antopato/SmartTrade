@@ -32,7 +32,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.0.21"
+    val idMario = "192.168.249.38"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -2151,14 +2151,10 @@ class HTTPcalls() {
                     val gson = Gson()
                     val list: List<Order> = gson.fromJson(jsonResponse, object : TypeToken<List<Order>>() {}.type)
                     for (order in list){
-                        println("order id: " + order.order_id)
-                        println("order client" + order.client)
-                        println("order order_date" + order.order_date)
-                        println("order deadline" + order.deadline)
-                        println(order.stateString)
                         order.setState()
                     }
                     println(list)
+                    println(list[0].getState())
                     return@async list
                 }
             } else {
@@ -2192,7 +2188,9 @@ class HTTPcalls() {
 
     fun getMerchantOrders(email: String): Deferred<List<Order>>{
         return CoroutineScope(Dispatchers.IO).async{
-            val connection = connect("http://$idMario:8080/order/filterFirstProduct","GET")
+            val connection = connect("http://$idMario:8080/order/filterFirstProduct/$email","GET")
+
+
 
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = getOutput(connection)
@@ -2205,6 +2203,9 @@ class HTTPcalls() {
                     val gson = Gson()
                     val list: List<Order> = gson.fromJson(jsonResponse, object : TypeToken<List<Order>>() {}.type)
                     println(list)
+                    for (order in list){
+                        order.setState()
+                    }
                     return@async list
                 }
             } else {
@@ -2285,6 +2286,38 @@ class HTTPcalls() {
                 return@async connection.responseCode
             }
         }
+    }
+
+    fun updateQuantity(shoppingCartId: Int, Quantity: Int): Any {
+        return CoroutineScope(Dispatchers.IO).async{
+            val connection = connect("http://$idMario:8080/shoppingCart/$shoppingCartId/$Quantity","PUT")
+            println("respuesta del back a actualizar la cantidad${connection.responseCode}")
+            if(connection.responseCode == HttpURLConnection.HTTP_OK){
+                return@async connection.responseCode
+            }else{
+                return@async connection.responseCode
+            }
+        }
+    }
+
+    fun getOrderbyId(id: Int): Deferred<Order?> {
+        return CoroutineScope(Dispatchers.IO).async {
+            val connection = connect("http://$idMario:8080/order/$id", "GET")
+            if(connection.responseCode == HttpURLConnection.HTTP_OK){
+                val response = getOutput(connection)
+                if(response.isEmpty()){
+                    return@async null
+                }else {
+                    val jsonResponse = response.toString()
+                    println("json" + jsonResponse)
+                    val gson = Gson()
+                    val order : Order = gson.fromJson(jsonResponse, Order::class.java)
+                    return@async order
+                }
+            }
+            return@async null
+        }
+
     }
 
 

@@ -22,16 +22,20 @@ class OrderClickedActivity : AppCompatActivity() {
         binding = OrderClickedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val order = intent.getSerializableExtra("order") as Order
-        val list = service.getProductsByOrder(order.order_id)
+        val order_id = intent.getSerializableExtra("order_id") as Int
+        val client = intent.getSerializableExtra("client") as String
+        val state = intent.getSerializableExtra("state") as String
+        val list = service.getProductsByOrder(order_id)
 
-        val adapter = OnOrderClickedAdapter(this, list, order.getState())
+
+
+        val adapter = OnOrderClickedAdapter(this, list, state)
         binding.recyclerViewProducts.adapter = adapter
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(this)
 
         binding.buttonBack.setOnClickListener {
             val intent = Intent(this, MyOrdersActivity::class.java)
-            intent.putExtra("user", order.client)
+            intent.putExtra("user", client)
             startActivity(intent)
         }
     }
