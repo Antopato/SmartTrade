@@ -29,7 +29,7 @@ class OrderClickedActivity : AppCompatActivity() {
 
 
 
-        val adapter = OnOrderClickedAdapter(this, list, state)
+        val adapter = OnOrderClickedAdapter(this, list, state, client)
         binding.recyclerViewProducts.adapter = adapter
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(this)
 

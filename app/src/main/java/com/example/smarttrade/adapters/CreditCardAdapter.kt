@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View;
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.Observer
 import com.example.smarttrade.R
 import com.example.smarttrade.Subject
-import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.CreditCard
 
 class CreditCardAdapter(var list : List<CreditCard>, var context : Context) : RecyclerView.Adapter<CreditCardAdapter.MyViewHolder>() {
@@ -32,9 +30,9 @@ class CreditCardAdapter(var list : List<CreditCard>, var context : Context) : Re
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.number.text = list.get(position).cardNumber
-        holder.expirationDate.text = list.get(position).expirationDate
-        holder.CVV.text = list.get(position).CVV.toString()
+        holder.number.text = list.get(position).card_number
+        holder.expirationDate.text = list.get(position).expiring_date.split("T")[0]
+        holder.CVV.text = list.get(position).cvv.toString()
     }
 
     override fun getItemCount(): Int {

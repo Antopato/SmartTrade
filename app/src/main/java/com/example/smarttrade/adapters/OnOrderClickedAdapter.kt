@@ -1,5 +1,6 @@
 package com.example.smarttrade.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,17 +9,21 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smarttrade.BusinessLogic
 import com.example.smarttrade.CatalogActivity
 import com.example.smarttrade.CertificateValidationActivity
+import com.example.smarttrade.MyOrdersActivity
 import com.example.smarttrade.OrderClickedActivity
 import com.example.smarttrade.R
+import com.example.smarttrade.classes.Address
 import com.example.smarttrade.classes.Order
 import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
@@ -26,7 +31,7 @@ import com.example.smarttrade.classes.User
 import com.example.smarttrade.classes.typeofusers.Merchant
 import java.io.ByteArrayOutputStream
 
-class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, var orderState: String) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
+class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, var orderState: String, var client: String) : RecyclerView.Adapter<OnOrderClickedAdapter.OrderProductsHolder>() {
     val service = BusinessLogic()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderProductsHolder{
         val inflater : LayoutInflater  = LayoutInflater.from(context)
@@ -46,8 +51,33 @@ class OnOrderClickedAdapter(var context: Context, var list: List<Product?>, var 
         val image = service.getImageByType(product.productType, product.productId)
         holder.productImage.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
 
-        if(holder.orderState == "Delivered"){
+        if(holder.orderState == "Order delivered"){
             holder.buttonRate.visibility = View.VISIBLE
+        }
+
+        holder.buttonRate.setOnClickListener(){
+
+                val inflater = LayoutInflater.from(context)
+                val popupView = inflater.inflate(R.layout.popup_valoration, null)
+
+                val width = 900
+                val height = 600
+
+                val popupWindow = PopupWindow(popupView,
+                    width,
+                    height,
+                    true)
+
+                val validateButton = popupView.findViewById<Button>(R.id.validateButton)
+                val starRating = popupView.findViewById<RatingBar>(R.id.ratingBar)
+
+                validateButton.setOnClickListener {
+                    val rating = starRating.rating
+                    service.addValoration(list.get(position)!!.productId, rating.toDouble(), client)
+                    popupWindow.dismiss()
+                }
+                popupWindow.showAtLocation((context as Activity).window.decorView, Gravity.CENTER, 0, 0)
+
         }
     }
 

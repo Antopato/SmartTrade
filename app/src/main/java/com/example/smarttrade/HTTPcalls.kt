@@ -7,7 +7,6 @@ import com.example.smarttrade.classes.Product
 import com.example.smarttrade.classes.Sell
 import com.example.smarttrade.classes.ShoppingCart
 import com.example.smarttrade.classes.User
-import com.example.smarttrade.classes.electronic.Computer
 import com.example.smarttrade.classes.typeofusers.Costumer
 import com.example.smarttrade.classes.typeofusers.Merchant
 import com.google.gson.Gson
@@ -32,7 +31,7 @@ import java.io.DataOutputStream
 
 class HTTPcalls() {
 
-    val idMario = "192.168.249.38"
+    val idMario = "192.168.1.132"
 
     val myId = "10.0.2.2"
     fun getUserById(mail : String) : Deferred<User?>{
@@ -385,7 +384,7 @@ class HTTPcalls() {
             connection.doOutput = true
             val requestBody = StringBuilder().apply {
                 append("productId=${seller.id_product}&")
-                append("owner=${seller.seller_email}&")
+                append("credit_card_owner=${seller.seller_email}&")
                 append("price=${seller.price}&")
                 append("stock=${seller.stock}")
             }.toString()
@@ -421,6 +420,10 @@ class HTTPcalls() {
                     println("json" + jsonResponse)
                     val gson = Gson()
                     val list: List<CreditCard> = gson.fromJson(jsonResponse, object : TypeToken<List<CreditCard>>() {}.type)
+                    println("List: " + list)
+                    for(creditCard in list){
+                        println("Credit card info: ${creditCard.card_number}, ${creditCard.cvv}, ${creditCard.credit_card_owner}, ${creditCard.expiring_date}")
+                    }
                     return@async list
                 }
 
@@ -1962,6 +1965,21 @@ class HTTPcalls() {
         }
     }
 
+    fun addValoration(productId : Int, rating : Double, client : String): Deferred<Int>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val connection = connect("http://$idMario:8080/valoration/add", "POST")
+            val requestBody = StringBuilder().apply {
+                append("productId=${productId}&")
+                append("valoration=${rating}&")
+                append("client=${client}")
+            }.toString()
+
+            publish(connection, requestBody)
+
+            return@async connection.responseCode
+        }
+    }
+
     fun deleteAllShopping(email:String) : Deferred<Int>{
         return CoroutineScope(Dispatchers.IO).async{
             val connection = connect("http://$idMario:8080/shoppingCart/delete/$email","DELETE")
@@ -2085,10 +2103,10 @@ class HTTPcalls() {
             val connection = connect("http://$idMario:8080/creditCards/add","POST")
 
             val requestBody = StringBuilder().apply {
-                append("card_number=${card.cardNumber}&")
-                append("CVV=${card.CVV}&")
-                append("credit_card_owner=${card.owner}&")
-                append("expiringDateString=${card.expirationDate}&")
+                append("card_number=${card.card_number}&")
+                append("cvv=${card.cvv}&")
+                append("credit_card_owner=${card.credit_card_owner}&")
+                append("expiringDateString=${card.expiring_date}&")
             }.toString()
 
 

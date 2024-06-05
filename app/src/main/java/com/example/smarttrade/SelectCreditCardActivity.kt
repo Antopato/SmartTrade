@@ -34,6 +34,7 @@ class SelectCreditCardActivity : AppCompatActivity() {
         val address = intent.getSerializableExtra("address") as Address
 
         val list = service.getCreditCardsByUser(user.email)
+        println(list)
         val adapter = CreditCardAdapter(list, this)
         binding.creditCardRecyclerView.adapter = adapter
         binding.creditCardRecyclerView.layoutManager = LinearLayoutManager(this)

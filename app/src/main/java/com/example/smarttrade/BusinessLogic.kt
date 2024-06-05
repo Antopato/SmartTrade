@@ -692,6 +692,14 @@ class BusinessLogic() {
         return valoration
     }
 
+    fun addValoration(productId: Int, rating: Double, client:String): Int{
+        var response = 0
+        runBlocking {
+            response = call.addValoration(productId, rating, client).await()
+        }
+        return response
+    }
+
     fun getMerchantOrders(id : String) : List<Order>{
         var list = mutableListOf<Order>()
         runBlocking {
